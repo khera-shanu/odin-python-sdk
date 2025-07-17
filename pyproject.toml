@@ -1,6 +1,6 @@
 [project]
 name = "odinai-sdk"
-version = "1.4.2"
+version = "1.4.3"
 description = "Python SDK for the Odin API"
 authors = [
   {name = "Odin SDK Team", email = "support@odin.com"},
