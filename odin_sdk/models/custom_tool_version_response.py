@@ -17,38 +17,35 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.change_log import ChangeLog
-from odin_sdk.models.description7 import Description7
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CustomToolVersionResponse(BaseModel):
     """
     CustomToolVersionResponse
     """ # noqa: E501
-    id: Optional[Any] = Field(description="Version history record ID")
-    tool_id: Optional[Any] = Field(description="ID of the tool this version belongs to")
-    version: Optional[Any] = Field(description="Version number")
-    name: Optional[Any] = Field(description="Tool name at time of publication")
-    description: Optional[Description7] = None
-    inputs: Optional[Any] = Field(description="Tool inputs at time of publication")
-    steps: Optional[Any] = Field(description="Tool steps at time of publication")
-    published_by: Optional[Any] = Field(description="User who published this version")
-    published_at: Optional[Any] = Field(description="Publication timestamp")
-    change_log: Optional[ChangeLog] = None
-    __properties: ClassVar[List[str]] = ["id", "tool_id", "version", "name", "description", "inputs", "steps", "published_by", "published_at", "change_log"]
+    id: StrictStr = Field(description="Version history record ID")
+    tool_id: StrictStr = Field(description="ID of the tool this version belongs to")
+    version: StrictStr = Field(description="Version number")
+    name: StrictStr = Field(description="Tool name at time of publication")
+    description: Optional[StrictStr] = None
+    inputs: Dict[str, Any] = Field(description="Tool inputs at time of publication")
+    steps: Dict[str, Any] = Field(description="Tool steps at time of publication")
+    flow_layout: Optional[Dict[str, Any]] = None
+    published_by: StrictStr = Field(description="User who published this version")
+    published_at: StrictStr = Field(description="Publication timestamp")
+    change_log: Optional[StrictStr] = None
+    user_name: Optional[StrictStr] = None
+    user_email: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "tool_id", "version", "name", "description", "inputs", "steps", "flow_layout", "published_by", "published_at", "change_log", "user_name", "user_email"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -61,7 +58,7 @@ class CustomToolVersionResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CustomToolVersionResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -75,62 +72,43 @@ class CustomToolVersionResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of change_log
-        if self.change_log:
-            _dict['change_log'] = self.change_log.to_dict()
-        # set to None if id (nullable) is None
+        # set to None if description (nullable) is None
         # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
 
-        # set to None if tool_id (nullable) is None
+        # set to None if flow_layout (nullable) is None
         # and model_fields_set contains the field
-        if self.tool_id is None and "tool_id" in self.model_fields_set:
-            _dict['tool_id'] = None
+        if self.flow_layout is None and "flow_layout" in self.model_fields_set:
+            _dict['flow_layout'] = None
 
-        # set to None if version (nullable) is None
+        # set to None if change_log (nullable) is None
         # and model_fields_set contains the field
-        if self.version is None and "version" in self.model_fields_set:
-            _dict['version'] = None
+        if self.change_log is None and "change_log" in self.model_fields_set:
+            _dict['change_log'] = None
 
-        # set to None if name (nullable) is None
+        # set to None if user_name (nullable) is None
         # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
+        if self.user_name is None and "user_name" in self.model_fields_set:
+            _dict['user_name'] = None
 
-        # set to None if inputs (nullable) is None
+        # set to None if user_email (nullable) is None
         # and model_fields_set contains the field
-        if self.inputs is None and "inputs" in self.model_fields_set:
-            _dict['inputs'] = None
-
-        # set to None if steps (nullable) is None
-        # and model_fields_set contains the field
-        if self.steps is None and "steps" in self.model_fields_set:
-            _dict['steps'] = None
-
-        # set to None if published_by (nullable) is None
-        # and model_fields_set contains the field
-        if self.published_by is None and "published_by" in self.model_fields_set:
-            _dict['published_by'] = None
-
-        # set to None if published_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.published_at is None and "published_at" in self.model_fields_set:
-            _dict['published_at'] = None
+        if self.user_email is None and "user_email" in self.model_fields_set:
+            _dict['user_email'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CustomToolVersionResponse from a dict"""
         if obj is None:
             return None
@@ -143,12 +121,15 @@ class CustomToolVersionResponse(BaseModel):
             "tool_id": obj.get("tool_id"),
             "version": obj.get("version"),
             "name": obj.get("name"),
-            "description": Description7.from_dict(obj.get("description")) if obj.get("description") is not None else None,
+            "description": obj.get("description"),
             "inputs": obj.get("inputs"),
             "steps": obj.get("steps"),
+            "flow_layout": obj.get("flow_layout"),
             "published_by": obj.get("published_by"),
             "published_at": obj.get("published_at"),
-            "change_log": ChangeLog.from_dict(obj.get("change_log")) if obj.get("change_log") is not None else None
+            "change_log": obj.get("change_log"),
+            "user_name": obj.get("user_name"),
+            "user_email": obj.get("user_email")
         })
         return _obj
 

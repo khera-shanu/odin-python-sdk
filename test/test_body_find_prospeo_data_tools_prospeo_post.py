@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.body_find_prospeo_data_tools_prospeo_post import BodyFindProspeoDataToolsProspeoPost
 
@@ -28,7 +27,7 @@ class TestBodyFindProspeoDataToolsProspeoPost(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BodyFindProspeoDataToolsProspeoPost:
         """Test BodyFindProspeoDataToolsProspeoPost
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BodyFindProspeoDataToolsProspeoPost`
@@ -37,28 +36,28 @@ class TestBodyFindProspeoDataToolsProspeoPost(unittest.TestCase):
         if include_optional:
             return BodyFindProspeoDataToolsProspeoPost(
                 req = odin_sdk.models.prospeo_request.ProspeoRequest(
-                    api_type = null, ),
+                    api_type = '', ),
                 domain_search = odin_sdk.models.domain_search_request.DomainSearchRequest(
-                    company = null, 
-                    limit = null, 
-                    email_type = null, 
-                    company_enrichment = null, ),
+                    company = '', 
+                    limit = 56, 
+                    email_type = '', 
+                    company_enrichment = True, ),
                 email_finder = odin_sdk.models.email_finder_request.EmailFinderRequest(
-                    first_name = null, 
-                    last_name = null, 
-                    full_name = null, 
-                    company = null, ),
+                    first_name = '', 
+                    last_name = '', 
+                    full_name = '', 
+                    company = '', ),
                 linkedin_email_finder = odin_sdk.models.linked_in_email_finder_request.LinkedInEmailFinderRequest(
-                    url = null, 
-                    profile_only = null, ),
+                    url = '', 
+                    profile_only = True, ),
                 email_verifier = odin_sdk.models.email_verifier_request.EmailVerifierRequest(
-                    email = null, 
-                    email_anon_id = null, )
+                    email = '', 
+                    email_anon_id = '', )
             )
         else:
             return BodyFindProspeoDataToolsProspeoPost(
                 req = odin_sdk.models.prospeo_request.ProspeoRequest(
-                    api_type = null, ),
+                    api_type = '', ),
         )
         """
 

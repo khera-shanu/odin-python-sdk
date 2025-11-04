@@ -17,94 +17,64 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.blacklisted_docs import BlacklistedDocs
-from odin_sdk.models.created_at3 import CreatedAt3
-from odin_sdk.models.custom_agent_name import CustomAgentName
-from odin_sdk.models.description10 import Description10
-from odin_sdk.models.embedding_model import EmbeddingModel
-from odin_sdk.models.feedback_history import FeedbackHistory
-from odin_sdk.models.inline_citations import InlineCitations
-from odin_sdk.models.is_favorite import IsFavorite
-from odin_sdk.models.is_public import IsPublic
-from odin_sdk.models.kb_last_synced import KbLastSynced
-from odin_sdk.models.kb_status import KbStatus
-from odin_sdk.models.kb_sync_schedule import KbSyncSchedule
-from odin_sdk.models.kb_version import KbVersion
-from odin_sdk.models.mask_pii import MaskPii
-from odin_sdk.models.members import Members
-from odin_sdk.models.model_name3 import ModelName3
-from odin_sdk.models.owner1 import Owner1
-from odin_sdk.models.project_api_keys import ProjectApiKeys
-from odin_sdk.models.project_custom_chatbot import ProjectCustomChatbot
-from odin_sdk.models.project_kb_info import ProjectKbInfo
-from odin_sdk.models.shared import Shared
-from odin_sdk.models.shared_to_team import SharedToTeam
-from odin_sdk.models.system_prompt import SystemPrompt
-from odin_sdk.models.team_default_role import TeamDefaultRole
-from odin_sdk.models.team_id import TeamId
-from odin_sdk.models.teamsbot_show_feedback_buttons import TeamsbotShowFeedbackButtons
-from odin_sdk.models.teamsbot_show_kb_search_message import TeamsbotShowKbSearchMessage
-from odin_sdk.models.teamsbot_show_message_sources import TeamsbotShowMessageSources
-from odin_sdk.models.teamsbot_static_message_footer import TeamsbotStaticMessageFooter
-from odin_sdk.models.teamsbot_upload_method import TeamsbotUploadMethod
-from odin_sdk.models.type3 import Type3
-from odin_sdk.models.updated_at import UpdatedAt
-from odin_sdk.models.use_textract import UseTextract
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from odin_sdk.models.api_key import APIKey
+from odin_sdk.models.custom_chatbot import CustomChatbot
+from odin_sdk.models.kb_info import KbInfo
+from odin_sdk.models.routes_projects_member import RoutesProjectsMember
+from typing import Optional, Set
+from typing_extensions import Self
 
 class Project(BaseModel):
     """
     Project
     """ # noqa: E501
-    id: Optional[Any]
-    name: Optional[Any]
-    owner: Optional[Owner1] = None
-    created_at: Optional[CreatedAt3] = None
-    type: Optional[Type3] = None
-    model_name: Optional[ModelName3] = None
-    members: Members
-    description: Optional[Description10] = None
-    is_favorite: Optional[IsFavorite] = None
-    kb_info: Optional[ProjectKbInfo] = None
-    kb_last_synced: Optional[KbLastSynced] = None
-    kb_status: Optional[KbStatus] = None
-    kb_sync_schedule: Optional[KbSyncSchedule] = None
-    blacklisted_docs: Optional[BlacklistedDocs] = None
-    team_id: Optional[TeamId] = None
-    system_prompt: Optional[SystemPrompt] = None
-    custom_agent: Optional[Any] = None
-    custom_agent_name: Optional[CustomAgentName] = None
-    updated_at: Optional[UpdatedAt] = None
-    is_public: Optional[IsPublic] = None
-    use_textract: Optional[UseTextract] = None
-    mask_pii: Optional[MaskPii] = None
-    inline_citations: Optional[InlineCitations] = None
-    custom_chatbot: Optional[ProjectCustomChatbot] = None
-    feedback_history: Optional[FeedbackHistory] = None
-    api_keys: Optional[ProjectApiKeys] = None
-    kb_version: Optional[KbVersion] = None
-    embedding_model: Optional[EmbeddingModel] = None
-    teamsbot_upload_method: Optional[TeamsbotUploadMethod] = None
-    teamsbot_static_message_footer: Optional[TeamsbotStaticMessageFooter] = None
-    teamsbot_show_feedback_buttons: Optional[TeamsbotShowFeedbackButtons] = None
-    teamsbot_show_kb_search_message: Optional[TeamsbotShowKbSearchMessage] = None
-    teamsbot_show_message_sources: Optional[TeamsbotShowMessageSources] = None
-    shared_to_team: Optional[SharedToTeam] = None
-    team_default_role: Optional[TeamDefaultRole] = None
-    shared: Optional[Shared] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "owner", "created_at", "type", "model_name", "members", "description", "is_favorite", "kb_info", "kb_last_synced", "kb_status", "kb_sync_schedule", "blacklisted_docs", "team_id", "system_prompt", "custom_agent", "custom_agent_name", "updated_at", "is_public", "use_textract", "mask_pii", "inline_citations", "custom_chatbot", "feedback_history", "api_keys", "kb_version", "embedding_model", "teamsbot_upload_method", "teamsbot_static_message_footer", "teamsbot_show_feedback_buttons", "teamsbot_show_kb_search_message", "teamsbot_show_message_sources", "shared_to_team", "team_default_role", "shared"]
+    id: StrictStr
+    name: StrictStr
+    owner: Optional[StrictStr] = None
+    created_at: Optional[Union[StrictFloat, StrictInt]] = None
+    type: Optional[StrictStr] = None
+    model_name: Optional[StrictStr] = None
+    members: Optional[List[RoutesProjectsMember]]
+    description: Optional[StrictStr] = None
+    is_favorite: Optional[StrictBool] = None
+    kb_info: Optional[KbInfo] = None
+    kb_last_synced: Optional[Union[StrictFloat, StrictInt]] = None
+    kb_status: Optional[StrictStr] = None
+    kb_sync_schedule: Optional[Union[StrictFloat, StrictInt]] = None
+    blacklisted_docs: Optional[List[StrictStr]] = None
+    team_id: Optional[StrictStr] = None
+    system_prompt: Optional[Any] = None
+    custom_agent: Optional[StrictStr] = None
+    custom_agent_name: Optional[StrictStr] = None
+    updated_at: Optional[Union[StrictFloat, StrictInt]] = None
+    is_public: Optional[StrictBool] = None
+    use_textract: Optional[StrictBool] = None
+    mask_pii: Optional[StrictBool] = None
+    inline_citations: Optional[StrictBool] = None
+    custom_chatbot: Optional[CustomChatbot] = None
+    feedback_history: Optional[List[Any]] = None
+    api_keys: Optional[APIKey] = None
+    kb_version: Optional[StrictInt] = None
+    embedding_model: Optional[StrictStr] = None
+    teamsbot_upload_method: Optional[StrictStr] = None
+    teamsbot_static_message_footer: Optional[StrictStr] = None
+    teamsbot_show_feedback_buttons: Optional[StrictBool] = None
+    teamsbot_show_kb_search_message: Optional[StrictBool] = None
+    teamsbot_show_message_sources: Optional[StrictBool] = None
+    shared_to_team: Optional[StrictBool] = None
+    team_default_role: Optional[StrictStr] = None
+    enable_automator_v2: Optional[StrictBool] = None
+    shared: Optional[StrictStr] = None
+    owner_name: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "name", "owner", "created_at", "type", "model_name", "members", "description", "is_favorite", "kb_info", "kb_last_synced", "kb_status", "kb_sync_schedule", "blacklisted_docs", "team_id", "system_prompt", "custom_agent", "custom_agent_name", "updated_at", "is_public", "use_textract", "mask_pii", "inline_citations", "custom_chatbot", "feedback_history", "api_keys", "kb_version", "embedding_model", "teamsbot_upload_method", "teamsbot_static_message_footer", "teamsbot_show_feedback_buttons", "teamsbot_show_kb_search_message", "teamsbot_show_message_sources", "shared_to_team", "team_default_role", "enable_automator_v2", "shared", "owner_name"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -117,7 +87,7 @@ class Project(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of Project from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -131,130 +101,212 @@ class Project(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of owner
-        if self.owner:
-            _dict['owner'] = self.owner.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of created_at
-        if self.created_at:
-            _dict['created_at'] = self.created_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of type
-        if self.type:
-            _dict['type'] = self.type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of model_name
-        if self.model_name:
-            _dict['model_name'] = self.model_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of members
+        # override the default output from pydantic by calling `to_dict()` of each item in members (list)
+        _items = []
         if self.members:
-            _dict['members'] = self.members.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of is_favorite
-        if self.is_favorite:
-            _dict['is_favorite'] = self.is_favorite.to_dict()
+            for _item_members in self.members:
+                if _item_members:
+                    _items.append(_item_members.to_dict())
+            _dict['members'] = _items
         # override the default output from pydantic by calling `to_dict()` of kb_info
         if self.kb_info:
             _dict['kb_info'] = self.kb_info.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of kb_last_synced
-        if self.kb_last_synced:
-            _dict['kb_last_synced'] = self.kb_last_synced.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of kb_status
-        if self.kb_status:
-            _dict['kb_status'] = self.kb_status.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of kb_sync_schedule
-        if self.kb_sync_schedule:
-            _dict['kb_sync_schedule'] = self.kb_sync_schedule.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of blacklisted_docs
-        if self.blacklisted_docs:
-            _dict['blacklisted_docs'] = self.blacklisted_docs.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of team_id
-        if self.team_id:
-            _dict['team_id'] = self.team_id.to_dict()
         # override the default output from pydantic by calling `to_dict()` of system_prompt
         if self.system_prompt:
             _dict['system_prompt'] = self.system_prompt.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of custom_agent_name
-        if self.custom_agent_name:
-            _dict['custom_agent_name'] = self.custom_agent_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of updated_at
-        if self.updated_at:
-            _dict['updated_at'] = self.updated_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of is_public
-        if self.is_public:
-            _dict['is_public'] = self.is_public.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of use_textract
-        if self.use_textract:
-            _dict['use_textract'] = self.use_textract.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of mask_pii
-        if self.mask_pii:
-            _dict['mask_pii'] = self.mask_pii.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of inline_citations
-        if self.inline_citations:
-            _dict['inline_citations'] = self.inline_citations.to_dict()
         # override the default output from pydantic by calling `to_dict()` of custom_chatbot
         if self.custom_chatbot:
             _dict['custom_chatbot'] = self.custom_chatbot.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of feedback_history
-        if self.feedback_history:
-            _dict['feedback_history'] = self.feedback_history.to_dict()
         # override the default output from pydantic by calling `to_dict()` of api_keys
         if self.api_keys:
             _dict['api_keys'] = self.api_keys.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of kb_version
-        if self.kb_version:
-            _dict['kb_version'] = self.kb_version.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of embedding_model
-        if self.embedding_model:
-            _dict['embedding_model'] = self.embedding_model.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_upload_method
-        if self.teamsbot_upload_method:
-            _dict['teamsbot_upload_method'] = self.teamsbot_upload_method.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_static_message_footer
-        if self.teamsbot_static_message_footer:
-            _dict['teamsbot_static_message_footer'] = self.teamsbot_static_message_footer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_show_feedback_buttons
-        if self.teamsbot_show_feedback_buttons:
-            _dict['teamsbot_show_feedback_buttons'] = self.teamsbot_show_feedback_buttons.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_show_kb_search_message
-        if self.teamsbot_show_kb_search_message:
-            _dict['teamsbot_show_kb_search_message'] = self.teamsbot_show_kb_search_message.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_show_message_sources
-        if self.teamsbot_show_message_sources:
-            _dict['teamsbot_show_message_sources'] = self.teamsbot_show_message_sources.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of shared_to_team
-        if self.shared_to_team:
-            _dict['shared_to_team'] = self.shared_to_team.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of team_default_role
-        if self.team_default_role:
-            _dict['team_default_role'] = self.team_default_role.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of shared
-        if self.shared:
-            _dict['shared'] = self.shared.to_dict()
-        # set to None if id (nullable) is None
+        # set to None if owner (nullable) is None
         # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
+        if self.owner is None and "owner" in self.model_fields_set:
+            _dict['owner'] = None
 
-        # set to None if name (nullable) is None
+        # set to None if created_at (nullable) is None
         # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
+        if self.created_at is None and "created_at" in self.model_fields_set:
+            _dict['created_at'] = None
 
-        # set to None if custom_agent (nullable) is None
+        # set to None if type (nullable) is None
         # and model_fields_set contains the field
-        if self.custom_agent is None and "custom_agent" in self.model_fields_set:
-            _dict['custom_agent'] = None
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
+
+        # set to None if model_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.model_name is None and "model_name" in self.model_fields_set:
+            _dict['model_name'] = None
+
+        # set to None if members (nullable) is None
+        # and model_fields_set contains the field
+        if self.members is None and "members" in self.model_fields_set:
+            _dict['members'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if is_favorite (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_favorite is None and "is_favorite" in self.model_fields_set:
+            _dict['is_favorite'] = None
+
+        # set to None if kb_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.kb_info is None and "kb_info" in self.model_fields_set:
+            _dict['kb_info'] = None
+
+        # set to None if kb_last_synced (nullable) is None
+        # and model_fields_set contains the field
+        if self.kb_last_synced is None and "kb_last_synced" in self.model_fields_set:
+            _dict['kb_last_synced'] = None
+
+        # set to None if kb_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.kb_status is None and "kb_status" in self.model_fields_set:
+            _dict['kb_status'] = None
+
+        # set to None if kb_sync_schedule (nullable) is None
+        # and model_fields_set contains the field
+        if self.kb_sync_schedule is None and "kb_sync_schedule" in self.model_fields_set:
+            _dict['kb_sync_schedule'] = None
+
+        # set to None if blacklisted_docs (nullable) is None
+        # and model_fields_set contains the field
+        if self.blacklisted_docs is None and "blacklisted_docs" in self.model_fields_set:
+            _dict['blacklisted_docs'] = None
+
+        # set to None if team_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.team_id is None and "team_id" in self.model_fields_set:
+            _dict['team_id'] = None
+
+        # set to None if system_prompt (nullable) is None
+        # and model_fields_set contains the field
+        if self.system_prompt is None and "system_prompt" in self.model_fields_set:
+            _dict['system_prompt'] = None
+
+        # set to None if custom_agent_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_agent_name is None and "custom_agent_name" in self.model_fields_set:
+            _dict['custom_agent_name'] = None
+
+        # set to None if updated_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
+        # set to None if is_public (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_public is None and "is_public" in self.model_fields_set:
+            _dict['is_public'] = None
+
+        # set to None if use_textract (nullable) is None
+        # and model_fields_set contains the field
+        if self.use_textract is None and "use_textract" in self.model_fields_set:
+            _dict['use_textract'] = None
+
+        # set to None if mask_pii (nullable) is None
+        # and model_fields_set contains the field
+        if self.mask_pii is None and "mask_pii" in self.model_fields_set:
+            _dict['mask_pii'] = None
+
+        # set to None if inline_citations (nullable) is None
+        # and model_fields_set contains the field
+        if self.inline_citations is None and "inline_citations" in self.model_fields_set:
+            _dict['inline_citations'] = None
+
+        # set to None if custom_chatbot (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_chatbot is None and "custom_chatbot" in self.model_fields_set:
+            _dict['custom_chatbot'] = None
+
+        # set to None if feedback_history (nullable) is None
+        # and model_fields_set contains the field
+        if self.feedback_history is None and "feedback_history" in self.model_fields_set:
+            _dict['feedback_history'] = None
+
+        # set to None if api_keys (nullable) is None
+        # and model_fields_set contains the field
+        if self.api_keys is None and "api_keys" in self.model_fields_set:
+            _dict['api_keys'] = None
+
+        # set to None if kb_version (nullable) is None
+        # and model_fields_set contains the field
+        if self.kb_version is None and "kb_version" in self.model_fields_set:
+            _dict['kb_version'] = None
+
+        # set to None if embedding_model (nullable) is None
+        # and model_fields_set contains the field
+        if self.embedding_model is None and "embedding_model" in self.model_fields_set:
+            _dict['embedding_model'] = None
+
+        # set to None if teamsbot_upload_method (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_upload_method is None and "teamsbot_upload_method" in self.model_fields_set:
+            _dict['teamsbot_upload_method'] = None
+
+        # set to None if teamsbot_static_message_footer (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_static_message_footer is None and "teamsbot_static_message_footer" in self.model_fields_set:
+            _dict['teamsbot_static_message_footer'] = None
+
+        # set to None if teamsbot_show_feedback_buttons (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_show_feedback_buttons is None and "teamsbot_show_feedback_buttons" in self.model_fields_set:
+            _dict['teamsbot_show_feedback_buttons'] = None
+
+        # set to None if teamsbot_show_kb_search_message (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_show_kb_search_message is None and "teamsbot_show_kb_search_message" in self.model_fields_set:
+            _dict['teamsbot_show_kb_search_message'] = None
+
+        # set to None if teamsbot_show_message_sources (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_show_message_sources is None and "teamsbot_show_message_sources" in self.model_fields_set:
+            _dict['teamsbot_show_message_sources'] = None
+
+        # set to None if shared_to_team (nullable) is None
+        # and model_fields_set contains the field
+        if self.shared_to_team is None and "shared_to_team" in self.model_fields_set:
+            _dict['shared_to_team'] = None
+
+        # set to None if team_default_role (nullable) is None
+        # and model_fields_set contains the field
+        if self.team_default_role is None and "team_default_role" in self.model_fields_set:
+            _dict['team_default_role'] = None
+
+        # set to None if enable_automator_v2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_automator_v2 is None and "enable_automator_v2" in self.model_fields_set:
+            _dict['enable_automator_v2'] = None
+
+        # set to None if shared (nullable) is None
+        # and model_fields_set contains the field
+        if self.shared is None and "shared" in self.model_fields_set:
+            _dict['shared'] = None
+
+        # set to None if owner_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.owner_name is None and "owner_name" in self.model_fields_set:
+            _dict['owner_name'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of Project from a dict"""
         if obj is None:
             return None
@@ -265,40 +317,42 @@ class Project(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
-            "owner": Owner1.from_dict(obj.get("owner")) if obj.get("owner") is not None else None,
-            "created_at": CreatedAt3.from_dict(obj.get("created_at")) if obj.get("created_at") is not None else None,
-            "type": Type3.from_dict(obj.get("type")) if obj.get("type") is not None else None,
-            "model_name": ModelName3.from_dict(obj.get("model_name")) if obj.get("model_name") is not None else None,
-            "members": Members.from_dict(obj.get("members")) if obj.get("members") is not None else None,
-            "description": Description10.from_dict(obj.get("description")) if obj.get("description") is not None else None,
-            "is_favorite": IsFavorite.from_dict(obj.get("is_favorite")) if obj.get("is_favorite") is not None else None,
-            "kb_info": ProjectKbInfo.from_dict(obj.get("kb_info")) if obj.get("kb_info") is not None else None,
-            "kb_last_synced": KbLastSynced.from_dict(obj.get("kb_last_synced")) if obj.get("kb_last_synced") is not None else None,
-            "kb_status": KbStatus.from_dict(obj.get("kb_status")) if obj.get("kb_status") is not None else None,
-            "kb_sync_schedule": KbSyncSchedule.from_dict(obj.get("kb_sync_schedule")) if obj.get("kb_sync_schedule") is not None else None,
-            "blacklisted_docs": BlacklistedDocs.from_dict(obj.get("blacklisted_docs")) if obj.get("blacklisted_docs") is not None else None,
-            "team_id": TeamId.from_dict(obj.get("team_id")) if obj.get("team_id") is not None else None,
-            "system_prompt": SystemPrompt.from_dict(obj.get("system_prompt")) if obj.get("system_prompt") is not None else None,
+            "owner": obj.get("owner"),
+            "created_at": obj.get("created_at"),
+            "type": obj.get("type"),
+            "model_name": obj.get("model_name"),
+            "members": [RoutesProjectsMember.from_dict(_item) for _item in obj["members"]] if obj.get("members") is not None else None,
+            "description": obj.get("description"),
+            "is_favorite": obj.get("is_favorite"),
+            "kb_info": KbInfo.from_dict(obj["kb_info"]) if obj.get("kb_info") is not None else None,
+            "kb_last_synced": obj.get("kb_last_synced"),
+            "kb_status": obj.get("kb_status"),
+            "kb_sync_schedule": obj.get("kb_sync_schedule"),
+            "blacklisted_docs": obj.get("blacklisted_docs"),
+            "team_id": obj.get("team_id"),
+            "system_prompt": AnyOf.from_dict(obj["system_prompt"]) if obj.get("system_prompt") is not None else None,
             "custom_agent": obj.get("custom_agent"),
-            "custom_agent_name": CustomAgentName.from_dict(obj.get("custom_agent_name")) if obj.get("custom_agent_name") is not None else None,
-            "updated_at": UpdatedAt.from_dict(obj.get("updated_at")) if obj.get("updated_at") is not None else None,
-            "is_public": IsPublic.from_dict(obj.get("is_public")) if obj.get("is_public") is not None else None,
-            "use_textract": UseTextract.from_dict(obj.get("use_textract")) if obj.get("use_textract") is not None else None,
-            "mask_pii": MaskPii.from_dict(obj.get("mask_pii")) if obj.get("mask_pii") is not None else None,
-            "inline_citations": InlineCitations.from_dict(obj.get("inline_citations")) if obj.get("inline_citations") is not None else None,
-            "custom_chatbot": ProjectCustomChatbot.from_dict(obj.get("custom_chatbot")) if obj.get("custom_chatbot") is not None else None,
-            "feedback_history": FeedbackHistory.from_dict(obj.get("feedback_history")) if obj.get("feedback_history") is not None else None,
-            "api_keys": ProjectApiKeys.from_dict(obj.get("api_keys")) if obj.get("api_keys") is not None else None,
-            "kb_version": KbVersion.from_dict(obj.get("kb_version")) if obj.get("kb_version") is not None else None,
-            "embedding_model": EmbeddingModel.from_dict(obj.get("embedding_model")) if obj.get("embedding_model") is not None else None,
-            "teamsbot_upload_method": TeamsbotUploadMethod.from_dict(obj.get("teamsbot_upload_method")) if obj.get("teamsbot_upload_method") is not None else None,
-            "teamsbot_static_message_footer": TeamsbotStaticMessageFooter.from_dict(obj.get("teamsbot_static_message_footer")) if obj.get("teamsbot_static_message_footer") is not None else None,
-            "teamsbot_show_feedback_buttons": TeamsbotShowFeedbackButtons.from_dict(obj.get("teamsbot_show_feedback_buttons")) if obj.get("teamsbot_show_feedback_buttons") is not None else None,
-            "teamsbot_show_kb_search_message": TeamsbotShowKbSearchMessage.from_dict(obj.get("teamsbot_show_kb_search_message")) if obj.get("teamsbot_show_kb_search_message") is not None else None,
-            "teamsbot_show_message_sources": TeamsbotShowMessageSources.from_dict(obj.get("teamsbot_show_message_sources")) if obj.get("teamsbot_show_message_sources") is not None else None,
-            "shared_to_team": SharedToTeam.from_dict(obj.get("shared_to_team")) if obj.get("shared_to_team") is not None else None,
-            "team_default_role": TeamDefaultRole.from_dict(obj.get("team_default_role")) if obj.get("team_default_role") is not None else None,
-            "shared": Shared.from_dict(obj.get("shared")) if obj.get("shared") is not None else None
+            "custom_agent_name": obj.get("custom_agent_name"),
+            "updated_at": obj.get("updated_at"),
+            "is_public": obj.get("is_public"),
+            "use_textract": obj.get("use_textract"),
+            "mask_pii": obj.get("mask_pii"),
+            "inline_citations": obj.get("inline_citations"),
+            "custom_chatbot": CustomChatbot.from_dict(obj["custom_chatbot"]) if obj.get("custom_chatbot") is not None else None,
+            "feedback_history": obj.get("feedback_history"),
+            "api_keys": APIKey.from_dict(obj["api_keys"]) if obj.get("api_keys") is not None else None,
+            "kb_version": obj.get("kb_version"),
+            "embedding_model": obj.get("embedding_model"),
+            "teamsbot_upload_method": obj.get("teamsbot_upload_method"),
+            "teamsbot_static_message_footer": obj.get("teamsbot_static_message_footer"),
+            "teamsbot_show_feedback_buttons": obj.get("teamsbot_show_feedback_buttons"),
+            "teamsbot_show_kb_search_message": obj.get("teamsbot_show_kb_search_message"),
+            "teamsbot_show_message_sources": obj.get("teamsbot_show_message_sources"),
+            "shared_to_team": obj.get("shared_to_team"),
+            "team_default_role": obj.get("team_default_role"),
+            "enable_automator_v2": obj.get("enable_automator_v2"),
+            "shared": obj.get("shared"),
+            "owner_name": obj.get("owner_name")
         })
         return _obj
 

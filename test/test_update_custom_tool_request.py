@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_custom_tool_request import UpdateCustomToolRequest
 
@@ -28,7 +27,7 @@ class TestUpdateCustomToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateCustomToolRequest:
         """Test UpdateCustomToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateCustomToolRequest`
@@ -36,11 +35,28 @@ class TestUpdateCustomToolRequest(unittest.TestCase):
         model = UpdateCustomToolRequest()
         if include_optional:
             return UpdateCustomToolRequest(
-                name = None,
-                description = None,
-                inputs = None,
-                steps = None,
-                is_public = None
+                name = '',
+                description = '',
+                inputs = {
+                    'key' : odin_sdk.models.tool_input.ToolInput(
+                        id = '', 
+                        type = '', 
+                        value = null, 
+                        manual_input = True, 
+                        required = True, 
+                        description = '', )
+                    },
+                steps = {
+                    'key' : odin_sdk.models.tool_step.ToolStep(
+                        id = '', 
+                        tool_id = '', 
+                        type = '', 
+                        label = '', 
+                        description = '', 
+                        settings = odin_sdk.models.settings.Settings(), )
+                    },
+                flow_layout = None,
+                is_public = True
             )
         else:
             return UpdateCustomToolRequest(

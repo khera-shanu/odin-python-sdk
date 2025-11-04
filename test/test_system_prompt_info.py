@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.system_prompt_info import SystemPromptInfo
 
@@ -28,7 +27,7 @@ class TestSystemPromptInfo(unittest.TestCase):
 
     def make_instance(self, include_optional) -> SystemPromptInfo:
         """Test SystemPromptInfo
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `SystemPromptInfo`
@@ -36,19 +35,19 @@ class TestSystemPromptInfo(unittest.TestCase):
         model = SystemPromptInfo()
         if include_optional:
             return SystemPromptInfo(
-                name = None,
-                instructions = None,
-                temperature = None,
-                type = None,
-                id = None
+                name = '',
+                instructions = '',
+                temperature = 1.337,
+                type = '',
+                id = ''
             )
         else:
             return SystemPromptInfo(
-                name = None,
-                instructions = None,
-                temperature = None,
-                type = None,
-                id = None,
+                name = '',
+                instructions = '',
+                temperature = 1.337,
+                type = '',
+                id = '',
         )
         """
 

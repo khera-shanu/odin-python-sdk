@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.email_finder_request import EmailFinderRequest
 
@@ -28,7 +27,7 @@ class TestEmailFinderRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> EmailFinderRequest:
         """Test EmailFinderRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `EmailFinderRequest`
@@ -36,14 +35,14 @@ class TestEmailFinderRequest(unittest.TestCase):
         model = EmailFinderRequest()
         if include_optional:
             return EmailFinderRequest(
-                first_name = None,
-                last_name = None,
-                full_name = None,
-                company = None
+                first_name = '',
+                last_name = '',
+                full_name = '',
+                company = ''
             )
         else:
             return EmailFinderRequest(
-                company = None,
+                company = '',
         )
         """
 

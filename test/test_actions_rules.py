@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.actions_rules import ActionsRules
 
@@ -28,7 +27,7 @@ class TestActionsRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ActionsRules:
         """Test ActionsRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ActionsRules`
@@ -36,8 +35,8 @@ class TestActionsRules(unittest.TestCase):
         model = ActionsRules()
         if include_optional:
             return ActionsRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return ActionsRules(

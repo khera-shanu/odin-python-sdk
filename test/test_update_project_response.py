@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_project_response import UpdateProjectResponse
 
@@ -28,7 +27,7 @@ class TestUpdateProjectResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateProjectResponse:
         """Test UpdateProjectResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateProjectResponse`
@@ -36,11 +35,11 @@ class TestUpdateProjectResponse(unittest.TestCase):
         model = UpdateProjectResponse()
         if include_optional:
             return UpdateProjectResponse(
-                project_id = None
+                project_id = ''
             )
         else:
             return UpdateProjectResponse(
-                project_id = None,
+                project_id = '',
         )
         """
 

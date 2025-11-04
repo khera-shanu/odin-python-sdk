@@ -17,39 +17,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.data_type_id1 import DataTypeId1
-from odin_sdk.models.routes_knowledgebase_knowledge_base_data_response_status import RoutesKnowledgebaseKnowledgeBaseDataResponseStatus
-from odin_sdk.models.size import Size
-from odin_sdk.models.uploaded_by import UploadedBy
-from odin_sdk.models.url import Url
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.kb_file_status import KBFileStatus
+from typing import Optional, Set
+from typing_extensions import Self
 
 class RoutesKnowledgebaseKnowledgeBaseDataResponse(BaseModel):
     """
     RoutesKnowledgebaseKnowledgeBaseDataResponse
     """ # noqa: E501
-    message: Optional[Any]
-    content: Optional[Any]
-    document_data: Optional[Any]
-    url: Optional[Url] = None
-    uploaded_by: Optional[UploadedBy] = None
-    status: Optional[RoutesKnowledgebaseKnowledgeBaseDataResponseStatus] = None
-    size: Optional[Size] = None
-    document_key: Optional[Any]
-    data_type_id: Optional[DataTypeId1] = None
+    message: StrictStr
+    content: StrictStr
+    document_data: Dict[str, Any]
+    url: Optional[StrictStr] = None
+    uploaded_by: Optional[StrictStr] = None
+    status: Optional[KBFileStatus] = None
+    size: Optional[StrictInt] = None
+    document_key: StrictStr
+    data_type_id: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["message", "content", "document_data", "url", "uploaded_by", "status", "size", "document_key", "data_type_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -62,7 +55,7 @@ class RoutesKnowledgebaseKnowledgeBaseDataResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of RoutesKnowledgebaseKnowledgeBaseDataResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -76,51 +69,43 @@ class RoutesKnowledgebaseKnowledgeBaseDataResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of url
-        if self.url:
-            _dict['url'] = self.url.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of uploaded_by
-        if self.uploaded_by:
-            _dict['uploaded_by'] = self.uploaded_by.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of status
-        if self.status:
-            _dict['status'] = self.status.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of size
-        if self.size:
-            _dict['size'] = self.size.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of data_type_id
-        if self.data_type_id:
-            _dict['data_type_id'] = self.data_type_id.to_dict()
-        # set to None if message (nullable) is None
+        # set to None if url (nullable) is None
         # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['url'] = None
 
-        # set to None if content (nullable) is None
+        # set to None if uploaded_by (nullable) is None
         # and model_fields_set contains the field
-        if self.content is None and "content" in self.model_fields_set:
-            _dict['content'] = None
+        if self.uploaded_by is None and "uploaded_by" in self.model_fields_set:
+            _dict['uploaded_by'] = None
 
-        # set to None if document_data (nullable) is None
+        # set to None if status (nullable) is None
         # and model_fields_set contains the field
-        if self.document_data is None and "document_data" in self.model_fields_set:
-            _dict['document_data'] = None
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['status'] = None
 
-        # set to None if document_key (nullable) is None
+        # set to None if size (nullable) is None
         # and model_fields_set contains the field
-        if self.document_key is None and "document_key" in self.model_fields_set:
-            _dict['document_key'] = None
+        if self.size is None and "size" in self.model_fields_set:
+            _dict['size'] = None
+
+        # set to None if data_type_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.data_type_id is None and "data_type_id" in self.model_fields_set:
+            _dict['data_type_id'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of RoutesKnowledgebaseKnowledgeBaseDataResponse from a dict"""
         if obj is None:
             return None
@@ -132,12 +117,12 @@ class RoutesKnowledgebaseKnowledgeBaseDataResponse(BaseModel):
             "message": obj.get("message"),
             "content": obj.get("content"),
             "document_data": obj.get("document_data"),
-            "url": Url.from_dict(obj.get("url")) if obj.get("url") is not None else None,
-            "uploaded_by": UploadedBy.from_dict(obj.get("uploaded_by")) if obj.get("uploaded_by") is not None else None,
-            "status": RoutesKnowledgebaseKnowledgeBaseDataResponseStatus.from_dict(obj.get("status")) if obj.get("status") is not None else None,
-            "size": Size.from_dict(obj.get("size")) if obj.get("size") is not None else None,
+            "url": obj.get("url"),
+            "uploaded_by": obj.get("uploaded_by"),
+            "status": obj.get("status"),
+            "size": obj.get("size"),
             "document_key": obj.get("document_key"),
-            "data_type_id": DataTypeId1.from_dict(obj.get("data_type_id")) if obj.get("data_type_id") is not None else None
+            "data_type_id": obj.get("data_type_id")
         })
         return _obj
 

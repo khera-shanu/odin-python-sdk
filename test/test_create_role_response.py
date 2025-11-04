@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_role_response import CreateRoleResponse
 
@@ -28,7 +27,7 @@ class TestCreateRoleResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateRoleResponse:
         """Test CreateRoleResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateRoleResponse`
@@ -36,31 +35,35 @@ class TestCreateRoleResponse(unittest.TestCase):
         model = CreateRoleResponse()
         if include_optional:
             return CreateRoleResponse(
-                message = None,
+                message = '',
                 role = odin_sdk.models.role.Role(
-                    id = null, 
-                    name = null, 
-                    created_by = null, 
-                    created_at = null, 
-                    updated_at = null, 
-                    number_of_members = null, 
-                    actions = null, 
-                    sanitized_name = null, 
-                    members = null, )
+                    id = '', 
+                    name = '', 
+                    created_by = '', 
+                    created_at = 1.337, 
+                    updated_at = 1.337, 
+                    number_of_members = 56, 
+                    actions = '', 
+                    sanitized_name = '', 
+                    members = [
+                        ''
+                        ], )
             )
         else:
             return CreateRoleResponse(
-                message = None,
+                message = '',
                 role = odin_sdk.models.role.Role(
-                    id = null, 
-                    name = null, 
-                    created_by = null, 
-                    created_at = null, 
-                    updated_at = null, 
-                    number_of_members = null, 
-                    actions = null, 
-                    sanitized_name = null, 
-                    members = null, ),
+                    id = '', 
+                    name = '', 
+                    created_by = '', 
+                    created_at = 1.337, 
+                    updated_at = 1.337, 
+                    number_of_members = 56, 
+                    actions = '', 
+                    sanitized_name = '', 
+                    members = [
+                        ''
+                        ], ),
         )
         """
 

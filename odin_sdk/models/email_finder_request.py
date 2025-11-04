@@ -17,32 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.first_name import FirstName
-from odin_sdk.models.full_name import FullName
-from odin_sdk.models.last_name import LastName
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class EmailFinderRequest(BaseModel):
     """
     EmailFinderRequest
     """ # noqa: E501
-    first_name: Optional[FirstName] = None
-    last_name: Optional[LastName] = None
-    full_name: Optional[FullName] = None
-    company: Optional[Any]
+    first_name: Optional[StrictStr] = None
+    last_name: Optional[StrictStr] = None
+    full_name: Optional[StrictStr] = None
+    company: StrictStr
     __properties: ClassVar[List[str]] = ["first_name", "last_name", "full_name", "company"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -55,7 +49,7 @@ class EmailFinderRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of EmailFinderRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -69,30 +63,33 @@ class EmailFinderRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of first_name
-        if self.first_name:
-            _dict['first_name'] = self.first_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of last_name
-        if self.last_name:
-            _dict['last_name'] = self.last_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of full_name
-        if self.full_name:
-            _dict['full_name'] = self.full_name.to_dict()
-        # set to None if company (nullable) is None
+        # set to None if first_name (nullable) is None
         # and model_fields_set contains the field
-        if self.company is None and "company" in self.model_fields_set:
-            _dict['company'] = None
+        if self.first_name is None and "first_name" in self.model_fields_set:
+            _dict['first_name'] = None
+
+        # set to None if last_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.last_name is None and "last_name" in self.model_fields_set:
+            _dict['last_name'] = None
+
+        # set to None if full_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.full_name is None and "full_name" in self.model_fields_set:
+            _dict['full_name'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of EmailFinderRequest from a dict"""
         if obj is None:
             return None
@@ -101,9 +98,9 @@ class EmailFinderRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "first_name": FirstName.from_dict(obj.get("first_name")) if obj.get("first_name") is not None else None,
-            "last_name": LastName.from_dict(obj.get("last_name")) if obj.get("last_name") is not None else None,
-            "full_name": FullName.from_dict(obj.get("full_name")) if obj.get("full_name") is not None else None,
+            "first_name": obj.get("first_name"),
+            "last_name": obj.get("last_name"),
+            "full_name": obj.get("full_name"),
             "company": obj.get("company")
         })
         return _obj

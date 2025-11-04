@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.add_members_rules import AddMembersRules
 
@@ -28,7 +27,7 @@ class TestAddMembersRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AddMembersRules:
         """Test AddMembersRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AddMembersRules`
@@ -36,8 +35,8 @@ class TestAddMembersRules(unittest.TestCase):
         model = AddMembersRules()
         if include_optional:
             return AddMembersRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return AddMembersRules(

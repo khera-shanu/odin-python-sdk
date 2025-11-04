@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.ai_classify_request import AIClassifyRequest
 
@@ -28,7 +27,7 @@ class TestAIClassifyRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AIClassifyRequest:
         """Test AIClassifyRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AIClassifyRequest`
@@ -36,13 +35,17 @@ class TestAIClassifyRequest(unittest.TestCase):
         model = AIClassifyRequest()
         if include_optional:
             return AIClassifyRequest(
-                text = None,
-                model_name = None,
-                categories = None
+                text = '',
+                model_name = '',
+                categories = [
+                    odin_sdk.models.category.Category(
+                        category = '', 
+                        description = '', )
+                    ]
             )
         else:
             return AIClassifyRequest(
-                text = None,
+                text = '',
         )
         """
 

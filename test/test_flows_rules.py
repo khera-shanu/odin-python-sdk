@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.flows_rules import FlowsRules
 
@@ -28,7 +27,7 @@ class TestFlowsRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> FlowsRules:
         """Test FlowsRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `FlowsRules`
@@ -36,8 +35,8 @@ class TestFlowsRules(unittest.TestCase):
         model = FlowsRules()
         if include_optional:
             return FlowsRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return FlowsRules(

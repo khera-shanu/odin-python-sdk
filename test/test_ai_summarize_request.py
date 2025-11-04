@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.ai_summarize_request import AISummarizeRequest
 
@@ -28,7 +27,7 @@ class TestAISummarizeRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AISummarizeRequest:
         """Test AISummarizeRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AISummarizeRequest`
@@ -36,15 +35,15 @@ class TestAISummarizeRequest(unittest.TestCase):
         model = AISummarizeRequest()
         if include_optional:
             return AISummarizeRequest(
-                text = None,
-                project_id = None,
-                instructions = None
+                text = '',
+                project_id = '',
+                instructions = ''
             )
         else:
             return AISummarizeRequest(
-                text = None,
-                project_id = None,
-                instructions = None,
+                text = '',
+                project_id = '',
+                instructions = '',
         )
         """
 

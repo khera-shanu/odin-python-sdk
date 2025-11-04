@@ -17,30 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.content import Content
-from odin_sdk.models.title import Title
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ModelJson(BaseModel):
     """
     ModelJson
     """ # noqa: E501
-    project_id: Optional[Any]
-    title: Optional[Title] = None
-    content: Optional[Content] = None
+    project_id: StrictStr
+    title: Optional[StrictStr] = None
+    content: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["project_id", "title", "content"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +48,7 @@ class ModelJson(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ModelJson from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,27 +62,28 @@ class ModelJson(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of title
-        if self.title:
-            _dict['title'] = self.title.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of content
-        if self.content:
-            _dict['content'] = self.content.to_dict()
-        # set to None if project_id (nullable) is None
+        # set to None if title (nullable) is None
         # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.title is None and "title" in self.model_fields_set:
+            _dict['title'] = None
+
+        # set to None if content (nullable) is None
+        # and model_fields_set contains the field
+        if self.content is None and "content" in self.model_fields_set:
+            _dict['content'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ModelJson from a dict"""
         if obj is None:
             return None
@@ -97,8 +93,8 @@ class ModelJson(BaseModel):
 
         _obj = cls.model_validate({
             "project_id": obj.get("project_id"),
-            "title": Title.from_dict(obj.get("title")) if obj.get("title") is not None else None,
-            "content": Content.from_dict(obj.get("content")) if obj.get("content") is not None else None
+            "title": obj.get("title"),
+            "content": obj.get("content")
         })
         return _obj
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.project_member import ProjectMember
 
@@ -28,7 +27,7 @@ class TestProjectMember(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ProjectMember:
         """Test ProjectMember
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ProjectMember`
@@ -36,27 +35,27 @@ class TestProjectMember(unittest.TestCase):
         model = ProjectMember()
         if include_optional:
             return ProjectMember(
-                project_id = None,
-                invited_by = None,
-                is_pending = None,
-                user_id = None,
-                email = None,
-                role = None,
-                role_id = None,
-                name = None,
-                index = None
+                project_id = '',
+                invited_by = odin_sdk.models.invited_by.invited_by(),
+                is_pending = True,
+                user_id = '',
+                email = '',
+                role = '',
+                role_id = '',
+                name = '',
+                index = 56
             )
         else:
             return ProjectMember(
-                project_id = None,
-                invited_by = None,
-                is_pending = None,
-                user_id = None,
-                email = None,
-                role = None,
-                role_id = None,
-                name = None,
-                index = None,
+                project_id = '',
+                invited_by = odin_sdk.models.invited_by.invited_by(),
+                is_pending = True,
+                user_id = '',
+                email = '',
+                role = '',
+                role_id = '',
+                name = '',
+                index = 56,
         )
         """
 

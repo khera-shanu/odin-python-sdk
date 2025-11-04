@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.role import Role
 
@@ -28,7 +27,7 @@ class TestRole(unittest.TestCase):
 
     def make_instance(self, include_optional) -> Role:
         """Test Role
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `Role`
@@ -36,21 +35,23 @@ class TestRole(unittest.TestCase):
         model = Role()
         if include_optional:
             return Role(
-                id = None,
-                name = None,
-                created_by = None,
-                created_at = None,
-                updated_at = None,
-                number_of_members = None,
-                actions = None,
-                sanitized_name = None,
-                members = None
+                id = '',
+                name = '',
+                created_by = '',
+                created_at = 1.337,
+                updated_at = 1.337,
+                number_of_members = 56,
+                actions = '',
+                sanitized_name = '',
+                members = [
+                    ''
+                    ]
             )
         else:
             return Role(
-                id = None,
-                name = None,
-                number_of_members = None,
+                id = '',
+                name = '',
+                number_of_members = 56,
         )
         """
 

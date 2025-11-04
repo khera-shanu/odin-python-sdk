@@ -11,36 +11,30 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
-import io
 import warnings
-
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Dict, List, Optional, Tuple, Union, Any
-
-try:
-    from typing import Annotated
-except ImportError:
-    from typing_extensions import Annotated
-
-from pydantic import Field
+from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
-from pydantic import StrictStr
 
-from typing import Any, Optional
-
+from pydantic import Field, StrictBytes, StrictInt, StrictStr
+from typing import Any, List, Optional, Tuple, Union
+from typing_extensions import Annotated
 from odin_sdk.models.clone_public_tool_request import ClonePublicToolRequest
 from odin_sdk.models.create_custom_tool_request import CreateCustomToolRequest
 from odin_sdk.models.custom_tool_list_response import CustomToolListResponse
 from odin_sdk.models.custom_tool_response import CustomToolResponse
 from odin_sdk.models.custom_tool_version_list_response import CustomToolVersionListResponse
+from odin_sdk.models.custom_tool_version_response import CustomToolVersionResponse
+from odin_sdk.models.execution_mode import ExecutionMode
 from odin_sdk.models.export_tool_request import ExportToolRequest
 from odin_sdk.models.export_tool_response import ExportToolResponse
 from odin_sdk.models.import_tool_request import ImportToolRequest
 from odin_sdk.models.publish_tool_request import PublishToolRequest
 from odin_sdk.models.update_custom_tool_request import UpdateCustomToolRequest
+from odin_sdk.models.workflow_execution_request import WorkflowExecutionRequest
+from odin_sdk.models.workflow_execution_result import WorkflowExecutionResult
 
-from odin_sdk.api_client import ApiClient
+from odin_sdk.api_client import ApiClient, RequestSerialized
 from odin_sdk.api_response import ApiResponse
 from odin_sdk.rest import RESTResponseType
 
@@ -291,7 +285,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -302,7 +296,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -319,11 +315,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -594,7 +591,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -605,7 +602,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -622,11 +621,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -667,7 +667,7 @@ class CustomToolsApi:
     @validate_call
     def delete_custom_tool_tools_custom_tool_id_delete(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -688,7 +688,7 @@ class CustomToolsApi:
         Delete a custom tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -743,7 +743,7 @@ class CustomToolsApi:
     @validate_call
     def delete_custom_tool_tools_custom_tool_id_delete_with_http_info(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -764,7 +764,7 @@ class CustomToolsApi:
         Delete a custom tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -819,7 +819,7 @@ class CustomToolsApi:
     @validate_call
     def delete_custom_tool_tools_custom_tool_id_delete_without_preload_content(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -840,7 +840,7 @@ class CustomToolsApi:
         Delete a custom tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -897,7 +897,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -908,7 +908,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -925,11 +927,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -955,9 +958,1063 @@ class CustomToolsApi:
 
 
     @validate_call
+    def execute_workflow_stream_tools_execute_workflow_stream_get(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        tool_id: Annotated[StrictStr, Field(description="Tool ID")],
+        tool_config: Annotated[Optional[StrictStr], Field(description="Optional tool configuration JSON (fetched from DB if not provided)")] = None,
+        inputs: Annotated[Optional[StrictStr], Field(description="Input parameters JSON")] = None,
+        execution_mode: Annotated[Optional[ExecutionMode], Field(description="Execution mode: 'workflow' or 'debug'")] = None,
+        chat_id: Annotated[Optional[StrictStr], Field(description="Optional chat ID for communication tools")] = None,
+        message_id: Annotated[Optional[StrictStr], Field(description="Optional message ID for communication tools")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Execute Workflow Stream
+
+        Execute custom tool workflow with real-time SSE streaming
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param tool_id: Tool ID (required)
+        :type tool_id: str
+        :param tool_config: Optional tool configuration JSON (fetched from DB if not provided)
+        :type tool_config: str
+        :param inputs: Input parameters JSON
+        :type inputs: str
+        :param execution_mode: Execution mode: 'workflow' or 'debug'
+        :type execution_mode: ExecutionMode
+        :param chat_id: Optional chat ID for communication tools
+        :type chat_id: str
+        :param message_id: Optional message ID for communication tools
+        :type message_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_stream_tools_execute_workflow_stream_get_serialize(
+            project_id=project_id,
+            tool_id=tool_id,
+            tool_config=tool_config,
+            inputs=inputs,
+            execution_mode=execution_mode,
+            chat_id=chat_id,
+            message_id=message_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def execute_workflow_stream_tools_execute_workflow_stream_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        tool_id: Annotated[StrictStr, Field(description="Tool ID")],
+        tool_config: Annotated[Optional[StrictStr], Field(description="Optional tool configuration JSON (fetched from DB if not provided)")] = None,
+        inputs: Annotated[Optional[StrictStr], Field(description="Input parameters JSON")] = None,
+        execution_mode: Annotated[Optional[ExecutionMode], Field(description="Execution mode: 'workflow' or 'debug'")] = None,
+        chat_id: Annotated[Optional[StrictStr], Field(description="Optional chat ID for communication tools")] = None,
+        message_id: Annotated[Optional[StrictStr], Field(description="Optional message ID for communication tools")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Execute Workflow Stream
+
+        Execute custom tool workflow with real-time SSE streaming
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param tool_id: Tool ID (required)
+        :type tool_id: str
+        :param tool_config: Optional tool configuration JSON (fetched from DB if not provided)
+        :type tool_config: str
+        :param inputs: Input parameters JSON
+        :type inputs: str
+        :param execution_mode: Execution mode: 'workflow' or 'debug'
+        :type execution_mode: ExecutionMode
+        :param chat_id: Optional chat ID for communication tools
+        :type chat_id: str
+        :param message_id: Optional message ID for communication tools
+        :type message_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_stream_tools_execute_workflow_stream_get_serialize(
+            project_id=project_id,
+            tool_id=tool_id,
+            tool_config=tool_config,
+            inputs=inputs,
+            execution_mode=execution_mode,
+            chat_id=chat_id,
+            message_id=message_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def execute_workflow_stream_tools_execute_workflow_stream_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        tool_id: Annotated[StrictStr, Field(description="Tool ID")],
+        tool_config: Annotated[Optional[StrictStr], Field(description="Optional tool configuration JSON (fetched from DB if not provided)")] = None,
+        inputs: Annotated[Optional[StrictStr], Field(description="Input parameters JSON")] = None,
+        execution_mode: Annotated[Optional[ExecutionMode], Field(description="Execution mode: 'workflow' or 'debug'")] = None,
+        chat_id: Annotated[Optional[StrictStr], Field(description="Optional chat ID for communication tools")] = None,
+        message_id: Annotated[Optional[StrictStr], Field(description="Optional message ID for communication tools")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Execute Workflow Stream
+
+        Execute custom tool workflow with real-time SSE streaming
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param tool_id: Tool ID (required)
+        :type tool_id: str
+        :param tool_config: Optional tool configuration JSON (fetched from DB if not provided)
+        :type tool_config: str
+        :param inputs: Input parameters JSON
+        :type inputs: str
+        :param execution_mode: Execution mode: 'workflow' or 'debug'
+        :type execution_mode: ExecutionMode
+        :param chat_id: Optional chat ID for communication tools
+        :type chat_id: str
+        :param message_id: Optional message ID for communication tools
+        :type message_id: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_stream_tools_execute_workflow_stream_get_serialize(
+            project_id=project_id,
+            tool_id=tool_id,
+            tool_config=tool_config,
+            inputs=inputs,
+            execution_mode=execution_mode,
+            chat_id=chat_id,
+            message_id=message_id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _execute_workflow_stream_tools_execute_workflow_stream_get_serialize(
+        self,
+        project_id,
+        tool_id,
+        tool_config,
+        inputs,
+        execution_mode,
+        chat_id,
+        message_id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        if tool_id is not None:
+            
+            _query_params.append(('tool_id', tool_id))
+            
+        if tool_config is not None:
+            
+            _query_params.append(('tool_config', tool_config))
+            
+        if inputs is not None:
+            
+            _query_params.append(('inputs', inputs))
+            
+        if execution_mode is not None:
+            
+            _query_params.append(('execution_mode', execution_mode.value))
+            
+        if chat_id is not None:
+            
+            _query_params.append(('chat_id', chat_id))
+            
+        if message_id is not None:
+            
+            _query_params.append(('message_id', message_id))
+            
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/execute-workflow-stream',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def execute_workflow_tools_execute_workflow_post(
+        self,
+        workflow_execution_request: WorkflowExecutionRequest,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> WorkflowExecutionResult:
+        """Execute Workflow
+
+        Execute custom tool workflow with parallel DAG execution
+
+        :param workflow_execution_request: (required)
+        :type workflow_execution_request: WorkflowExecutionRequest
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_tools_execute_workflow_post_serialize(
+            workflow_execution_request=workflow_execution_request,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WorkflowExecutionResult",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def execute_workflow_tools_execute_workflow_post_with_http_info(
+        self,
+        workflow_execution_request: WorkflowExecutionRequest,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[WorkflowExecutionResult]:
+        """Execute Workflow
+
+        Execute custom tool workflow with parallel DAG execution
+
+        :param workflow_execution_request: (required)
+        :type workflow_execution_request: WorkflowExecutionRequest
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_tools_execute_workflow_post_serialize(
+            workflow_execution_request=workflow_execution_request,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WorkflowExecutionResult",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def execute_workflow_tools_execute_workflow_post_without_preload_content(
+        self,
+        workflow_execution_request: WorkflowExecutionRequest,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Execute Workflow
+
+        Execute custom tool workflow with parallel DAG execution
+
+        :param workflow_execution_request: (required)
+        :type workflow_execution_request: WorkflowExecutionRequest
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_tools_execute_workflow_post_serialize(
+            workflow_execution_request=workflow_execution_request,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WorkflowExecutionResult",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _execute_workflow_tools_execute_workflow_post_serialize(
+        self,
+        workflow_execution_request,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+        if workflow_execution_request is not None:
+            _body_params = workflow_execution_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/tools/execute-workflow',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post(
+        self,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        project_id: StrictStr,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        tool_config: Optional[StrictStr] = None,
+        csv_delimiter: Optional[StrictStr] = None,
+        push_ref: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> WorkflowExecutionResult:
+        """Execute Workflow With File Upload
+
+        Directly upload a file, inject filename/filecontent inputs, and execute a workflow (bypasses queue).
+
+        :param file: (required)
+        :type file: bytearray
+        :param project_id: (required)
+        :type project_id: str
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param tool_config:
+        :type tool_config: str
+        :param csv_delimiter:
+        :type csv_delimiter: str
+        :param push_ref:
+        :type push_ref: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post_serialize(
+            file=file,
+            project_id=project_id,
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            tool_config=tool_config,
+            csv_delimiter=csv_delimiter,
+            push_ref=push_ref,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WorkflowExecutionResult",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post_with_http_info(
+        self,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        project_id: StrictStr,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        tool_config: Optional[StrictStr] = None,
+        csv_delimiter: Optional[StrictStr] = None,
+        push_ref: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[WorkflowExecutionResult]:
+        """Execute Workflow With File Upload
+
+        Directly upload a file, inject filename/filecontent inputs, and execute a workflow (bypasses queue).
+
+        :param file: (required)
+        :type file: bytearray
+        :param project_id: (required)
+        :type project_id: str
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param tool_config:
+        :type tool_config: str
+        :param csv_delimiter:
+        :type csv_delimiter: str
+        :param push_ref:
+        :type push_ref: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post_serialize(
+            file=file,
+            project_id=project_id,
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            tool_config=tool_config,
+            csv_delimiter=csv_delimiter,
+            push_ref=push_ref,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WorkflowExecutionResult",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post_without_preload_content(
+        self,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        project_id: StrictStr,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        tool_config: Optional[StrictStr] = None,
+        csv_delimiter: Optional[StrictStr] = None,
+        push_ref: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Execute Workflow With File Upload
+
+        Directly upload a file, inject filename/filecontent inputs, and execute a workflow (bypasses queue).
+
+        :param file: (required)
+        :type file: bytearray
+        :param project_id: (required)
+        :type project_id: str
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param tool_config:
+        :type tool_config: str
+        :param csv_delimiter:
+        :type csv_delimiter: str
+        :param push_ref:
+        :type push_ref: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post_serialize(
+            file=file,
+            project_id=project_id,
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            tool_config=tool_config,
+            csv_delimiter=csv_delimiter,
+            push_ref=push_ref,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "WorkflowExecutionResult",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post_serialize(
+        self,
+        file,
+        project_id,
+        tool_id,
+        x_api_key,
+        x_api_secret,
+        tool_config,
+        csv_delimiter,
+        push_ref,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        if file is not None:
+            _files['file'] = file
+        if project_id is not None:
+            _form_params.append(('project_id', project_id))
+        if tool_id is not None:
+            _form_params.append(('tool_id', tool_id))
+        if tool_config is not None:
+            _form_params.append(('tool_config', tool_config))
+        if csv_delimiter is not None:
+            _form_params.append(('csv_delimiter', csv_delimiter))
+        if push_ref is not None:
+            _form_params.append(('push_ref', push_ref))
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'multipart/form-data'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/tools/execute-workflow-file-upload',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def export_custom_tool_tools_custom_tool_id_export_post(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         export_tool_request: ExportToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -979,7 +2036,7 @@ class CustomToolsApi:
         Export a custom tool as JSON
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param export_tool_request: (required)
         :type export_tool_request: ExportToolRequest
         :param x_api_key: Your Odin API key.
@@ -1037,7 +2094,7 @@ class CustomToolsApi:
     @validate_call
     def export_custom_tool_tools_custom_tool_id_export_post_with_http_info(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         export_tool_request: ExportToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -1059,7 +2116,7 @@ class CustomToolsApi:
         Export a custom tool as JSON
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param export_tool_request: (required)
         :type export_tool_request: ExportToolRequest
         :param x_api_key: Your Odin API key.
@@ -1117,7 +2174,7 @@ class CustomToolsApi:
     @validate_call
     def export_custom_tool_tools_custom_tool_id_export_post_without_preload_content(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         export_tool_request: ExportToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -1139,7 +2196,7 @@ class CustomToolsApi:
         Export a custom tool as JSON
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param export_tool_request: (required)
         :type export_tool_request: ExportToolRequest
         :param x_api_key: Your Odin API key.
@@ -1200,7 +2257,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -1211,7 +2268,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1230,11 +2289,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1273,9 +2333,304 @@ class CustomToolsApi:
 
 
     @validate_call
+    def get_available_toolkit_tools_tools_available_toolkit_tools_get(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Get Available Toolkit Tools
+
+        Get all available toolkit tools with schema introspection and auth metadata
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_toolkit_tools_tools_available_toolkit_tools_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_available_toolkit_tools_tools_available_toolkit_tools_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Available Toolkit Tools
+
+        Get all available toolkit tools with schema introspection and auth metadata
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_toolkit_tools_tools_available_toolkit_tools_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_available_toolkit_tools_tools_available_toolkit_tools_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Available Toolkit Tools
+
+        Get all available toolkit tools with schema introspection and auth metadata
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_toolkit_tools_tools_available_toolkit_tools_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_available_toolkit_tools_tools_available_toolkit_tools_get_serialize(
+        self,
+        project_id,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/available-toolkit-tools',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_custom_tool_tools_custom_tool_id_get(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1296,7 +2651,7 @@ class CustomToolsApi:
         Get a specific custom tool by ID
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1351,7 +2706,7 @@ class CustomToolsApi:
     @validate_call
     def get_custom_tool_tools_custom_tool_id_get_with_http_info(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1372,7 +2727,7 @@ class CustomToolsApi:
         Get a specific custom tool by ID
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1427,7 +2782,7 @@ class CustomToolsApi:
     @validate_call
     def get_custom_tool_tools_custom_tool_id_get_without_preload_content(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1448,7 +2803,7 @@ class CustomToolsApi:
         Get a specific custom tool by ID
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1505,7 +2860,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -1516,7 +2871,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1533,11 +2890,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1565,9 +2923,9 @@ class CustomToolsApi:
     @validate_call
     def get_custom_tools_tools_custom_get(
         self,
-        project_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        project_id: StrictStr,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1588,11 +2946,11 @@ class CustomToolsApi:
         Get all custom tools for a project
 
         :param project_id: (required)
-        :type project_id: object
+        :type project_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1649,9 +3007,9 @@ class CustomToolsApi:
     @validate_call
     def get_custom_tools_tools_custom_get_with_http_info(
         self,
-        project_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        project_id: StrictStr,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1672,11 +3030,11 @@ class CustomToolsApi:
         Get all custom tools for a project
 
         :param project_id: (required)
-        :type project_id: object
+        :type project_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1733,9 +3091,9 @@ class CustomToolsApi:
     @validate_call
     def get_custom_tools_tools_custom_get_without_preload_content(
         self,
-        project_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        project_id: StrictStr,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1756,11 +3114,11 @@ class CustomToolsApi:
         Get all custom tools for a project
 
         :param project_id: (required)
-        :type project_id: object
+        :type project_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1821,7 +3179,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -1832,7 +3190,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1859,11 +3219,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -1891,8 +3252,8 @@ class CustomToolsApi:
     @validate_call
     def get_public_custom_tools_tools_custom_public_get(
         self,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1913,9 +3274,9 @@ class CustomToolsApi:
         Get all public custom tools from any user
 
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1971,8 +3332,8 @@ class CustomToolsApi:
     @validate_call
     def get_public_custom_tools_tools_custom_public_get_with_http_info(
         self,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1993,9 +3354,9 @@ class CustomToolsApi:
         Get all public custom tools from any user
 
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -2051,8 +3412,8 @@ class CustomToolsApi:
     @validate_call
     def get_public_custom_tools_tools_custom_public_get_without_preload_content(
         self,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -2073,9 +3434,9 @@ class CustomToolsApi:
         Get all public custom tools from any user
 
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -2134,7 +3495,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2145,7 +3506,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2168,11 +3531,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2198,11 +3562,612 @@ class CustomToolsApi:
 
 
     @validate_call
+    def get_tool_schedule_status_tools_custom_tool_id_schedule_status_get(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Get Tool Schedule Status
+
+        Get schedule status for a custom tool/workflow
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tool_schedule_status_tools_custom_tool_id_schedule_status_get_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_tool_schedule_status_tools_custom_tool_id_schedule_status_get_with_http_info(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Tool Schedule Status
+
+        Get schedule status for a custom tool/workflow
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tool_schedule_status_tools_custom_tool_id_schedule_status_get_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_tool_schedule_status_tools_custom_tool_id_schedule_status_get_without_preload_content(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Tool Schedule Status
+
+        Get schedule status for a custom tool/workflow
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tool_schedule_status_tools_custom_tool_id_schedule_status_get_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_tool_schedule_status_tools_custom_tool_id_schedule_status_get_serialize(
+        self,
+        tool_id,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tool_id is not None:
+            _path_params['tool_id'] = tool_id
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/custom/{tool_id}/schedule-status',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_tool_version_tools_custom_tool_id_version_version_get(
+        self,
+        tool_id: StrictStr,
+        version: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> CustomToolVersionResponse:
+        """Get Tool Version
+
+        Get a specific version of a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param version: (required)
+        :type version: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tool_version_tools_custom_tool_id_version_version_get_serialize(
+            tool_id=tool_id,
+            version=version,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CustomToolVersionResponse",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_tool_version_tools_custom_tool_id_version_version_get_with_http_info(
+        self,
+        tool_id: StrictStr,
+        version: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[CustomToolVersionResponse]:
+        """Get Tool Version
+
+        Get a specific version of a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param version: (required)
+        :type version: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tool_version_tools_custom_tool_id_version_version_get_serialize(
+            tool_id=tool_id,
+            version=version,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CustomToolVersionResponse",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_tool_version_tools_custom_tool_id_version_version_get_without_preload_content(
+        self,
+        tool_id: StrictStr,
+        version: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Tool Version
+
+        Get a specific version of a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param version: (required)
+        :type version: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tool_version_tools_custom_tool_id_version_version_get_serialize(
+            tool_id=tool_id,
+            version=version,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "CustomToolVersionResponse",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_tool_version_tools_custom_tool_id_version_version_get_serialize(
+        self,
+        tool_id,
+        version,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tool_id is not None:
+            _path_params['tool_id'] = tool_id
+        if version is not None:
+            _path_params['version'] = version
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/custom/{tool_id}/version/{version}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_tool_versions_tools_custom_tool_id_versions_get(
         self,
-        tool_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        tool_id: StrictStr,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -2223,11 +4188,11 @@ class CustomToolsApi:
         Get version history for a tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -2284,9 +4249,9 @@ class CustomToolsApi:
     @validate_call
     def get_tool_versions_tools_custom_tool_id_versions_get_with_http_info(
         self,
-        tool_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        tool_id: StrictStr,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -2307,11 +4272,11 @@ class CustomToolsApi:
         Get version history for a tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -2368,9 +4333,9 @@ class CustomToolsApi:
     @validate_call
     def get_tool_versions_tools_custom_tool_id_versions_get_without_preload_content(
         self,
-        tool_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        tool_id: StrictStr,
+        limit: Optional[StrictInt] = None,
+        offset: Optional[StrictInt] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -2391,11 +4356,11 @@ class CustomToolsApi:
         Get version history for a tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -2456,7 +4421,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2467,7 +4432,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2492,11 +4459,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2506,6 +4474,954 @@ class CustomToolsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/tools/custom/{tool_id}/versions',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_toolkit_oauth_login_url_tools_oauth_login_url_get(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        toolkit_name: Annotated[StrictStr, Field(description="Toolkit name")],
+        final_redirect: Annotated[Optional[StrictStr], Field(description="URL to redirect to after OAuth completion")] = None,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Get Toolkit Oauth Login Url
+
+        Get OAuth login URL for a toolkit
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param toolkit_name: Toolkit name (required)
+        :type toolkit_name: str
+        :param final_redirect: URL to redirect to after OAuth completion
+        :type final_redirect: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_toolkit_oauth_login_url_tools_oauth_login_url_get_serialize(
+            project_id=project_id,
+            toolkit_name=toolkit_name,
+            final_redirect=final_redirect,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_toolkit_oauth_login_url_tools_oauth_login_url_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        toolkit_name: Annotated[StrictStr, Field(description="Toolkit name")],
+        final_redirect: Annotated[Optional[StrictStr], Field(description="URL to redirect to after OAuth completion")] = None,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Toolkit Oauth Login Url
+
+        Get OAuth login URL for a toolkit
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param toolkit_name: Toolkit name (required)
+        :type toolkit_name: str
+        :param final_redirect: URL to redirect to after OAuth completion
+        :type final_redirect: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_toolkit_oauth_login_url_tools_oauth_login_url_get_serialize(
+            project_id=project_id,
+            toolkit_name=toolkit_name,
+            final_redirect=final_redirect,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_toolkit_oauth_login_url_tools_oauth_login_url_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        toolkit_name: Annotated[StrictStr, Field(description="Toolkit name")],
+        final_redirect: Annotated[Optional[StrictStr], Field(description="URL to redirect to after OAuth completion")] = None,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Toolkit Oauth Login Url
+
+        Get OAuth login URL for a toolkit
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param toolkit_name: Toolkit name (required)
+        :type toolkit_name: str
+        :param final_redirect: URL to redirect to after OAuth completion
+        :type final_redirect: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_toolkit_oauth_login_url_tools_oauth_login_url_get_serialize(
+            project_id=project_id,
+            toolkit_name=toolkit_name,
+            final_redirect=final_redirect,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_toolkit_oauth_login_url_tools_oauth_login_url_get_serialize(
+        self,
+        project_id,
+        toolkit_name,
+        final_redirect,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        if toolkit_name is not None:
+            
+            _query_params.append(('toolkit_name', toolkit_name))
+            
+        if final_redirect is not None:
+            
+            _query_params.append(('final_redirect', final_redirect))
+            
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/oauth/login-url',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_toolkit_oauth_status_tools_oauth_status_get(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        toolkit_name: Annotated[StrictStr, Field(description="Toolkit name")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Get Toolkit Oauth Status
+
+        Get OAuth authentication status for a toolkit
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param toolkit_name: Toolkit name (required)
+        :type toolkit_name: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_toolkit_oauth_status_tools_oauth_status_get_serialize(
+            project_id=project_id,
+            toolkit_name=toolkit_name,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_toolkit_oauth_status_tools_oauth_status_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        toolkit_name: Annotated[StrictStr, Field(description="Toolkit name")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Toolkit Oauth Status
+
+        Get OAuth authentication status for a toolkit
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param toolkit_name: Toolkit name (required)
+        :type toolkit_name: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_toolkit_oauth_status_tools_oauth_status_get_serialize(
+            project_id=project_id,
+            toolkit_name=toolkit_name,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_toolkit_oauth_status_tools_oauth_status_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        toolkit_name: Annotated[StrictStr, Field(description="Toolkit name")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Toolkit Oauth Status
+
+        Get OAuth authentication status for a toolkit
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param toolkit_name: Toolkit name (required)
+        :type toolkit_name: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_toolkit_oauth_status_tools_oauth_status_get_serialize(
+            project_id=project_id,
+            toolkit_name=toolkit_name,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_toolkit_oauth_status_tools_oauth_status_get_serialize(
+        self,
+        project_id,
+        toolkit_name,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        if toolkit_name is not None:
+            
+            _query_params.append(('toolkit_name', toolkit_name))
+            
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/oauth/status',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post(
+        self,
+        request_body: List[Optional[StrictStr]],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Get Tools Schedule Status Batch
+
+        Get schedule status for multiple custom tools/workflows in a single call
+
+        :param request_body: (required)
+        :type request_body: List[Optional[str]]
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post_serialize(
+            request_body=request_body,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post_with_http_info(
+        self,
+        request_body: List[Optional[StrictStr]],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Tools Schedule Status Batch
+
+        Get schedule status for multiple custom tools/workflows in a single call
+
+        :param request_body: (required)
+        :type request_body: List[Optional[str]]
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post_serialize(
+            request_body=request_body,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post_without_preload_content(
+        self,
+        request_body: List[Optional[StrictStr]],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Tools Schedule Status Batch
+
+        Get schedule status for multiple custom tools/workflows in a single call
+
+        :param request_body: (required)
+        :type request_body: List[Optional[str]]
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post_serialize(
+            request_body=request_body,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post_serialize(
+        self,
+        request_body,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'request_body': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+        if request_body is not None:
+            _body_params = request_body
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/tools/custom/schedule-status/batch',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -2754,7 +5670,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2765,7 +5681,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2782,11 +5700,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2825,9 +5744,302 @@ class CustomToolsApi:
 
 
     @validate_call
+    def pause_tool_schedule_tools_custom_tool_id_pause_schedule_post(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Pause Tool Schedule
+
+        Pause all schedule triggers for a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._pause_tool_schedule_tools_custom_tool_id_pause_schedule_post_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def pause_tool_schedule_tools_custom_tool_id_pause_schedule_post_with_http_info(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Pause Tool Schedule
+
+        Pause all schedule triggers for a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._pause_tool_schedule_tools_custom_tool_id_pause_schedule_post_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def pause_tool_schedule_tools_custom_tool_id_pause_schedule_post_without_preload_content(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Pause Tool Schedule
+
+        Pause all schedule triggers for a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._pause_tool_schedule_tools_custom_tool_id_pause_schedule_post_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _pause_tool_schedule_tools_custom_tool_id_pause_schedule_post_serialize(
+        self,
+        tool_id,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tool_id is not None:
+            _path_params['tool_id'] = tool_id
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/tools/custom/{tool_id}/pause-schedule',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def publish_custom_tool_tools_custom_tool_id_publish_post(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         publish_tool_request: PublishToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -2849,7 +6061,7 @@ class CustomToolsApi:
         Publish a draft tool version
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param publish_tool_request: (required)
         :type publish_tool_request: PublishToolRequest
         :param x_api_key: Your Odin API key.
@@ -2907,7 +6119,7 @@ class CustomToolsApi:
     @validate_call
     def publish_custom_tool_tools_custom_tool_id_publish_post_with_http_info(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         publish_tool_request: PublishToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -2929,7 +6141,7 @@ class CustomToolsApi:
         Publish a draft tool version
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param publish_tool_request: (required)
         :type publish_tool_request: PublishToolRequest
         :param x_api_key: Your Odin API key.
@@ -2987,7 +6199,7 @@ class CustomToolsApi:
     @validate_call
     def publish_custom_tool_tools_custom_tool_id_publish_post_without_preload_content(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         publish_tool_request: PublishToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3009,7 +6221,7 @@ class CustomToolsApi:
         Publish a draft tool version
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param publish_tool_request: (required)
         :type publish_tool_request: PublishToolRequest
         :param x_api_key: Your Odin API key.
@@ -3070,7 +6282,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3081,7 +6293,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3100,11 +6314,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3143,10 +6358,303 @@ class CustomToolsApi:
 
 
     @validate_call
+    def resume_tool_schedule_tools_custom_tool_id_resume_schedule_post(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Resume Tool Schedule
+
+        Resume all schedule triggers for a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._resume_tool_schedule_tools_custom_tool_id_resume_schedule_post_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def resume_tool_schedule_tools_custom_tool_id_resume_schedule_post_with_http_info(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Resume Tool Schedule
+
+        Resume all schedule triggers for a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._resume_tool_schedule_tools_custom_tool_id_resume_schedule_post_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def resume_tool_schedule_tools_custom_tool_id_resume_schedule_post_without_preload_content(
+        self,
+        tool_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Resume Tool Schedule
+
+        Resume all schedule triggers for a tool
+
+        :param tool_id: (required)
+        :type tool_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._resume_tool_schedule_tools_custom_tool_id_resume_schedule_post_serialize(
+            tool_id=tool_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _resume_tool_schedule_tools_custom_tool_id_resume_schedule_post_serialize(
+        self,
+        tool_id,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if tool_id is not None:
+            _path_params['tool_id'] = tool_id
+        # process the query parameters
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/tools/custom/{tool_id}/resume-schedule',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def revert_draft_to_version_tools_custom_tool_id_revert_to_version_post(
         self,
-        tool_id: Any,
-        version: Annotated[Any, Field(description="The version to revert to")],
+        tool_id: StrictStr,
+        version: Annotated[StrictStr, Field(description="The version to restore and publish")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -3164,12 +6672,12 @@ class CustomToolsApi:
     ) -> CustomToolResponse:
         """Revert Draft To Version
 
-        Revert a draft to a specific published version
+        Restore and publish a specific version (points back to that version)
 
         :param tool_id: (required)
-        :type tool_id: object
-        :param version: The version to revert to (required)
-        :type version: object
+        :type tool_id: str
+        :param version: The version to restore and publish (required)
+        :type version: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -3225,8 +6733,8 @@ class CustomToolsApi:
     @validate_call
     def revert_draft_to_version_tools_custom_tool_id_revert_to_version_post_with_http_info(
         self,
-        tool_id: Any,
-        version: Annotated[Any, Field(description="The version to revert to")],
+        tool_id: StrictStr,
+        version: Annotated[StrictStr, Field(description="The version to restore and publish")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -3244,12 +6752,12 @@ class CustomToolsApi:
     ) -> ApiResponse[CustomToolResponse]:
         """Revert Draft To Version
 
-        Revert a draft to a specific published version
+        Restore and publish a specific version (points back to that version)
 
         :param tool_id: (required)
-        :type tool_id: object
-        :param version: The version to revert to (required)
-        :type version: object
+        :type tool_id: str
+        :param version: The version to restore and publish (required)
+        :type version: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -3305,8 +6813,8 @@ class CustomToolsApi:
     @validate_call
     def revert_draft_to_version_tools_custom_tool_id_revert_to_version_post_without_preload_content(
         self,
-        tool_id: Any,
-        version: Annotated[Any, Field(description="The version to revert to")],
+        tool_id: StrictStr,
+        version: Annotated[StrictStr, Field(description="The version to restore and publish")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -3324,12 +6832,12 @@ class CustomToolsApi:
     ) -> RESTResponseType:
         """Revert Draft To Version
 
-        Revert a draft to a specific published version
+        Restore and publish a specific version (points back to that version)
 
         :param tool_id: (required)
-        :type tool_id: object
-        :param version: The version to revert to (required)
-        :type version: object
+        :type tool_id: str
+        :param version: The version to restore and publish (required)
+        :type version: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -3388,7 +6896,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3399,7 +6907,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3420,11 +6930,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -3452,7 +6963,7 @@ class CustomToolsApi:
     @validate_call
     def update_custom_tool_tools_custom_tool_id_put(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         update_custom_tool_request: UpdateCustomToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3474,7 +6985,7 @@ class CustomToolsApi:
         Update a custom tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param update_custom_tool_request: (required)
         :type update_custom_tool_request: UpdateCustomToolRequest
         :param x_api_key: Your Odin API key.
@@ -3532,7 +7043,7 @@ class CustomToolsApi:
     @validate_call
     def update_custom_tool_tools_custom_tool_id_put_with_http_info(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         update_custom_tool_request: UpdateCustomToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3554,7 +7065,7 @@ class CustomToolsApi:
         Update a custom tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param update_custom_tool_request: (required)
         :type update_custom_tool_request: UpdateCustomToolRequest
         :param x_api_key: Your Odin API key.
@@ -3612,7 +7123,7 @@ class CustomToolsApi:
     @validate_call
     def update_custom_tool_tools_custom_tool_id_put_without_preload_content(
         self,
-        tool_id: Any,
+        tool_id: StrictStr,
         update_custom_tool_request: UpdateCustomToolRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3634,7 +7145,7 @@ class CustomToolsApi:
         Update a custom tool
 
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param update_custom_tool_request: (required)
         :type update_custom_tool_request: UpdateCustomToolRequest
         :param x_api_key: Your Odin API key.
@@ -3695,7 +7206,7 @@ class CustomToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3706,7 +7217,9 @@ class CustomToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3725,11 +7238,12 @@ class CustomToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

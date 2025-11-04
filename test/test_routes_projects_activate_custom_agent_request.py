@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.routes_projects_activate_custom_agent_request import RoutesProjectsActivateCustomAgentRequest
 
@@ -28,7 +27,7 @@ class TestRoutesProjectsActivateCustomAgentRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RoutesProjectsActivateCustomAgentRequest:
         """Test RoutesProjectsActivateCustomAgentRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `RoutesProjectsActivateCustomAgentRequest`
@@ -36,13 +35,13 @@ class TestRoutesProjectsActivateCustomAgentRequest(unittest.TestCase):
         model = RoutesProjectsActivateCustomAgentRequest()
         if include_optional:
             return RoutesProjectsActivateCustomAgentRequest(
-                project_id = None,
-                agent_id = None
+                project_id = '',
+                agent_id = ''
             )
         else:
             return RoutesProjectsActivateCustomAgentRequest(
-                project_id = None,
-                agent_id = None,
+                project_id = '',
+                agent_id = '',
         )
         """
 

@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
 from odin_sdk.models.model_json import ModelJson
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UpdateJsonRequest(BaseModel):
     """
     UpdateJsonRequest
     """ # noqa: E501
-    json_id: Optional[Any]
+    json_id: StrictStr
     data: ModelJson
     __properties: ClassVar[List[str]] = ["json_id", "data"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class UpdateJsonRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of UpdateJsonRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,24 +62,21 @@ class UpdateJsonRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of data
         if self.data:
             _dict['data'] = self.data.to_dict()
-        # set to None if json_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.json_id is None and "json_id" in self.model_fields_set:
-            _dict['json_id'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of UpdateJsonRequest from a dict"""
         if obj is None:
             return None
@@ -92,7 +86,7 @@ class UpdateJsonRequest(BaseModel):
 
         _obj = cls.model_validate({
             "json_id": obj.get("json_id"),
-            "data": ModelJson.from_dict(obj.get("data")) if obj.get("data") is not None else None
+            "data": ModelJson.from_dict(obj["data"]) if obj.get("data") is not None else None
         })
         return _obj
 

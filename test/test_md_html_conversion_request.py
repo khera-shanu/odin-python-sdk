@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.md_html_conversion_request import MdHTMLConversionRequest
 
@@ -28,7 +27,7 @@ class TestMdHTMLConversionRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> MdHTMLConversionRequest:
         """Test MdHTMLConversionRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `MdHTMLConversionRequest`
@@ -36,14 +35,14 @@ class TestMdHTMLConversionRequest(unittest.TestCase):
         model = MdHTMLConversionRequest()
         if include_optional:
             return MdHTMLConversionRequest(
-                mode = None,
-                content = None,
-                fix_markdown_tabs = None
+                mode = '',
+                content = '',
+                fix_markdown_tabs = True
             )
         else:
             return MdHTMLConversionRequest(
-                mode = None,
-                content = None,
+                mode = '',
+                content = '',
         )
         """
 

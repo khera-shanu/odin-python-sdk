@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.edit_project_response import EditProjectResponse
 
@@ -28,7 +27,7 @@ class TestEditProjectResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> EditProjectResponse:
         """Test EditProjectResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `EditProjectResponse`
@@ -36,11 +35,11 @@ class TestEditProjectResponse(unittest.TestCase):
         model = EditProjectResponse()
         if include_optional:
             return EditProjectResponse(
-                message = None
+                message = ''
             )
         else:
             return EditProjectResponse(
-                message = None,
+                message = '',
         )
         """
 

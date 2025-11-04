@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.extract_meta_data_request import ExtractMetaDataRequest
 
@@ -28,7 +27,7 @@ class TestExtractMetaDataRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ExtractMetaDataRequest:
         """Test ExtractMetaDataRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ExtractMetaDataRequest`
@@ -36,15 +35,15 @@ class TestExtractMetaDataRequest(unittest.TestCase):
         model = ExtractMetaDataRequest()
         if include_optional:
             return ExtractMetaDataRequest(
-                text = None,
-                example_json = None,
-                model = None,
-                temperature = None
+                text = '',
+                example_json = odin_sdk.models.example_json.Example Json(),
+                model = 'gpt-4o-mini',
+                temperature = 1.337
             )
         else:
             return ExtractMetaDataRequest(
-                text = None,
-                example_json = None,
+                text = '',
+                example_json = odin_sdk.models.example_json.Example Json(),
         )
         """
 

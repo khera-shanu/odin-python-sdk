@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.validation_error import ValidationError
 
@@ -28,7 +27,7 @@ class TestValidationError(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ValidationError:
         """Test ValidationError
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ValidationError`
@@ -36,9 +35,19 @@ class TestValidationError(unittest.TestCase):
         model = ValidationError()
         if include_optional:
             return ValidationError(
+                loc = [
+                    null
+                    ],
+                msg = '',
+                type = ''
             )
         else:
             return ValidationError(
+                loc = [
+                    null
+                    ],
+                msg = '',
+                type = '',
         )
         """
 

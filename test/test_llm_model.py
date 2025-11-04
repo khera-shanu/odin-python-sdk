@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.llm_model import LLMModel
 
@@ -28,7 +27,7 @@ class TestLLMModel(unittest.TestCase):
 
     def make_instance(self, include_optional) -> LLMModel:
         """Test LLMModel
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `LLMModel`
@@ -36,23 +35,23 @@ class TestLLMModel(unittest.TestCase):
         model = LLMModel()
         if include_optional:
             return LLMModel(
-                key = None,
-                display_name = None,
-                name = None,
-                api_type = None,
-                cost = None,
-                free_plan = None,
-                hidden = None
+                key = '',
+                display_name = '',
+                name = '',
+                api_type = '',
+                cost = 1.337,
+                free_plan = True,
+                hidden = True
             )
         else:
             return LLMModel(
-                key = None,
-                display_name = None,
-                name = None,
-                api_type = None,
-                cost = None,
-                free_plan = None,
-                hidden = None,
+                key = '',
+                display_name = '',
+                name = '',
+                api_type = '',
+                cost = 1.337,
+                free_plan = True,
+                hidden = True,
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.batch_delete_request import BatchDeleteRequest
 
@@ -28,7 +27,7 @@ class TestBatchDeleteRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BatchDeleteRequest:
         """Test BatchDeleteRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BatchDeleteRequest`
@@ -36,13 +35,23 @@ class TestBatchDeleteRequest(unittest.TestCase):
         model = BatchDeleteRequest()
         if include_optional:
             return BatchDeleteRequest(
-                project_id = None,
-                resources = None
+                project_id = '',
+                resources = [
+                    odin_sdk.models.resource.Resource(
+                        name = '', 
+                        key = '', 
+                        doc_type = '', )
+                    ]
             )
         else:
             return BatchDeleteRequest(
-                project_id = None,
-                resources = None,
+                project_id = '',
+                resources = [
+                    odin_sdk.models.resource.Resource(
+                        name = '', 
+                        key = '', 
+                        doc_type = '', )
+                    ],
         )
         """
 

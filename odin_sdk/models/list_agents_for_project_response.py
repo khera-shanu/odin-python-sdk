@@ -17,27 +17,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ListAgentsForProjectResponse(BaseModel):
     """
     ListAgentsForProjectResponse
     """ # noqa: E501
-    agents: Optional[Any] = Field(default=None, description="Dictionary of agents in the project, by agent ID.")
+    agents: Optional[Dict[str, Any]] = Field(default=None, description="Dictionary of agents in the project, by agent ID.")
     __properties: ClassVar[List[str]] = ["agents"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -50,7 +46,7 @@ class ListAgentsForProjectResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ListAgentsForProjectResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,21 +60,18 @@ class ListAgentsForProjectResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if agents (nullable) is None
-        # and model_fields_set contains the field
-        if self.agents is None and "agents" in self.model_fields_set:
-            _dict['agents'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ListAgentsForProjectResponse from a dict"""
         if obj is None:
             return None

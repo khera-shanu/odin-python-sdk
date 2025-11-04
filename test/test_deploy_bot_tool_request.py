@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.deploy_bot_tool_request import DeployBotToolRequest
 
@@ -28,7 +27,7 @@ class TestDeployBotToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DeployBotToolRequest:
         """Test DeployBotToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DeployBotToolRequest`
@@ -36,12 +35,12 @@ class TestDeployBotToolRequest(unittest.TestCase):
         model = DeployBotToolRequest()
         if include_optional:
             return DeployBotToolRequest(
-                project_id = None,
+                project_id = '',
                 config = None
             )
         else:
             return DeployBotToolRequest(
-                project_id = None,
+                project_id = '',
         )
         """
 

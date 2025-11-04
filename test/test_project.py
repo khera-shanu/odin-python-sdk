@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.project import Project
 
@@ -28,7 +27,7 @@ class TestProject(unittest.TestCase):
 
     def make_instance(self, include_optional) -> Project:
         """Test Project
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `Project`
@@ -36,48 +35,102 @@ class TestProject(unittest.TestCase):
         model = Project()
         if include_optional:
             return Project(
-                id = None,
-                name = None,
-                owner = None,
-                created_at = None,
-                type = None,
-                model_name = None,
-                members = None,
-                description = None,
-                is_favorite = None,
-                kb_info = None,
-                kb_last_synced = None,
-                kb_status = None,
-                kb_sync_schedule = None,
-                blacklisted_docs = None,
-                team_id = None,
+                id = '',
+                name = '',
+                owner = '',
+                created_at = 1.337,
+                type = '',
+                model_name = '',
+                members = [
+                    odin_sdk.models.member.Member(
+                        id = '', 
+                        role = '', 
+                        project_id = '', 
+                        user_id = '', 
+                        name = '', 
+                        email = '', 
+                        is_pending = True, 
+                        invited_by = odin_sdk.models.invited_user.InvitedUser(
+                            uid = '', ), )
+                    ],
+                description = '',
+                is_favorite = True,
+                kb_info = odin_sdk.models.kb_info.KbInfo(
+                    word_count = 56, 
+                    char_count = 56, 
+                    disk_usage = 56, 
+                    url = 56, ),
+                kb_last_synced = 1.337,
+                kb_status = '',
+                kb_sync_schedule = 1.337,
+                blacklisted_docs = [
+                    ''
+                    ],
+                team_id = '',
                 system_prompt = None,
-                custom_agent = None,
-                custom_agent_name = None,
-                updated_at = None,
-                is_public = None,
-                use_textract = None,
-                mask_pii = None,
-                inline_citations = None,
-                custom_chatbot = None,
-                feedback_history = None,
-                api_keys = None,
-                kb_version = None,
-                embedding_model = None,
-                teamsbot_upload_method = None,
-                teamsbot_static_message_footer = None,
-                teamsbot_show_feedback_buttons = None,
-                teamsbot_show_kb_search_message = None,
-                teamsbot_show_message_sources = None,
-                shared_to_team = None,
-                team_default_role = None,
-                shared = None
+                custom_agent = '',
+                custom_agent_name = '',
+                updated_at = 1.337,
+                is_public = True,
+                use_textract = True,
+                mask_pii = True,
+                inline_citations = True,
+                custom_chatbot = odin_sdk.models.custom_chatbot.CustomChatbot(
+                    input_placeholder_text = '', 
+                    display_sources = True, 
+                    primary_color = '', 
+                    font_size = '', 
+                    toggle_icon_color = '', 
+                    text_color = '', 
+                    caret_bg_color = '', 
+                    suggestions = [
+                        ''
+                        ], 
+                    chatbot_name = '', 
+                    enable_multiple_chats = True, 
+                    auto_show_welcome_message_after = '', 
+                    welcome_message = '', 
+                    pre_chat_attention_image = '', 
+                    pre_chat_attention_image_behavior = '', 
+                    toggle_button_image = '', 
+                    widget_avatar_image = '', 
+                    show_thinking_process = True, 
+                    enable_authentication = True, ),
+                feedback_history = [
+                    null
+                    ],
+                api_keys = odin_sdk.models.api_key.APIKey(
+                    openai = '', 
+                    anthropic = '', ),
+                kb_version = 56,
+                embedding_model = '',
+                teamsbot_upload_method = '',
+                teamsbot_static_message_footer = '',
+                teamsbot_show_feedback_buttons = True,
+                teamsbot_show_kb_search_message = True,
+                teamsbot_show_message_sources = True,
+                shared_to_team = True,
+                team_default_role = '',
+                enable_automator_v2 = True,
+                shared = '',
+                owner_name = ''
             )
         else:
             return Project(
-                id = None,
-                name = None,
-                members = None,
+                id = '',
+                name = '',
+                members = [
+                    odin_sdk.models.member.Member(
+                        id = '', 
+                        role = '', 
+                        project_id = '', 
+                        user_id = '', 
+                        name = '', 
+                        email = '', 
+                        is_pending = True, 
+                        invited_by = odin_sdk.models.invited_user.InvitedUser(
+                            uid = '', ), )
+                    ],
         )
         """
 

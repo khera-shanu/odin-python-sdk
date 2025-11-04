@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.export_tool_response import ExportToolResponse
 
@@ -28,7 +27,7 @@ class TestExportToolResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ExportToolResponse:
         """Test ExportToolResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ExportToolResponse`
@@ -36,13 +35,13 @@ class TestExportToolResponse(unittest.TestCase):
         model = ExportToolResponse()
         if include_optional:
             return ExportToolResponse(
-                tool_data = None,
-                export_metadata = None
+                tool_data = odin_sdk.models.tool_data.Tool Data(),
+                export_metadata = odin_sdk.models.export_metadata.Export Metadata()
             )
         else:
             return ExportToolResponse(
-                tool_data = None,
-                export_metadata = None,
+                tool_data = odin_sdk.models.tool_data.Tool Data(),
+                export_metadata = odin_sdk.models.export_metadata.Export Metadata(),
         )
         """
 

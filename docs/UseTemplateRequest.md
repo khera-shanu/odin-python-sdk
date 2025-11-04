@@ -5,8 +5,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**template_name** | **object** | Name of the template file (without .json extension) | 
-**custom_title** | **object** | Custom title for the new data type | 
+**template_name** | **str** | Name of the template file (without .json extension) | 
+**custom_title** | **str** | Custom title for the new data type | 
 
 ## Example
 
@@ -18,12 +18,12 @@ json = "{}"
 # create an instance of UseTemplateRequest from a JSON string
 use_template_request_instance = UseTemplateRequest.from_json(json)
 # print the JSON string representation of the object
-print UseTemplateRequest.to_json()
+print(UseTemplateRequest.to_json())
 
 # convert the object into a dict
 use_template_request_dict = use_template_request_instance.to_dict()
 # create an instance of UseTemplateRequest from a dict
-use_template_request_form_dict = use_template_request.from_dict(use_template_request_dict)
+use_template_request_from_dict = UseTemplateRequest.from_dict(use_template_request_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.tool_step import ToolStep
 
@@ -28,7 +27,7 @@ class TestToolStep(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ToolStep:
         """Test ToolStep
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ToolStep`
@@ -36,20 +35,20 @@ class TestToolStep(unittest.TestCase):
         model = ToolStep()
         if include_optional:
             return ToolStep(
-                id = None,
-                tool_id = None,
-                type = None,
-                label = None,
-                description = None,
-                settings = None
+                id = '',
+                tool_id = '',
+                type = '',
+                label = '',
+                description = '',
+                settings = odin_sdk.models.settings.Settings()
             )
         else:
             return ToolStep(
-                id = None,
-                tool_id = None,
-                type = None,
-                label = None,
-                description = None,
+                id = '',
+                tool_id = '',
+                type = '',
+                label = '',
+                description = '',
         )
         """
 

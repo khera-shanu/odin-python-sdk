@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.custom_tool_version_response import CustomToolVersionResponse
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CustomToolVersionListResponse(BaseModel):
     """
     CustomToolVersionListResponse
     """ # noqa: E501
-    versions: Optional[Any] = Field(default=None, description="List of tool versions")
-    total: Optional[Any] = Field(description="Total number of versions")
+    versions: Optional[List[CustomToolVersionResponse]] = Field(default=None, description="List of tool versions")
+    total: StrictInt = Field(description="Total number of versions")
     __properties: ClassVar[List[str]] = ["versions", "total"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class CustomToolVersionListResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CustomToolVersionListResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,26 +62,25 @@ class CustomToolVersionListResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if versions (nullable) is None
-        # and model_fields_set contains the field
-        if self.versions is None and "versions" in self.model_fields_set:
-            _dict['versions'] = None
-
-        # set to None if total (nullable) is None
-        # and model_fields_set contains the field
-        if self.total is None and "total" in self.model_fields_set:
-            _dict['total'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in versions (list)
+        _items = []
+        if self.versions:
+            for _item_versions in self.versions:
+                if _item_versions:
+                    _items.append(_item_versions.to_dict())
+            _dict['versions'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CustomToolVersionListResponse from a dict"""
         if obj is None:
             return None
@@ -93,7 +89,7 @@ class CustomToolVersionListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "versions": obj.get("versions"),
+            "versions": [CustomToolVersionResponse.from_dict(_item) for _item in obj["versions"]] if obj.get("versions") is not None else None,
             "total": obj.get("total")
         })
         return _obj

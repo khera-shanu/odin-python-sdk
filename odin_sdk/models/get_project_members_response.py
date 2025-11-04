@@ -17,26 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List
+from odin_sdk.models.project_member import ProjectMember
+from typing import Optional, Set
+from typing_extensions import Self
 
 class GetProjectMembersResponse(BaseModel):
     """
     GetProjectMembersResponse
     """ # noqa: E501
-    members: Optional[Any]
+    members: List[ProjectMember]
     __properties: ClassVar[List[str]] = ["members"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -49,7 +47,7 @@ class GetProjectMembersResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of GetProjectMembersResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -63,21 +61,25 @@ class GetProjectMembersResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if members (nullable) is None
-        # and model_fields_set contains the field
-        if self.members is None and "members" in self.model_fields_set:
-            _dict['members'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in members (list)
+        _items = []
+        if self.members:
+            for _item_members in self.members:
+                if _item_members:
+                    _items.append(_item_members.to_dict())
+            _dict['members'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of GetProjectMembersResponse from a dict"""
         if obj is None:
             return None
@@ -86,7 +88,7 @@ class GetProjectMembersResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "members": obj.get("members")
+            "members": [ProjectMember.from_dict(_item) for _item in obj["members"]] if obj.get("members") is not None else None
         })
         return _obj
 

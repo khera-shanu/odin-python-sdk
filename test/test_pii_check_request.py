@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.pii_check_request import PIICheckRequest
 
@@ -28,7 +27,7 @@ class TestPIICheckRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> PIICheckRequest:
         """Test PIICheckRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `PIICheckRequest`
@@ -36,10 +35,12 @@ class TestPIICheckRequest(unittest.TestCase):
         model = PIICheckRequest()
         if include_optional:
             return PIICheckRequest(
-                project_id = None,
-                content_keys = None,
-                content = None,
-                scrub_pii = None
+                project_id = '',
+                content_keys = [
+                    ''
+                    ],
+                content = '',
+                scrub_pii = True
             )
         else:
             return PIICheckRequest(

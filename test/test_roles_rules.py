@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.roles_rules import RolesRules
 
@@ -28,7 +27,7 @@ class TestRolesRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RolesRules:
         """Test RolesRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `RolesRules`
@@ -36,8 +35,8 @@ class TestRolesRules(unittest.TestCase):
         model = RolesRules()
         if include_optional:
             return RolesRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return RolesRules(

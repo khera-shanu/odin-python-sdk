@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.model_json import ModelJson
 
@@ -28,7 +27,7 @@ class TestModelJson(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ModelJson:
         """Test ModelJson
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ModelJson`
@@ -36,13 +35,13 @@ class TestModelJson(unittest.TestCase):
         model = ModelJson()
         if include_optional:
             return ModelJson(
-                project_id = None,
-                title = None,
-                content = None
+                project_id = '',
+                title = '',
+                content = ''
             )
         else:
             return ModelJson(
-                project_id = None,
+                project_id = '',
         )
         """
 

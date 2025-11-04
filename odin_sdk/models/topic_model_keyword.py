@@ -17,29 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List
+from typing import Optional, Set
+from typing_extensions import Self
 
 class TopicModelKeyword(BaseModel):
     """
     TopicModelKeyword
     """ # noqa: E501
-    keyword: Optional[Any]
-    current_count: Optional[Any]
-    min_count: Optional[Any]
-    max_count: Optional[Any]
+    keyword: StrictStr
+    current_count: StrictInt
+    min_count: StrictInt
+    max_count: StrictInt
     __properties: ClassVar[List[str]] = ["keyword", "current_count", "min_count", "max_count"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -52,7 +49,7 @@ class TopicModelKeyword(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of TopicModelKeyword from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -66,36 +63,18 @@ class TopicModelKeyword(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if keyword (nullable) is None
-        # and model_fields_set contains the field
-        if self.keyword is None and "keyword" in self.model_fields_set:
-            _dict['keyword'] = None
-
-        # set to None if current_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.current_count is None and "current_count" in self.model_fields_set:
-            _dict['current_count'] = None
-
-        # set to None if min_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.min_count is None and "min_count" in self.model_fields_set:
-            _dict['min_count'] = None
-
-        # set to None if max_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_count is None and "max_count" in self.model_fields_set:
-            _dict['max_count'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of TopicModelKeyword from a dict"""
         if obj is None:
             return None

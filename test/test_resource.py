@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.resource import Resource
 
@@ -28,7 +27,7 @@ class TestResource(unittest.TestCase):
 
     def make_instance(self, include_optional) -> Resource:
         """Test Resource
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `Resource`
@@ -36,13 +35,13 @@ class TestResource(unittest.TestCase):
         model = Resource()
         if include_optional:
             return Resource(
-                name = None,
-                key = None,
-                doc_type = None
+                name = '',
+                key = '',
+                doc_type = ''
             )
         else:
             return Resource(
-                name = None,
+                name = '',
         )
         """
 

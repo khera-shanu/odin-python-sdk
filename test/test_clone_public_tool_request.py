@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.clone_public_tool_request import ClonePublicToolRequest
 
@@ -28,7 +27,7 @@ class TestClonePublicToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ClonePublicToolRequest:
         """Test ClonePublicToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ClonePublicToolRequest`
@@ -36,14 +35,14 @@ class TestClonePublicToolRequest(unittest.TestCase):
         model = ClonePublicToolRequest()
         if include_optional:
             return ClonePublicToolRequest(
-                public_tool_id = None,
-                target_project_id = None,
-                new_name = None
+                public_tool_id = '',
+                target_project_id = '',
+                new_name = ''
             )
         else:
             return ClonePublicToolRequest(
-                public_tool_id = None,
-                target_project_id = None,
+                public_tool_id = '',
+                target_project_id = '',
         )
         """
 

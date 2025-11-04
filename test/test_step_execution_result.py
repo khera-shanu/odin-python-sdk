@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.step_execution_result import StepExecutionResult
 
@@ -28,7 +27,7 @@ class TestStepExecutionResult(unittest.TestCase):
 
     def make_instance(self, include_optional) -> StepExecutionResult:
         """Test StepExecutionResult
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `StepExecutionResult`
@@ -36,16 +35,17 @@ class TestStepExecutionResult(unittest.TestCase):
         model = StepExecutionResult()
         if include_optional:
             return StepExecutionResult(
-                success = None,
-                message = None,
+                success = True,
+                message = '',
                 data = None,
-                error = None,
-                execution_time_ms = None
+                error = '',
+                execution_time_ms = 56,
+                ui = None
             )
         else:
             return StepExecutionResult(
-                success = None,
-                message = None,
+                success = True,
+                message = '',
         )
         """
 

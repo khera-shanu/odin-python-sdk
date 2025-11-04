@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.custom_tool_response import CustomToolResponse
 
@@ -28,7 +27,7 @@ class TestCustomToolResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CustomToolResponse:
         """Test CustomToolResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CustomToolResponse`
@@ -36,65 +35,68 @@ class TestCustomToolResponse(unittest.TestCase):
         model = CustomToolResponse()
         if include_optional:
             return CustomToolResponse(
-                id = None,
-                name = None,
-                description = None,
+                id = '',
+                name = '',
+                description = '',
                 inputs = {
                     'key' : odin_sdk.models.tool_input.ToolInput(
-                        id = null, 
-                        type = null, 
+                        id = '', 
+                        type = '', 
                         value = null, 
-                        manual_input = null, 
-                        description = null, )
+                        manual_input = True, 
+                        required = True, 
+                        description = '', )
                     },
                 steps = {
                     'key' : odin_sdk.models.tool_step.ToolStep(
-                        id = null, 
-                        tool_id = null, 
-                        type = null, 
-                        label = null, 
-                        description = null, 
-                        settings = null, )
+                        id = '', 
+                        tool_id = '', 
+                        type = '', 
+                        label = '', 
+                        description = '', 
+                        settings = odin_sdk.models.settings.Settings(), )
                     },
-                test_step_results = None,
-                project_id = None,
-                created_by = None,
-                created_at = None,
-                updated_at = None,
-                is_published = None,
-                version = None,
-                published_at = None,
-                is_draft = None,
-                is_public = None
+                test_step_results = odin_sdk.models.test_step_results.Test Step Results(),
+                flow_layout = odin_sdk.models.flow_layout.flow_layout(),
+                project_id = '',
+                created_by = '',
+                created_at = '',
+                updated_at = '',
+                is_published = True,
+                version = '',
+                published_at = '',
+                is_draft = True,
+                is_public = True
             )
         else:
             return CustomToolResponse(
-                id = None,
-                name = None,
+                id = '',
+                name = '',
                 inputs = {
                     'key' : odin_sdk.models.tool_input.ToolInput(
-                        id = null, 
-                        type = null, 
+                        id = '', 
+                        type = '', 
                         value = null, 
-                        manual_input = null, 
-                        description = null, )
+                        manual_input = True, 
+                        required = True, 
+                        description = '', )
                     },
                 steps = {
                     'key' : odin_sdk.models.tool_step.ToolStep(
-                        id = null, 
-                        tool_id = null, 
-                        type = null, 
-                        label = null, 
-                        description = null, 
-                        settings = null, )
+                        id = '', 
+                        tool_id = '', 
+                        type = '', 
+                        label = '', 
+                        description = '', 
+                        settings = odin_sdk.models.settings.Settings(), )
                     },
-                project_id = None,
-                created_by = None,
-                created_at = None,
-                updated_at = None,
-                is_published = None,
-                is_draft = None,
-                is_public = None,
+                project_id = '',
+                created_by = '',
+                created_at = '',
+                updated_at = '',
+                is_published = True,
+                is_draft = True,
+                is_public = True,
         )
         """
 

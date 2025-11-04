@@ -17,33 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class LLMModel(BaseModel):
     """
     LLMModel
     """ # noqa: E501
-    key: Optional[Any] = Field(description="The unique key for the model, for example azure-gpt4.")
-    display_name: Optional[Any] = Field(description="The name of the model to display in the UI.")
-    name: Optional[Any] = Field(description="The name of the model.")
-    api_type: Optional[Any] = Field(description="The type of the API, for example openai.")
-    cost: Optional[Any] = Field(description="The cost of the model, in credits.")
-    free_plan: Optional[Any] = Field(description="Whether the model is available on the free plan.")
-    hidden: Optional[Any] = Field(description="Whether the model is hidden from the UI.")
+    key: StrictStr = Field(description="The unique key for the model, for example azure-gpt4.")
+    display_name: StrictStr = Field(description="The name of the model to display in the UI.")
+    name: StrictStr = Field(description="The name of the model.")
+    api_type: StrictStr = Field(description="The type of the API, for example openai.")
+    cost: Union[StrictFloat, StrictInt] = Field(description="The cost of the model, in credits.")
+    free_plan: StrictBool = Field(description="Whether the model is available on the free plan.")
+    hidden: StrictBool = Field(description="Whether the model is hidden from the UI.")
     __properties: ClassVar[List[str]] = ["key", "display_name", "name", "api_type", "cost", "free_plan", "hidden"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +52,7 @@ class LLMModel(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of LLMModel from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,51 +66,18 @@ class LLMModel(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if key (nullable) is None
-        # and model_fields_set contains the field
-        if self.key is None and "key" in self.model_fields_set:
-            _dict['key'] = None
-
-        # set to None if display_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.display_name is None and "display_name" in self.model_fields_set:
-            _dict['display_name'] = None
-
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
-        # set to None if api_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.api_type is None and "api_type" in self.model_fields_set:
-            _dict['api_type'] = None
-
-        # set to None if cost (nullable) is None
-        # and model_fields_set contains the field
-        if self.cost is None and "cost" in self.model_fields_set:
-            _dict['cost'] = None
-
-        # set to None if free_plan (nullable) is None
-        # and model_fields_set contains the field
-        if self.free_plan is None and "free_plan" in self.model_fields_set:
-            _dict['free_plan'] = None
-
-        # set to None if hidden (nullable) is None
-        # and model_fields_set contains the field
-        if self.hidden is None and "hidden" in self.model_fields_set:
-            _dict['hidden'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of LLMModel from a dict"""
         if obj is None:
             return None

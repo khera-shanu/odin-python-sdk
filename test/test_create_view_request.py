@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_view_request import CreateViewRequest
 
@@ -28,7 +27,7 @@ class TestCreateViewRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateViewRequest:
         """Test CreateViewRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateViewRequest`
@@ -36,20 +35,20 @@ class TestCreateViewRequest(unittest.TestCase):
         model = CreateViewRequest()
         if include_optional:
             return CreateViewRequest(
-                name = None,
-                description = None,
-                type = None,
+                name = '',
+                description = '',
+                type = 'grid',
                 sort = None,
                 filter = None,
                 group = None,
                 options = None,
                 settings = None,
                 column_meta = None,
-                enable_share = None
+                enable_share = True
             )
         else:
             return CreateViewRequest(
-                name = None,
+                name = '',
         )
         """
 

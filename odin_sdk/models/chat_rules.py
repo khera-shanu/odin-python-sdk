@@ -17,29 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ChatRules(BaseModel):
     """
     ChatRules
     """ # noqa: E501
-    edit: Optional[Any] = Field(default=None, description="create permission for chat")
-    view_all: Optional[Any] = Field(default=None, description="view permission for all chats")
-    view_mine: Optional[Any] = Field(default=None, description="view permission for my chats")
+    edit: Optional[StrictBool] = Field(default=False, description="create permission for chat")
+    view_all: Optional[StrictBool] = Field(default=False, description="view permission for all chats")
+    view_mine: Optional[StrictBool] = Field(default=False, description="view permission for my chats")
     __properties: ClassVar[List[str]] = ["edit", "view_all", "view_mine"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -52,7 +48,7 @@ class ChatRules(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ChatRules from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -66,31 +62,18 @@ class ChatRules(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if edit (nullable) is None
-        # and model_fields_set contains the field
-        if self.edit is None and "edit" in self.model_fields_set:
-            _dict['edit'] = None
-
-        # set to None if view_all (nullable) is None
-        # and model_fields_set contains the field
-        if self.view_all is None and "view_all" in self.model_fields_set:
-            _dict['view_all'] = None
-
-        # set to None if view_mine (nullable) is None
-        # and model_fields_set contains the field
-        if self.view_mine is None and "view_mine" in self.model_fields_set:
-            _dict['view_mine'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ChatRules from a dict"""
         if obj is None:
             return None
@@ -99,9 +82,9 @@ class ChatRules(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "edit": obj.get("edit"),
-            "view_all": obj.get("view_all"),
-            "view_mine": obj.get("view_mine")
+            "edit": obj.get("edit") if obj.get("edit") is not None else False,
+            "view_all": obj.get("view_all") if obj.get("view_all") is not None else False,
+            "view_mine": obj.get("view_mine") if obj.get("view_mine") is not None else False
         })
         return _obj
 

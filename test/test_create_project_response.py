@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_project_response import CreateProjectResponse
 
@@ -28,7 +27,7 @@ class TestCreateProjectResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateProjectResponse:
         """Test CreateProjectResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateProjectResponse`
@@ -36,31 +35,45 @@ class TestCreateProjectResponse(unittest.TestCase):
         model = CreateProjectResponse()
         if include_optional:
             return CreateProjectResponse(
-                project_id = None,
+                project_id = '',
                 project = odin_sdk.models.project_info.ProjectInfo(
-                    name = null, 
-                    created_at = null, 
-                    members = null, 
-                    owner = null, 
-                    description = null, 
-                    type = null, 
-                    model_name = null, 
-                    system_prompt = null, 
-                    id = null, )
+                    name = '', 
+                    created_at = 1.337, 
+                    members = [
+                        ''
+                        ], 
+                    owner = '', 
+                    description = '', 
+                    type = '', 
+                    model_name = '', 
+                    system_prompt = odin_sdk.models.system_prompt_info.SystemPromptInfo(
+                        name = '', 
+                        instructions = '', 
+                        temperature = 1.337, 
+                        type = '', 
+                        id = '', ), 
+                    id = '', )
             )
         else:
             return CreateProjectResponse(
-                project_id = None,
+                project_id = '',
                 project = odin_sdk.models.project_info.ProjectInfo(
-                    name = null, 
-                    created_at = null, 
-                    members = null, 
-                    owner = null, 
-                    description = null, 
-                    type = null, 
-                    model_name = null, 
-                    system_prompt = null, 
-                    id = null, ),
+                    name = '', 
+                    created_at = 1.337, 
+                    members = [
+                        ''
+                        ], 
+                    owner = '', 
+                    description = '', 
+                    type = '', 
+                    model_name = '', 
+                    system_prompt = odin_sdk.models.system_prompt_info.SystemPromptInfo(
+                        name = '', 
+                        instructions = '', 
+                        temperature = 1.337, 
+                        type = '', 
+                        id = '', ), 
+                    id = '', ),
         )
         """
 

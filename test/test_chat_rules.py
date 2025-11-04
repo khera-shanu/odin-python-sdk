@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.chat_rules import ChatRules
 
@@ -28,7 +27,7 @@ class TestChatRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ChatRules:
         """Test ChatRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ChatRules`
@@ -36,9 +35,9 @@ class TestChatRules(unittest.TestCase):
         model = ChatRules()
         if include_optional:
             return ChatRules(
-                edit = None,
-                view_all = None,
-                view_mine = None
+                edit = True,
+                view_all = True,
+                view_mine = True
             )
         else:
             return ChatRules(

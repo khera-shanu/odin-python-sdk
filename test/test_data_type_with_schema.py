@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.data_type_with_schema import DataTypeWithSchema
 
@@ -28,7 +27,7 @@ class TestDataTypeWithSchema(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DataTypeWithSchema:
         """Test DataTypeWithSchema
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DataTypeWithSchema`
@@ -36,25 +35,79 @@ class TestDataTypeWithSchema(unittest.TestCase):
         model = DataTypeWithSchema()
         if include_optional:
             return DataTypeWithSchema(
-                id = None,
-                project_id = None,
-                table_id = None,
-                title = None,
-                description = None,
-                metadata = None,
-                table_name = None,
-                var_schema = None
+                id = '',
+                project_id = '',
+                table_id = '',
+                title = '',
+                description = '',
+                metadata = odin_sdk.models.metadata.Metadata(),
+                table_name = '',
+                var_schema = [
+                    odin_sdk.models.dt_field.DTField(
+                        id = '', 
+                        name = '', 
+                        description = '', 
+                        options = odin_sdk.models.options.options(), 
+                        type = '', 
+                        cell_value_type = '', 
+                        is_multiple_cell_value = True, 
+                        db_field_type = '', 
+                        db_field_name = '', 
+                        not_null = True, 
+                        unique = True, 
+                        is_primary = True, 
+                        is_computed = True, 
+                        is_lookup = True, 
+                        is_pending = True, 
+                        has_error = True, 
+                        lookup_linked_field_id = '', 
+                        lookup_options = '', 
+                        table_id = '', 
+                        version = 56, 
+                        created_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        last_modified_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        deleted_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        created_by = '', 
+                        last_modified_by = '', )
+                    ]
             )
         else:
             return DataTypeWithSchema(
-                id = None,
-                project_id = None,
-                table_id = None,
-                title = None,
-                description = None,
-                metadata = None,
-                table_name = None,
-                var_schema = None,
+                id = '',
+                project_id = '',
+                table_id = '',
+                title = '',
+                description = '',
+                metadata = odin_sdk.models.metadata.Metadata(),
+                table_name = '',
+                var_schema = [
+                    odin_sdk.models.dt_field.DTField(
+                        id = '', 
+                        name = '', 
+                        description = '', 
+                        options = odin_sdk.models.options.options(), 
+                        type = '', 
+                        cell_value_type = '', 
+                        is_multiple_cell_value = True, 
+                        db_field_type = '', 
+                        db_field_name = '', 
+                        not_null = True, 
+                        unique = True, 
+                        is_primary = True, 
+                        is_computed = True, 
+                        is_lookup = True, 
+                        is_pending = True, 
+                        has_error = True, 
+                        lookup_linked_field_id = '', 
+                        lookup_options = '', 
+                        table_id = '', 
+                        version = 56, 
+                        created_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        last_modified_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        deleted_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        created_by = '', 
+                        last_modified_by = '', )
+                    ],
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.tool_input import ToolInput
 
@@ -28,7 +27,7 @@ class TestToolInput(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ToolInput:
         """Test ToolInput
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ToolInput`
@@ -36,16 +35,16 @@ class TestToolInput(unittest.TestCase):
         model = ToolInput()
         if include_optional:
             return ToolInput(
-                id = None,
-                type = None,
+                id = '',
+                type = '',
                 value = None,
-                manual_input = None,
-                description = None
+                manual_input = True,
+                required = True,
+                description = ''
             )
         else:
             return ToolInput(
-                type = None,
-                value = None,
+                type = '',
         )
         """
 

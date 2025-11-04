@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.publish_tool_request import PublishToolRequest
 
@@ -28,7 +27,7 @@ class TestPublishToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> PublishToolRequest:
         """Test PublishToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `PublishToolRequest`
@@ -36,8 +35,8 @@ class TestPublishToolRequest(unittest.TestCase):
         model = PublishToolRequest()
         if include_optional:
             return PublishToolRequest(
-                version_type = None,
-                change_log = None
+                version_type = 'patch',
+                change_log = ''
             )
         else:
             return PublishToolRequest(

@@ -17,18 +17,15 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
 from odin_sdk.models.domain_search_request import DomainSearchRequest
 from odin_sdk.models.email_finder_request import EmailFinderRequest
 from odin_sdk.models.email_verifier_request import EmailVerifierRequest
 from odin_sdk.models.linked_in_email_finder_request import LinkedInEmailFinderRequest
 from odin_sdk.models.prospeo_request import ProspeoRequest
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class BodyFindProspeoDataToolsProspeoPost(BaseModel):
     """
@@ -41,11 +38,11 @@ class BodyFindProspeoDataToolsProspeoPost(BaseModel):
     email_verifier: Optional[EmailVerifierRequest] = None
     __properties: ClassVar[List[str]] = ["req", "domain_search", "email_finder", "linkedin_email_finder", "email_verifier"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -58,7 +55,7 @@ class BodyFindProspeoDataToolsProspeoPost(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of BodyFindProspeoDataToolsProspeoPost from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -72,10 +69,12 @@ class BodyFindProspeoDataToolsProspeoPost(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of req
@@ -96,7 +95,7 @@ class BodyFindProspeoDataToolsProspeoPost(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of BodyFindProspeoDataToolsProspeoPost from a dict"""
         if obj is None:
             return None
@@ -105,11 +104,11 @@ class BodyFindProspeoDataToolsProspeoPost(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "req": ProspeoRequest.from_dict(obj.get("req")) if obj.get("req") is not None else None,
-            "domain_search": DomainSearchRequest.from_dict(obj.get("domain_search")) if obj.get("domain_search") is not None else None,
-            "email_finder": EmailFinderRequest.from_dict(obj.get("email_finder")) if obj.get("email_finder") is not None else None,
-            "linkedin_email_finder": LinkedInEmailFinderRequest.from_dict(obj.get("linkedin_email_finder")) if obj.get("linkedin_email_finder") is not None else None,
-            "email_verifier": EmailVerifierRequest.from_dict(obj.get("email_verifier")) if obj.get("email_verifier") is not None else None
+            "req": ProspeoRequest.from_dict(obj["req"]) if obj.get("req") is not None else None,
+            "domain_search": DomainSearchRequest.from_dict(obj["domain_search"]) if obj.get("domain_search") is not None else None,
+            "email_finder": EmailFinderRequest.from_dict(obj["email_finder"]) if obj.get("email_finder") is not None else None,
+            "linkedin_email_finder": LinkedInEmailFinderRequest.from_dict(obj["linkedin_email_finder"]) if obj.get("linkedin_email_finder") is not None else None,
+            "email_verifier": EmailVerifierRequest.from_dict(obj["email_verifier"]) if obj.get("email_verifier") is not None else None
         })
         return _obj
 

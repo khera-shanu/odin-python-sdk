@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.routes_knowledgebase_knowledge_base_data_response import RoutesKnowledgebaseKnowledgeBaseDataResponse
 
@@ -28,7 +27,7 @@ class TestRoutesKnowledgebaseKnowledgeBaseDataResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RoutesKnowledgebaseKnowledgeBaseDataResponse:
         """Test RoutesKnowledgebaseKnowledgeBaseDataResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `RoutesKnowledgebaseKnowledgeBaseDataResponse`
@@ -36,22 +35,22 @@ class TestRoutesKnowledgebaseKnowledgeBaseDataResponse(unittest.TestCase):
         model = RoutesKnowledgebaseKnowledgeBaseDataResponse()
         if include_optional:
             return RoutesKnowledgebaseKnowledgeBaseDataResponse(
-                message = None,
-                content = None,
-                document_data = None,
-                url = None,
-                uploaded_by = None,
-                status = None,
-                size = None,
-                document_key = None,
-                data_type_id = None
+                message = '',
+                content = '',
+                document_data = odin_sdk.models.document_data.Document Data(),
+                url = '',
+                uploaded_by = '',
+                status = 'synced',
+                size = 56,
+                document_key = '',
+                data_type_id = ''
             )
         else:
             return RoutesKnowledgebaseKnowledgeBaseDataResponse(
-                message = None,
-                content = None,
-                document_data = None,
-                document_key = None,
+                message = '',
+                content = '',
+                document_data = odin_sdk.models.document_data.Document Data(),
+                document_key = '',
         )
         """
 

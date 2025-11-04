@@ -47,10 +47,38 @@ class TestCustomToolsApi(unittest.TestCase):
         """
         pass
 
+    def test_execute_workflow_stream_tools_execute_workflow_stream_get(self) -> None:
+        """Test case for execute_workflow_stream_tools_execute_workflow_stream_get
+
+        Execute Workflow Stream
+        """
+        pass
+
+    def test_execute_workflow_tools_execute_workflow_post(self) -> None:
+        """Test case for execute_workflow_tools_execute_workflow_post
+
+        Execute Workflow
+        """
+        pass
+
+    def test_execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post(self) -> None:
+        """Test case for execute_workflow_with_file_upload_tools_execute_workflow_file_upload_post
+
+        Execute Workflow With File Upload
+        """
+        pass
+
     def test_export_custom_tool_tools_custom_tool_id_export_post(self) -> None:
         """Test case for export_custom_tool_tools_custom_tool_id_export_post
 
         Export Custom Tool
+        """
+        pass
+
+    def test_get_available_toolkit_tools_tools_available_toolkit_tools_get(self) -> None:
+        """Test case for get_available_toolkit_tools_tools_available_toolkit_tools_get
+
+        Get Available Toolkit Tools
         """
         pass
 
@@ -75,10 +103,45 @@ class TestCustomToolsApi(unittest.TestCase):
         """
         pass
 
+    def test_get_tool_schedule_status_tools_custom_tool_id_schedule_status_get(self) -> None:
+        """Test case for get_tool_schedule_status_tools_custom_tool_id_schedule_status_get
+
+        Get Tool Schedule Status
+        """
+        pass
+
+    def test_get_tool_version_tools_custom_tool_id_version_version_get(self) -> None:
+        """Test case for get_tool_version_tools_custom_tool_id_version_version_get
+
+        Get Tool Version
+        """
+        pass
+
     def test_get_tool_versions_tools_custom_tool_id_versions_get(self) -> None:
         """Test case for get_tool_versions_tools_custom_tool_id_versions_get
 
         Get Tool Versions
+        """
+        pass
+
+    def test_get_toolkit_oauth_login_url_tools_oauth_login_url_get(self) -> None:
+        """Test case for get_toolkit_oauth_login_url_tools_oauth_login_url_get
+
+        Get Toolkit Oauth Login Url
+        """
+        pass
+
+    def test_get_toolkit_oauth_status_tools_oauth_status_get(self) -> None:
+        """Test case for get_toolkit_oauth_status_tools_oauth_status_get
+
+        Get Toolkit Oauth Status
+        """
+        pass
+
+    def test_get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post(self) -> None:
+        """Test case for get_tools_schedule_status_batch_tools_custom_schedule_status_batch_post
+
+        Get Tools Schedule Status Batch
         """
         pass
 
@@ -89,10 +152,24 @@ class TestCustomToolsApi(unittest.TestCase):
         """
         pass
 
+    def test_pause_tool_schedule_tools_custom_tool_id_pause_schedule_post(self) -> None:
+        """Test case for pause_tool_schedule_tools_custom_tool_id_pause_schedule_post
+
+        Pause Tool Schedule
+        """
+        pass
+
     def test_publish_custom_tool_tools_custom_tool_id_publish_post(self) -> None:
         """Test case for publish_custom_tool_tools_custom_tool_id_publish_post
 
         Publish Custom Tool
+        """
+        pass
+
+    def test_resume_tool_schedule_tools_custom_tool_id_resume_schedule_post(self) -> None:
+        """Test case for resume_tool_schedule_tools_custom_tool_id_resume_schedule_post
+
+        Resume Tool Schedule
         """
         pass
 

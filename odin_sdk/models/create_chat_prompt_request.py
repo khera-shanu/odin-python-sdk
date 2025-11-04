@@ -17,36 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.context import Context
-from odin_sdk.models.document_id import DocumentId
-from odin_sdk.models.document_keys1 import DocumentKeys1
-from odin_sdk.models.metadata1 import Metadata1
-from odin_sdk.models.name import Name
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CreateChatPromptRequest(BaseModel):
     """
     CreateChatPromptRequest
     """ # noqa: E501
-    project_id: Optional[Any]
-    name: Optional[Name] = None
-    context: Optional[Context] = None
-    metadata: Optional[Metadata1] = None
-    document_keys: Optional[DocumentKeys1] = None
-    document_id: Optional[DocumentId] = None
+    project_id: StrictStr
+    name: Optional[StrictStr] = None
+    context: Optional[StrictStr] = None
+    metadata: Optional[Dict[str, Any]] = None
+    document_keys: Optional[List[Any]] = None
+    document_id: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["project_id", "name", "context", "metadata", "document_keys", "document_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -59,7 +51,7 @@ class CreateChatPromptRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CreateChatPromptRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -73,36 +65,43 @@ class CreateChatPromptRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of name
-        if self.name:
-            _dict['name'] = self.name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of context
-        if self.context:
-            _dict['context'] = self.context.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of metadata
-        if self.metadata:
-            _dict['metadata'] = self.metadata.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of document_keys
-        if self.document_keys:
-            _dict['document_keys'] = self.document_keys.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of document_id
-        if self.document_id:
-            _dict['document_id'] = self.document_id.to_dict()
-        # set to None if project_id (nullable) is None
+        # set to None if name (nullable) is None
         # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if context (nullable) is None
+        # and model_fields_set contains the field
+        if self.context is None and "context" in self.model_fields_set:
+            _dict['context'] = None
+
+        # set to None if metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
+
+        # set to None if document_keys (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_keys is None and "document_keys" in self.model_fields_set:
+            _dict['document_keys'] = None
+
+        # set to None if document_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_id is None and "document_id" in self.model_fields_set:
+            _dict['document_id'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CreateChatPromptRequest from a dict"""
         if obj is None:
             return None
@@ -112,11 +111,11 @@ class CreateChatPromptRequest(BaseModel):
 
         _obj = cls.model_validate({
             "project_id": obj.get("project_id"),
-            "name": Name.from_dict(obj.get("name")) if obj.get("name") is not None else None,
-            "context": Context.from_dict(obj.get("context")) if obj.get("context") is not None else None,
-            "metadata": Metadata1.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None,
-            "document_keys": DocumentKeys1.from_dict(obj.get("document_keys")) if obj.get("document_keys") is not None else None,
-            "document_id": DocumentId.from_dict(obj.get("document_id")) if obj.get("document_id") is not None else None
+            "name": obj.get("name"),
+            "context": obj.get("context"),
+            "metadata": obj.get("metadata"),
+            "document_keys": obj.get("document_keys"),
+            "document_id": obj.get("document_id")
         })
         return _obj
 

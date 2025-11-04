@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class BlogSection(BaseModel):
     """
     BlogSection
     """ # noqa: E501
-    title: Optional[Any]
-    content: Optional[Any] = None
-    ideas: Optional[Any] = None
+    title: StrictStr
+    content: Optional[StrictStr] = ''
+    ideas: Optional[List[StrictStr]] = None
     __properties: ClassVar[List[str]] = ["title", "content", "ideas"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class BlogSection(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of BlogSection from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,31 +62,18 @@ class BlogSection(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if title (nullable) is None
-        # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['title'] = None
-
-        # set to None if content (nullable) is None
-        # and model_fields_set contains the field
-        if self.content is None and "content" in self.model_fields_set:
-            _dict['content'] = None
-
-        # set to None if ideas (nullable) is None
-        # and model_fields_set contains the field
-        if self.ideas is None and "ideas" in self.model_fields_set:
-            _dict['ideas'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of BlogSection from a dict"""
         if obj is None:
             return None
@@ -99,7 +83,7 @@ class BlogSection(BaseModel):
 
         _obj = cls.model_validate({
             "title": obj.get("title"),
-            "content": obj.get("content"),
+            "content": obj.get("content") if obj.get("content") is not None else '',
             "ideas": obj.get("ideas")
         })
         return _obj

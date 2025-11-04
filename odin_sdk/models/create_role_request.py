@@ -17,29 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
 from odin_sdk.models.rules import Rules
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CreateRoleRequest(BaseModel):
     """
     CreateRoleRequest
     """ # noqa: E501
-    name: Optional[Any]
-    actions: Optional[Any]
+    name: StrictStr
+    actions: StrictStr
     rules: Rules
     __properties: ClassVar[List[str]] = ["name", "actions", "rules"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -52,7 +49,7 @@ class CreateRoleRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CreateRoleRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -66,29 +63,21 @@ class CreateRoleRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of rules
         if self.rules:
             _dict['rules'] = self.rules.to_dict()
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
-        # set to None if actions (nullable) is None
-        # and model_fields_set contains the field
-        if self.actions is None and "actions" in self.model_fields_set:
-            _dict['actions'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CreateRoleRequest from a dict"""
         if obj is None:
             return None
@@ -99,7 +88,7 @@ class CreateRoleRequest(BaseModel):
         _obj = cls.model_validate({
             "name": obj.get("name"),
             "actions": obj.get("actions"),
-            "rules": Rules.from_dict(obj.get("rules")) if obj.get("rules") is not None else None
+            "rules": Rules.from_dict(obj["rules"]) if obj.get("rules") is not None else None
         })
         return _obj
 

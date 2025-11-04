@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_blog_section_response import CreateBlogSectionResponse
 
@@ -28,7 +27,7 @@ class TestCreateBlogSectionResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateBlogSectionResponse:
         """Test CreateBlogSectionResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateBlogSectionResponse`
@@ -36,17 +35,33 @@ class TestCreateBlogSectionResponse(unittest.TestCase):
         model = CreateBlogSectionResponse()
         if include_optional:
             return CreateBlogSectionResponse(
-                blog_section = None,
+                blog_section = '',
                 topic_model = odin_sdk.models.topic_model.TopicModel(
-                    keywords = null, 
-                    urls = null, )
+                    keywords = [
+                        odin_sdk.models.topic_model_keyword.TopicModelKeyword(
+                            keyword = '', 
+                            current_count = 56, 
+                            min_count = 56, 
+                            max_count = 56, )
+                        ], 
+                    urls = [
+                        ''
+                        ], )
             )
         else:
             return CreateBlogSectionResponse(
-                blog_section = None,
+                blog_section = '',
                 topic_model = odin_sdk.models.topic_model.TopicModel(
-                    keywords = null, 
-                    urls = null, ),
+                    keywords = [
+                        odin_sdk.models.topic_model_keyword.TopicModelKeyword(
+                            keyword = '', 
+                            current_count = 56, 
+                            min_count = 56, 
+                            max_count = 56, )
+                        ], 
+                    urls = [
+                        ''
+                        ], ),
         )
         """
 

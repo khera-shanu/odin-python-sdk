@@ -17,28 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.category import Category
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class AIClassifyResponse(BaseModel):
     """
     AIClassifyResponse
     """ # noqa: E501
-    category: Optional[Category] = None
-    reason: Optional[Any]
+    category: Optional[StrictStr] = None
+    reason: StrictStr
     __properties: ClassVar[List[str]] = ["category", "reason"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +47,7 @@ class AIClassifyResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of AIClassifyResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,24 +61,23 @@ class AIClassifyResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of category
-        if self.category:
-            _dict['category'] = self.category.to_dict()
-        # set to None if reason (nullable) is None
+        # set to None if category (nullable) is None
         # and model_fields_set contains the field
-        if self.reason is None and "reason" in self.model_fields_set:
-            _dict['reason'] = None
+        if self.category is None and "category" in self.model_fields_set:
+            _dict['category'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of AIClassifyResponse from a dict"""
         if obj is None:
             return None
@@ -91,7 +86,7 @@ class AIClassifyResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "category": Category.from_dict(obj.get("category")) if obj.get("category") is not None else None,
+            "category": obj.get("category"),
             "reason": obj.get("reason")
         })
         return _obj

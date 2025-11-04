@@ -17,34 +17,31 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
+from odin_sdk.models.dt_field import DTField
+from typing import Optional, Set
+from typing_extensions import Self
 
 class DataTypeWithSchema(BaseModel):
     """
     DataTypeWithSchema
     """ # noqa: E501
-    id: Optional[Any]
-    project_id: Optional[Any]
-    table_id: Optional[Any]
-    title: Optional[Any]
-    description: Optional[Any]
-    metadata: Optional[Any]
-    table_name: Optional[Any]
-    var_schema: Optional[Any] = Field(alias="schema")
+    id: StrictStr
+    project_id: StrictStr
+    table_id: StrictStr
+    title: StrictStr
+    description: StrictStr
+    metadata: Dict[str, Any]
+    table_name: StrictStr
+    var_schema: List[DTField] = Field(alias="schema")
     __properties: ClassVar[List[str]] = ["id", "project_id", "table_id", "title", "description", "metadata", "table_name", "schema"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -57,7 +54,7 @@ class DataTypeWithSchema(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of DataTypeWithSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -71,56 +68,25 @@ class DataTypeWithSchema(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
-
-        # set to None if project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
-
-        # set to None if table_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.table_id is None and "table_id" in self.model_fields_set:
-            _dict['table_id'] = None
-
-        # set to None if title (nullable) is None
-        # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['title'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
-        # set to None if metadata (nullable) is None
-        # and model_fields_set contains the field
-        if self.metadata is None and "metadata" in self.model_fields_set:
-            _dict['metadata'] = None
-
-        # set to None if table_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.table_name is None and "table_name" in self.model_fields_set:
-            _dict['table_name'] = None
-
-        # set to None if var_schema (nullable) is None
-        # and model_fields_set contains the field
-        if self.var_schema is None and "var_schema" in self.model_fields_set:
-            _dict['schema'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in var_schema (list)
+        _items = []
+        if self.var_schema:
+            for _item_var_schema in self.var_schema:
+                if _item_var_schema:
+                    _items.append(_item_var_schema.to_dict())
+            _dict['schema'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of DataTypeWithSchema from a dict"""
         if obj is None:
             return None
@@ -136,7 +102,7 @@ class DataTypeWithSchema(BaseModel):
             "description": obj.get("description"),
             "metadata": obj.get("metadata"),
             "table_name": obj.get("table_name"),
-            "schema": obj.get("schema")
+            "schema": [DTField.from_dict(_item) for _item in obj["schema"]] if obj.get("schema") is not None else None
         })
         return _obj
 

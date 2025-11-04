@@ -17,29 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List
+from typing import Optional, Set
+from typing_extensions import Self
 
 class SaveNewCustomAgentResponse(BaseModel):
     """
     SaveNewCustomAgentResponse
     """ # noqa: E501
-    success: Optional[Any] = Field(description="Whether the agent was saved successfully.")
-    msg: Optional[Any] = Field(description="Message describing the result of the operation.")
-    agent_id: Optional[Any] = Field(description="ID of the agent that was saved.")
+    success: StrictBool = Field(description="Whether the agent was saved successfully.")
+    msg: StrictStr = Field(description="Message describing the result of the operation.")
+    agent_id: StrictStr = Field(description="ID of the agent that was saved.")
     __properties: ClassVar[List[str]] = ["success", "msg", "agent_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -52,7 +48,7 @@ class SaveNewCustomAgentResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of SaveNewCustomAgentResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -66,31 +62,18 @@ class SaveNewCustomAgentResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if success (nullable) is None
-        # and model_fields_set contains the field
-        if self.success is None and "success" in self.model_fields_set:
-            _dict['success'] = None
-
-        # set to None if msg (nullable) is None
-        # and model_fields_set contains the field
-        if self.msg is None and "msg" in self.model_fields_set:
-            _dict['msg'] = None
-
-        # set to None if agent_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.agent_id is None and "agent_id" in self.model_fields_set:
-            _dict['agent_id'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of SaveNewCustomAgentResponse from a dict"""
         if obj is None:
             return None

@@ -17,33 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.keywords import Keywords
-from odin_sdk.models.translation_tone import TranslationTone
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.keyword_pair import KeywordPair
+from typing import Optional, Set
+from typing_extensions import Self
 
 class TranslateTextsRequest(BaseModel):
     """
     TranslateTextsRequest
     """ # noqa: E501
-    input_language: Optional[Any]
-    target_language: Optional[Any]
-    texts: Optional[Any]
-    keywords: Optional[Keywords] = None
-    project_id: Optional[Any]
-    translation_tone: Optional[TranslationTone] = None
+    input_language: StrictStr
+    target_language: StrictStr
+    texts: List[StrictStr]
+    keywords: Optional[List[KeywordPair]] = None
+    project_id: StrictStr
+    translation_tone: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["input_language", "target_language", "texts", "keywords", "project_id", "translation_tone"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +52,7 @@ class TranslateTextsRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of TranslateTextsRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,42 +66,35 @@ class TranslateTextsRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of keywords
+        # override the default output from pydantic by calling `to_dict()` of each item in keywords (list)
+        _items = []
         if self.keywords:
-            _dict['keywords'] = self.keywords.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of translation_tone
-        if self.translation_tone:
-            _dict['translation_tone'] = self.translation_tone.to_dict()
-        # set to None if input_language (nullable) is None
+            for _item_keywords in self.keywords:
+                if _item_keywords:
+                    _items.append(_item_keywords.to_dict())
+            _dict['keywords'] = _items
+        # set to None if keywords (nullable) is None
         # and model_fields_set contains the field
-        if self.input_language is None and "input_language" in self.model_fields_set:
-            _dict['input_language'] = None
+        if self.keywords is None and "keywords" in self.model_fields_set:
+            _dict['keywords'] = None
 
-        # set to None if target_language (nullable) is None
+        # set to None if translation_tone (nullable) is None
         # and model_fields_set contains the field
-        if self.target_language is None and "target_language" in self.model_fields_set:
-            _dict['target_language'] = None
-
-        # set to None if texts (nullable) is None
-        # and model_fields_set contains the field
-        if self.texts is None and "texts" in self.model_fields_set:
-            _dict['texts'] = None
-
-        # set to None if project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.translation_tone is None and "translation_tone" in self.model_fields_set:
+            _dict['translation_tone'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of TranslateTextsRequest from a dict"""
         if obj is None:
             return None
@@ -117,9 +106,9 @@ class TranslateTextsRequest(BaseModel):
             "input_language": obj.get("input_language"),
             "target_language": obj.get("target_language"),
             "texts": obj.get("texts"),
-            "keywords": Keywords.from_dict(obj.get("keywords")) if obj.get("keywords") is not None else None,
+            "keywords": [KeywordPair.from_dict(_item) for _item in obj["keywords"]] if obj.get("keywords") is not None else None,
             "project_id": obj.get("project_id"),
-            "translation_tone": TranslationTone.from_dict(obj.get("translation_tone")) if obj.get("translation_tone") is not None else None
+            "translation_tone": obj.get("translation_tone")
         })
         return _obj
 

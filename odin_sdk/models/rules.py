@@ -17,47 +17,44 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.rules_actions import RulesActions
-from odin_sdk.models.rules_add_members import RulesAddMembers
-from odin_sdk.models.rules_agents import RulesAgents
-from odin_sdk.models.rules_analytics import RulesAnalytics
-from odin_sdk.models.rules_assistant import RulesAssistant
-from odin_sdk.models.rules_chat import RulesChat
-from odin_sdk.models.rules_document import RulesDocument
-from odin_sdk.models.rules_flows import RulesFlows
-from odin_sdk.models.rules_kb import RulesKb
-from odin_sdk.models.rules_roles import RulesRoles
-from odin_sdk.models.rules_settings import RulesSettings
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.actions_rules import ActionsRules
+from odin_sdk.models.add_members_rules import AddMembersRules
+from odin_sdk.models.agents_rules import AgentsRules
+from odin_sdk.models.analytics_rules import AnalyticsRules
+from odin_sdk.models.assistant_rules import AssistantRules
+from odin_sdk.models.chat_rules import ChatRules
+from odin_sdk.models.document_rules import DocumentRules
+from odin_sdk.models.flows_rules import FlowsRules
+from odin_sdk.models.kb_rules import KBRules
+from odin_sdk.models.roles_rules import RolesRules
+from odin_sdk.models.settings_rules import SettingsRules
+from typing import Optional, Set
+from typing_extensions import Self
 
 class Rules(BaseModel):
     """
     Rules
     """ # noqa: E501
-    chat: Optional[RulesChat] = None
-    assistant: Optional[RulesAssistant] = None
-    document: Optional[RulesDocument] = None
-    agents: Optional[RulesAgents] = None
-    settings: Optional[RulesSettings] = None
-    add_members: Optional[RulesAddMembers] = None
-    kb: Optional[RulesKb] = None
-    flows: Optional[RulesFlows] = None
-    analytics: Optional[RulesAnalytics] = None
-    actions: Optional[RulesActions] = None
-    roles: Optional[RulesRoles] = None
+    chat: Optional[ChatRules] = None
+    assistant: Optional[AssistantRules] = None
+    document: Optional[DocumentRules] = None
+    agents: Optional[AgentsRules] = None
+    settings: Optional[SettingsRules] = None
+    add_members: Optional[AddMembersRules] = None
+    kb: Optional[KBRules] = None
+    flows: Optional[FlowsRules] = None
+    analytics: Optional[AnalyticsRules] = None
+    actions: Optional[ActionsRules] = None
+    roles: Optional[RolesRules] = None
     __properties: ClassVar[List[str]] = ["chat", "assistant", "document", "agents", "settings", "add_members", "kb", "flows", "analytics", "actions", "roles"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -70,7 +67,7 @@ class Rules(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of Rules from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -84,10 +81,12 @@ class Rules(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of chat
@@ -123,10 +122,65 @@ class Rules(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of roles
         if self.roles:
             _dict['roles'] = self.roles.to_dict()
+        # set to None if chat (nullable) is None
+        # and model_fields_set contains the field
+        if self.chat is None and "chat" in self.model_fields_set:
+            _dict['chat'] = None
+
+        # set to None if assistant (nullable) is None
+        # and model_fields_set contains the field
+        if self.assistant is None and "assistant" in self.model_fields_set:
+            _dict['assistant'] = None
+
+        # set to None if document (nullable) is None
+        # and model_fields_set contains the field
+        if self.document is None and "document" in self.model_fields_set:
+            _dict['document'] = None
+
+        # set to None if agents (nullable) is None
+        # and model_fields_set contains the field
+        if self.agents is None and "agents" in self.model_fields_set:
+            _dict['agents'] = None
+
+        # set to None if settings (nullable) is None
+        # and model_fields_set contains the field
+        if self.settings is None and "settings" in self.model_fields_set:
+            _dict['settings'] = None
+
+        # set to None if add_members (nullable) is None
+        # and model_fields_set contains the field
+        if self.add_members is None and "add_members" in self.model_fields_set:
+            _dict['add_members'] = None
+
+        # set to None if kb (nullable) is None
+        # and model_fields_set contains the field
+        if self.kb is None and "kb" in self.model_fields_set:
+            _dict['kb'] = None
+
+        # set to None if flows (nullable) is None
+        # and model_fields_set contains the field
+        if self.flows is None and "flows" in self.model_fields_set:
+            _dict['flows'] = None
+
+        # set to None if analytics (nullable) is None
+        # and model_fields_set contains the field
+        if self.analytics is None and "analytics" in self.model_fields_set:
+            _dict['analytics'] = None
+
+        # set to None if actions (nullable) is None
+        # and model_fields_set contains the field
+        if self.actions is None and "actions" in self.model_fields_set:
+            _dict['actions'] = None
+
+        # set to None if roles (nullable) is None
+        # and model_fields_set contains the field
+        if self.roles is None and "roles" in self.model_fields_set:
+            _dict['roles'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of Rules from a dict"""
         if obj is None:
             return None
@@ -135,17 +189,17 @@ class Rules(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "chat": RulesChat.from_dict(obj.get("chat")) if obj.get("chat") is not None else None,
-            "assistant": RulesAssistant.from_dict(obj.get("assistant")) if obj.get("assistant") is not None else None,
-            "document": RulesDocument.from_dict(obj.get("document")) if obj.get("document") is not None else None,
-            "agents": RulesAgents.from_dict(obj.get("agents")) if obj.get("agents") is not None else None,
-            "settings": RulesSettings.from_dict(obj.get("settings")) if obj.get("settings") is not None else None,
-            "add_members": RulesAddMembers.from_dict(obj.get("add_members")) if obj.get("add_members") is not None else None,
-            "kb": RulesKb.from_dict(obj.get("kb")) if obj.get("kb") is not None else None,
-            "flows": RulesFlows.from_dict(obj.get("flows")) if obj.get("flows") is not None else None,
-            "analytics": RulesAnalytics.from_dict(obj.get("analytics")) if obj.get("analytics") is not None else None,
-            "actions": RulesActions.from_dict(obj.get("actions")) if obj.get("actions") is not None else None,
-            "roles": RulesRoles.from_dict(obj.get("roles")) if obj.get("roles") is not None else None
+            "chat": ChatRules.from_dict(obj["chat"]) if obj.get("chat") is not None else None,
+            "assistant": AssistantRules.from_dict(obj["assistant"]) if obj.get("assistant") is not None else None,
+            "document": DocumentRules.from_dict(obj["document"]) if obj.get("document") is not None else None,
+            "agents": AgentsRules.from_dict(obj["agents"]) if obj.get("agents") is not None else None,
+            "settings": SettingsRules.from_dict(obj["settings"]) if obj.get("settings") is not None else None,
+            "add_members": AddMembersRules.from_dict(obj["add_members"]) if obj.get("add_members") is not None else None,
+            "kb": KBRules.from_dict(obj["kb"]) if obj.get("kb") is not None else None,
+            "flows": FlowsRules.from_dict(obj["flows"]) if obj.get("flows") is not None else None,
+            "analytics": AnalyticsRules.from_dict(obj["analytics"]) if obj.get("analytics") is not None else None,
+            "actions": ActionsRules.from_dict(obj["actions"]) if obj.get("actions") is not None else None,
+            "roles": RolesRules.from_dict(obj["roles"]) if obj.get("roles") is not None else None
         })
         return _obj
 

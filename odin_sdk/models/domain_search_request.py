@@ -17,31 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.company_enrichment import CompanyEnrichment
-from odin_sdk.models.email_type import EmailType
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class DomainSearchRequest(BaseModel):
     """
     DomainSearchRequest
     """ # noqa: E501
-    company: Optional[Any]
-    limit: Optional[Any] = None
-    email_type: Optional[EmailType] = None
-    company_enrichment: Optional[CompanyEnrichment] = None
+    company: StrictStr
+    limit: Optional[StrictInt] = 5
+    email_type: Optional[StrictStr] = None
+    company_enrichment: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["company", "limit", "email_type", "company_enrichment"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -54,7 +49,7 @@ class DomainSearchRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of DomainSearchRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -68,32 +63,28 @@ class DomainSearchRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of email_type
-        if self.email_type:
-            _dict['email_type'] = self.email_type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of company_enrichment
-        if self.company_enrichment:
-            _dict['company_enrichment'] = self.company_enrichment.to_dict()
-        # set to None if company (nullable) is None
+        # set to None if email_type (nullable) is None
         # and model_fields_set contains the field
-        if self.company is None and "company" in self.model_fields_set:
-            _dict['company'] = None
+        if self.email_type is None and "email_type" in self.model_fields_set:
+            _dict['email_type'] = None
 
-        # set to None if limit (nullable) is None
+        # set to None if company_enrichment (nullable) is None
         # and model_fields_set contains the field
-        if self.limit is None and "limit" in self.model_fields_set:
-            _dict['limit'] = None
+        if self.company_enrichment is None and "company_enrichment" in self.model_fields_set:
+            _dict['company_enrichment'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of DomainSearchRequest from a dict"""
         if obj is None:
             return None
@@ -103,9 +94,9 @@ class DomainSearchRequest(BaseModel):
 
         _obj = cls.model_validate({
             "company": obj.get("company"),
-            "limit": obj.get("limit"),
-            "email_type": EmailType.from_dict(obj.get("email_type")) if obj.get("email_type") is not None else None,
-            "company_enrichment": CompanyEnrichment.from_dict(obj.get("company_enrichment")) if obj.get("company_enrichment") is not None else None
+            "limit": obj.get("limit") if obj.get("limit") is not None else 5,
+            "email_type": obj.get("email_type"),
+            "company_enrichment": obj.get("company_enrichment")
         })
         return _obj
 

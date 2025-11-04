@@ -1,88 +1,14 @@
 # odin_sdk.JsonsApi
 
-All URIs are relative to *https://api.getodin.ai*
+All URIs are relative to *https://127.0.0.1:8001*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_json_json_create_post**](JsonsApi.md#create_json_json_create_post) | **POST** /json/create | Create Json
 [**delete_json_json_delete**](JsonsApi.md#delete_json_json_delete) | **DELETE** /json | Delete Json
 [**edit_json_json_put**](JsonsApi.md#edit_json_json_put) | **PUT** /json | Edit Json
 [**get_json_json_post**](JsonsApi.md#get_json_json_post) | **POST** /json | Get Json
 [**get_jsons_jsons_post**](JsonsApi.md#get_jsons_jsons_post) | **POST** /jsons | Get Jsons
 
-
-# **create_json_json_create_post**
-> object create_json_json_create_post(json_request, x_api_key=x_api_key, x_api_secret=x_api_secret)
-
-Create Json
-
-### Example
-
-
-```python
-import time
-import os
-import odin_sdk
-from odin_sdk.models.json_request import JsonRequest
-from odin_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.getodin.ai
-# See configuration.py for a list of all supported configuration parameters.
-configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
-)
-
-
-# Enter a context with an instance of the API client
-with odin_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = odin_sdk.JsonsApi(api_client)
-    json_request = odin_sdk.JsonRequest() # JsonRequest | 
-    x_api_key = 'x_api_key_example' # str | Your Odin API key. (optional)
-    x_api_secret = 'x_api_secret_example' # str | Your Odin API secret. (optional)
-
-    try:
-        # Create Json
-        api_response = api_instance.create_json_json_create_post(json_request, x_api_key=x_api_key, x_api_secret=x_api_secret)
-        print("The response of JsonsApi->create_json_json_create_post:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling JsonsApi->create_json_json_create_post: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **json_request** | [**JsonRequest**](JsonRequest.md)|  | 
- **x_api_key** | **str**| Your Odin API key. | [optional] 
- **x_api_secret** | **str**| Your Odin API secret. | [optional] 
-
-### Return type
-
-**object**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful Response |  -  |
-**422** | Validation Error |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_json_json_delete**
 > DeleteJsonResponse delete_json_json_delete(delete_json_request, x_api_key=x_api_key, x_api_secret=x_api_secret)
@@ -93,18 +19,16 @@ Delete Json
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.delete_json_request import DeleteJsonRequest
 from odin_sdk.models.delete_json_response import DeleteJsonResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -167,17 +91,15 @@ Edit Json
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.update_json_request import UpdateJsonRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -240,17 +162,15 @@ Get Json
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.get_json_request import GetJsonRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -313,17 +233,15 @@ Get Jsons
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.get_jsons_request import GetJsonsRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 

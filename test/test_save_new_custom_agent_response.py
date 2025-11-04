@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.save_new_custom_agent_response import SaveNewCustomAgentResponse
 
@@ -28,7 +27,7 @@ class TestSaveNewCustomAgentResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> SaveNewCustomAgentResponse:
         """Test SaveNewCustomAgentResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `SaveNewCustomAgentResponse`
@@ -36,15 +35,15 @@ class TestSaveNewCustomAgentResponse(unittest.TestCase):
         model = SaveNewCustomAgentResponse()
         if include_optional:
             return SaveNewCustomAgentResponse(
-                success = None,
-                msg = None,
-                agent_id = None
+                success = True,
+                msg = '',
+                agent_id = ''
             )
         else:
             return SaveNewCustomAgentResponse(
-                success = None,
-                msg = None,
-                agent_id = None,
+                success = True,
+                msg = '',
+                agent_id = '',
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.compute_column_cancel_response import ComputeColumnCancelResponse
 
@@ -28,7 +27,7 @@ class TestComputeColumnCancelResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ComputeColumnCancelResponse:
         """Test ComputeColumnCancelResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ComputeColumnCancelResponse`
@@ -36,15 +35,15 @@ class TestComputeColumnCancelResponse(unittest.TestCase):
         model = ComputeColumnCancelResponse()
         if include_optional:
             return ComputeColumnCancelResponse(
-                message = None,
-                execution_id = None,
-                cancelled = None
+                message = '',
+                execution_id = '',
+                cancelled = True
             )
         else:
             return ComputeColumnCancelResponse(
-                message = None,
-                execution_id = None,
-                cancelled = None,
+                message = '',
+                execution_id = '',
+                cancelled = True,
         )
         """
 

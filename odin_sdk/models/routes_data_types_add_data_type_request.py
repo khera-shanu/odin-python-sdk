@@ -17,32 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.data_type_id2 import DataTypeId2
-from odin_sdk.models.metadata4 import Metadata4
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class RoutesDataTypesAddDataTypeRequest(BaseModel):
     """
     RoutesDataTypesAddDataTypeRequest
     """ # noqa: E501
-    data_type_id: Optional[DataTypeId2] = None
-    title: Optional[Any] = Field(description="The title of the Data type.")
-    description: Optional[Any] = Field(description="A brief description of the Data type.")
-    metadata: Optional[Metadata4] = None
+    data_type_id: Optional[StrictStr] = None
+    title: StrictStr = Field(description="The title of the Data type.")
+    description: StrictStr = Field(description="A brief description of the Data type.")
+    metadata: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["data_type_id", "title", "description", "metadata"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -55,7 +49,7 @@ class RoutesDataTypesAddDataTypeRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of RoutesDataTypesAddDataTypeRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -69,32 +63,28 @@ class RoutesDataTypesAddDataTypeRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of data_type_id
-        if self.data_type_id:
-            _dict['data_type_id'] = self.data_type_id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of metadata
-        if self.metadata:
-            _dict['metadata'] = self.metadata.to_dict()
-        # set to None if title (nullable) is None
+        # set to None if data_type_id (nullable) is None
         # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['title'] = None
+        if self.data_type_id is None and "data_type_id" in self.model_fields_set:
+            _dict['data_type_id'] = None
 
-        # set to None if description (nullable) is None
+        # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of RoutesDataTypesAddDataTypeRequest from a dict"""
         if obj is None:
             return None
@@ -103,10 +93,10 @@ class RoutesDataTypesAddDataTypeRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "data_type_id": DataTypeId2.from_dict(obj.get("data_type_id")) if obj.get("data_type_id") is not None else None,
+            "data_type_id": obj.get("data_type_id"),
             "title": obj.get("title"),
             "description": obj.get("description"),
-            "metadata": Metadata4.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None
+            "metadata": obj.get("metadata")
         })
         return _obj
 

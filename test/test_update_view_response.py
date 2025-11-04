@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_view_response import UpdateViewResponse
 
@@ -28,7 +27,7 @@ class TestUpdateViewResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateViewResponse:
         """Test UpdateViewResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateViewResponse`
@@ -36,13 +35,13 @@ class TestUpdateViewResponse(unittest.TestCase):
         model = UpdateViewResponse()
         if include_optional:
             return UpdateViewResponse(
-                message = None,
-                view_id = None
+                message = '',
+                view_id = ''
             )
         else:
             return UpdateViewResponse(
-                message = None,
-                view_id = None,
+                message = '',
+                view_id = '',
         )
         """
 

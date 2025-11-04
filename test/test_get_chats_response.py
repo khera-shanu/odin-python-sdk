@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.get_chats_response import GetChatsResponse
 
@@ -28,7 +27,7 @@ class TestGetChatsResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetChatsResponse:
         """Test GetChatsResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `GetChatsResponse`
@@ -36,9 +35,11 @@ class TestGetChatsResponse(unittest.TestCase):
         model = GetChatsResponse()
         if include_optional:
             return GetChatsResponse(
-                chats = None,
-                next_cursor = None,
-                has_more = None
+                chats = [
+                    null
+                    ],
+                next_cursor = 1.337,
+                has_more = True
             )
         else:
             return GetChatsResponse(

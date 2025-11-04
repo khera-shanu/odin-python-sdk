@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_custom_tool_request import CreateCustomToolRequest
 
@@ -28,7 +27,7 @@ class TestCreateCustomToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateCustomToolRequest:
         """Test CreateCustomToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateCustomToolRequest`
@@ -36,31 +35,33 @@ class TestCreateCustomToolRequest(unittest.TestCase):
         model = CreateCustomToolRequest()
         if include_optional:
             return CreateCustomToolRequest(
-                name = None,
-                description = None,
+                name = '',
+                description = '',
                 inputs = {
                     'key' : odin_sdk.models.tool_input.ToolInput(
-                        id = null, 
-                        type = null, 
+                        id = '', 
+                        type = '', 
                         value = null, 
-                        manual_input = null, 
-                        description = null, )
+                        manual_input = True, 
+                        required = True, 
+                        description = '', )
                     },
                 steps = {
                     'key' : odin_sdk.models.tool_step.ToolStep(
-                        id = null, 
-                        tool_id = null, 
-                        type = null, 
-                        label = null, 
-                        description = null, 
-                        settings = null, )
+                        id = '', 
+                        tool_id = '', 
+                        type = '', 
+                        label = '', 
+                        description = '', 
+                        settings = odin_sdk.models.settings.Settings(), )
                     },
-                project_id = None
+                flow_layout = None,
+                project_id = ''
             )
         else:
             return CreateCustomToolRequest(
-                name = None,
-                project_id = None,
+                name = '',
+                project_id = '',
         )
         """
 

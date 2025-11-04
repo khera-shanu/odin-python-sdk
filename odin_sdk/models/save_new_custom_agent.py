@@ -17,33 +17,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.building_blocks1 import BuildingBlocks1
-from odin_sdk.models.temperature1 import Temperature1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class SaveNewCustomAgent(BaseModel):
     """
     SaveNewCustomAgent
     """ # noqa: E501
-    project_id: Optional[Any] = Field(description="ID of the project in which to create the agent.")
-    agent_name: Optional[Any] = Field(description="Custom name of the agent.")
-    personality: Optional[Any] = Field(default=None, description="Personality definition of the agent.")
-    building_blocks: Optional[BuildingBlocks1] = None
-    temperature: Optional[Temperature1] = None
+    project_id: StrictStr = Field(description="ID of the project in which to create the agent.")
+    agent_name: StrictStr = Field(description="Custom name of the agent.")
+    personality: Optional[StrictStr] = Field(default='You are a helpful agent.', description="Personality definition of the agent.")
+    building_blocks: Optional[List[Dict[str, Any]]] = None
+    temperature: Optional[Union[StrictFloat, StrictInt]] = None
     __properties: ClassVar[List[str]] = ["project_id", "agent_name", "personality", "building_blocks", "temperature"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +50,7 @@ class SaveNewCustomAgent(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of SaveNewCustomAgent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,37 +64,28 @@ class SaveNewCustomAgent(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of building_blocks
-        if self.building_blocks:
-            _dict['building_blocks'] = self.building_blocks.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of temperature
-        if self.temperature:
-            _dict['temperature'] = self.temperature.to_dict()
-        # set to None if project_id (nullable) is None
+        # set to None if building_blocks (nullable) is None
         # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.building_blocks is None and "building_blocks" in self.model_fields_set:
+            _dict['building_blocks'] = None
 
-        # set to None if agent_name (nullable) is None
+        # set to None if temperature (nullable) is None
         # and model_fields_set contains the field
-        if self.agent_name is None and "agent_name" in self.model_fields_set:
-            _dict['agent_name'] = None
-
-        # set to None if personality (nullable) is None
-        # and model_fields_set contains the field
-        if self.personality is None and "personality" in self.model_fields_set:
-            _dict['personality'] = None
+        if self.temperature is None and "temperature" in self.model_fields_set:
+            _dict['temperature'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of SaveNewCustomAgent from a dict"""
         if obj is None:
             return None
@@ -111,9 +96,9 @@ class SaveNewCustomAgent(BaseModel):
         _obj = cls.model_validate({
             "project_id": obj.get("project_id"),
             "agent_name": obj.get("agent_name"),
-            "personality": obj.get("personality"),
-            "building_blocks": BuildingBlocks1.from_dict(obj.get("building_blocks")) if obj.get("building_blocks") is not None else None,
-            "temperature": Temperature1.from_dict(obj.get("temperature")) if obj.get("temperature") is not None else None
+            "personality": obj.get("personality") if obj.get("personality") is not None else 'You are a helpful agent.',
+            "building_blocks": obj.get("building_blocks"),
+            "temperature": obj.get("temperature")
         })
         return _obj
 

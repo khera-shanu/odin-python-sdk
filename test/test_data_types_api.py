@@ -26,41 +26,6 @@ class TestDataTypesApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
-    def test_activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put(self) -> None:
-        """Test case for activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put
-
-        Activate Data Type For Project
-        """
-        pass
-
-    def test_add_column_project_project_id_data_type_data_type_id_column_post(self) -> None:
-        """Test case for add_column_project_project_id_data_type_data_type_id_column_post
-
-        Add Column
-        """
-        pass
-
-    def test_add_data_type_row_project_project_id_data_type_data_type_id_row_post(self) -> None:
-        """Test case for add_data_type_row_project_project_id_data_type_data_type_id_row_post
-
-        Add Data Type Row
-        """
-        pass
-
-    def test_add_multiple_columns_project_project_id_data_type_data_type_id_columns_post(self) -> None:
-        """Test case for add_multiple_columns_project_project_id_data_type_data_type_id_columns_post
-
-        Add Multiple Columns
-        """
-        pass
-
-    def test_add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post(self) -> None:
-        """Test case for add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post
-
-        Add Multiple Data Type Rows
-        """
-        pass
-
     def test_cancel_compute_column_job_project_project_id_data_type_data_type_id_compute_column_cancel_execution_id_post(self) -> None:
         """Test case for cancel_compute_column_job_project_project_id_data_type_data_type_id_compute_column_cancel_execution_id_post
 
@@ -68,31 +33,10 @@ class TestDataTypesApi(unittest.TestCase):
         """
         pass
 
-    def test_compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post(self) -> None:
-        """Test case for compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post
-
-        Compute All Rows
-        """
-        pass
-
     def test_compute_column_values_async_project_project_id_data_type_data_type_id_compute_column_async_post(self) -> None:
         """Test case for compute_column_values_async_project_project_id_data_type_data_type_id_compute_column_async_post
 
         Compute Column Values Async
-        """
-        pass
-
-    def test_compute_column_values_project_project_id_data_type_data_type_id_compute_column_post(self) -> None:
-        """Test case for compute_column_values_project_project_id_data_type_data_type_id_compute_column_post
-
-        Compute Column Values
-        """
-        pass
-
-    def test_compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post(self) -> None:
-        """Test case for compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post
-
-        Compute Row Columns
         """
         pass
 
@@ -110,52 +54,10 @@ class TestDataTypesApi(unittest.TestCase):
         """
         pass
 
-    def test_delete_column_project_project_id_data_type_data_type_id_column_column_name_delete(self) -> None:
-        """Test case for delete_column_project_project_id_data_type_data_type_id_column_column_name_delete
-
-        Delete Column
-        """
-        pass
-
     def test_delete_data_type_by_id_project_project_id_data_types_data_type_id_delete(self) -> None:
         """Test case for delete_data_type_by_id_project_project_id_data_types_data_type_id_delete
 
         Delete Data Type By Id
-        """
-        pass
-
-    def test_delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete(self) -> None:
-        """Test case for delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete
-
-        Delete Data Type Row
-        """
-        pass
-
-    def test_export_data_type_config_project_project_id_data_type_data_type_id_export_get(self) -> None:
-        """Test case for export_data_type_config_project_project_id_data_type_data_type_id_export_get
-
-        Export Data Type Config
-        """
-        pass
-
-    def test_extract_data_type_from_doc_project_project_id_extract_data_type_post(self) -> None:
-        """Test case for extract_data_type_from_doc_project_project_id_extract_data_type_post
-
-        Extract Data Type From Doc
-        """
-        pass
-
-    def test_get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get(self) -> None:
-        """Test case for get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get
-
-        Get Available Records For Linking
-        """
-        pass
-
-    def test_get_child_records_project_project_id_data_types_data_type_id_children_get(self) -> None:
-        """Test case for get_child_records_project_project_id_data_types_data_type_id_children_get
-
-        Get Child Records
         """
         pass
 
@@ -173,24 +75,10 @@ class TestDataTypesApi(unittest.TestCase):
         """
         pass
 
-    def test_get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post(self) -> None:
-        """Test case for get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post
-
-        Get Dashboard Data
-        """
-        pass
-
     def test_get_data_type_by_id_project_project_id_data_types_data_type_id_get(self) -> None:
         """Test case for get_data_type_by_id_project_project_id_data_types_data_type_id_get
 
         Get Data Type By Id
-        """
-        pass
-
-    def test_get_data_type_json_project_project_id_data_types_data_type_id_json_get(self) -> None:
-        """Test case for get_data_type_json_project_project_id_data_types_data_type_id_json_get
-
-        Get Data Type Json
         """
         pass
 
@@ -208,17 +96,10 @@ class TestDataTypesApi(unittest.TestCase):
         """
         pass
 
-    def test_get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get(self) -> None:
-        """Test case for get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get
+    def test_get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get(self) -> None:
+        """Test case for get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get
 
-        Get Extraction Settings
-        """
-        pass
-
-    def test_get_sql_user_info_project_project_id_sql_user_info_get(self) -> None:
-        """Test case for get_sql_user_info_project_project_id_sql_user_info_get
-
-        Get Sql User Info
+        Get Grouped Data Type View By Id
         """
         pass
 
@@ -243,34 +124,6 @@ class TestDataTypesApi(unittest.TestCase):
         """
         pass
 
-    def test_rename_data_type_project_project_id_data_type_data_type_id_rename_put(self) -> None:
-        """Test case for rename_data_type_project_project_id_data_type_data_type_id_rename_put
-
-        Rename Data Type
-        """
-        pass
-
-    def test_run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post(self) -> None:
-        """Test case for run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post
-
-        Run Extraction Endpoint
-        """
-        pass
-
-    def test_run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post(self) -> None:
-        """Test case for run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post
-
-        Run Extraction Validation
-        """
-        pass
-
-    def test_save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post(self) -> None:
-        """Test case for save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post
-
-        Save Extraction Settings
-        """
-        pass
-
     def test_update_column_metadata_project_project_id_data_type_data_type_id_column_column_name_metadata_put(self) -> None:
         """Test case for update_column_metadata_project_project_id_data_type_data_type_id_column_column_name_metadata_put
 
@@ -278,31 +131,10 @@ class TestDataTypesApi(unittest.TestCase):
         """
         pass
 
-    def test_update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put(self) -> None:
-        """Test case for update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put
-
-        Update Column Value
-        """
-        pass
-
     def test_update_data_type_view_project_project_id_data_type_data_type_id_view_view_id_put(self) -> None:
         """Test case for update_data_type_view_project_project_id_data_type_data_type_id_view_view_id_put
 
         Update Data Type View
-        """
-        pass
-
-    def test_update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put(self) -> None:
-        """Test case for update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put
-
-        Update Record Links
-        """
-        pass
-
-    def test_update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put(self) -> None:
-        """Test case for update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put
-
-        Update Row Order Endpoint
         """
         pass
 

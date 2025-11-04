@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.api_tool_request import ApiToolRequest
 
@@ -28,7 +27,7 @@ class TestApiToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ApiToolRequest:
         """Test ApiToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ApiToolRequest`
@@ -36,12 +35,12 @@ class TestApiToolRequest(unittest.TestCase):
         model = ApiToolRequest()
         if include_optional:
             return ApiToolRequest(
-                project_id = None,
+                project_id = '',
                 config = None
             )
         else:
             return ApiToolRequest(
-                project_id = None,
+                project_id = '',
         )
         """
 

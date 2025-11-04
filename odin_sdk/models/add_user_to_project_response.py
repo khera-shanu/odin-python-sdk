@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.users import Users
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.user_info import UserInfo
+from typing import Optional, Set
+from typing_extensions import Self
 
 class AddUserToProjectResponse(BaseModel):
     """
     AddUserToProjectResponse
     """ # noqa: E501
-    message: Optional[Any]
-    users: Optional[Users] = None
+    message: StrictStr
+    users: Optional[List[UserInfo]] = None
     __properties: ClassVar[List[str]] = ["message", "users"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class AddUserToProjectResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of AddUserToProjectResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,24 +62,30 @@ class AddUserToProjectResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of users
+        # override the default output from pydantic by calling `to_dict()` of each item in users (list)
+        _items = []
         if self.users:
-            _dict['users'] = self.users.to_dict()
-        # set to None if message (nullable) is None
+            for _item_users in self.users:
+                if _item_users:
+                    _items.append(_item_users.to_dict())
+            _dict['users'] = _items
+        # set to None if users (nullable) is None
         # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
+        if self.users is None and "users" in self.model_fields_set:
+            _dict['users'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of AddUserToProjectResponse from a dict"""
         if obj is None:
             return None
@@ -92,7 +95,7 @@ class AddUserToProjectResponse(BaseModel):
 
         _obj = cls.model_validate({
             "message": obj.get("message"),
-            "users": Users.from_dict(obj.get("users")) if obj.get("users") is not None else None
+            "users": [UserInfo.from_dict(_item) for _item in obj["users"]] if obj.get("users") is not None else None
         })
         return _obj
 

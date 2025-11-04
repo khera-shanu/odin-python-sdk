@@ -17,39 +17,31 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.personality_id1 import PersonalityId1
-from odin_sdk.models.personality_instructions import PersonalityInstructions
-from odin_sdk.models.personality_name import PersonalityName
-from odin_sdk.models.personality_temperature import PersonalityTemperature
-from odin_sdk.models.personality_type import PersonalityType
-from odin_sdk.models.project_type import ProjectType
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from odin_sdk.models.personality_id import PersonalityId
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CreateProjectRequest(BaseModel):
     """
     CreateProjectRequest
     """ # noqa: E501
-    project_name: Optional[Any]
-    project_description: Optional[Any]
-    project_type: Optional[ProjectType] = None
-    personality_name: Optional[PersonalityName] = None
-    personality_instructions: Optional[PersonalityInstructions] = None
-    personality_id: Optional[PersonalityId1] = None
-    personality_type: Optional[PersonalityType] = None
-    personality_temperature: Optional[PersonalityTemperature] = None
+    project_name: StrictStr
+    project_description: StrictStr
+    project_type: Optional[StrictStr] = None
+    personality_name: Optional[StrictStr] = None
+    personality_instructions: Optional[StrictStr] = None
+    personality_id: Optional[PersonalityId] = None
+    personality_type: Optional[StrictStr] = None
+    personality_temperature: Optional[Union[StrictFloat, StrictInt]] = None
     __properties: ClassVar[List[str]] = ["project_name", "project_description", "project_type", "personality_name", "personality_instructions", "personality_id", "personality_type", "personality_temperature"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -62,7 +54,7 @@ class CreateProjectRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CreateProjectRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -76,44 +68,51 @@ class CreateProjectRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of project_type
-        if self.project_type:
-            _dict['project_type'] = self.project_type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of personality_name
-        if self.personality_name:
-            _dict['personality_name'] = self.personality_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of personality_instructions
-        if self.personality_instructions:
-            _dict['personality_instructions'] = self.personality_instructions.to_dict()
         # override the default output from pydantic by calling `to_dict()` of personality_id
         if self.personality_id:
             _dict['personality_id'] = self.personality_id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of personality_type
-        if self.personality_type:
-            _dict['personality_type'] = self.personality_type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of personality_temperature
-        if self.personality_temperature:
-            _dict['personality_temperature'] = self.personality_temperature.to_dict()
-        # set to None if project_name (nullable) is None
+        # set to None if project_type (nullable) is None
         # and model_fields_set contains the field
-        if self.project_name is None and "project_name" in self.model_fields_set:
-            _dict['project_name'] = None
+        if self.project_type is None and "project_type" in self.model_fields_set:
+            _dict['project_type'] = None
 
-        # set to None if project_description (nullable) is None
+        # set to None if personality_name (nullable) is None
         # and model_fields_set contains the field
-        if self.project_description is None and "project_description" in self.model_fields_set:
-            _dict['project_description'] = None
+        if self.personality_name is None and "personality_name" in self.model_fields_set:
+            _dict['personality_name'] = None
+
+        # set to None if personality_instructions (nullable) is None
+        # and model_fields_set contains the field
+        if self.personality_instructions is None and "personality_instructions" in self.model_fields_set:
+            _dict['personality_instructions'] = None
+
+        # set to None if personality_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.personality_id is None and "personality_id" in self.model_fields_set:
+            _dict['personality_id'] = None
+
+        # set to None if personality_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.personality_type is None and "personality_type" in self.model_fields_set:
+            _dict['personality_type'] = None
+
+        # set to None if personality_temperature (nullable) is None
+        # and model_fields_set contains the field
+        if self.personality_temperature is None and "personality_temperature" in self.model_fields_set:
+            _dict['personality_temperature'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CreateProjectRequest from a dict"""
         if obj is None:
             return None
@@ -124,12 +123,12 @@ class CreateProjectRequest(BaseModel):
         _obj = cls.model_validate({
             "project_name": obj.get("project_name"),
             "project_description": obj.get("project_description"),
-            "project_type": ProjectType.from_dict(obj.get("project_type")) if obj.get("project_type") is not None else None,
-            "personality_name": PersonalityName.from_dict(obj.get("personality_name")) if obj.get("personality_name") is not None else None,
-            "personality_instructions": PersonalityInstructions.from_dict(obj.get("personality_instructions")) if obj.get("personality_instructions") is not None else None,
-            "personality_id": PersonalityId1.from_dict(obj.get("personality_id")) if obj.get("personality_id") is not None else None,
-            "personality_type": PersonalityType.from_dict(obj.get("personality_type")) if obj.get("personality_type") is not None else None,
-            "personality_temperature": PersonalityTemperature.from_dict(obj.get("personality_temperature")) if obj.get("personality_temperature") is not None else None
+            "project_type": obj.get("project_type"),
+            "personality_name": obj.get("personality_name"),
+            "personality_instructions": obj.get("personality_instructions"),
+            "personality_id": PersonalityId.from_dict(obj["personality_id"]) if obj.get("personality_id") is not None else None,
+            "personality_type": obj.get("personality_type"),
+            "personality_temperature": obj.get("personality_temperature")
         })
         return _obj
 

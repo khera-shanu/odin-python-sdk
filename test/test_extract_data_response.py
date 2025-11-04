@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.extract_data_response import ExtractDataResponse
 
@@ -28,7 +27,7 @@ class TestExtractDataResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ExtractDataResponse:
         """Test ExtractDataResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ExtractDataResponse`
@@ -36,13 +35,13 @@ class TestExtractDataResponse(unittest.TestCase):
         model = ExtractDataResponse()
         if include_optional:
             return ExtractDataResponse(
-                message = None,
-                job_id = None
+                message = '',
+                job_id = ''
             )
         else:
             return ExtractDataResponse(
-                message = None,
-                job_id = None,
+                message = '',
+                job_id = '',
         )
         """
 

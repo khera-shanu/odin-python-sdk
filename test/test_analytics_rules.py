@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.analytics_rules import AnalyticsRules
 
@@ -28,7 +27,7 @@ class TestAnalyticsRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AnalyticsRules:
         """Test AnalyticsRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AnalyticsRules`
@@ -36,8 +35,8 @@ class TestAnalyticsRules(unittest.TestCase):
         model = AnalyticsRules()
         if include_optional:
             return AnalyticsRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return AnalyticsRules(

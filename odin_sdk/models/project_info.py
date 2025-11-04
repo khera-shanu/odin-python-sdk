@@ -17,35 +17,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.project_info_system_prompt import ProjectInfoSystemPrompt
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from odin_sdk.models.system_prompt_info import SystemPromptInfo
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ProjectInfo(BaseModel):
     """
     ProjectInfo
     """ # noqa: E501
-    name: Optional[Any]
-    created_at: Optional[Any]
-    members: Optional[Any]
-    owner: Optional[Any]
-    description: Optional[Any]
-    type: Optional[Any]
-    model_name: Optional[Any]
-    system_prompt: Optional[ProjectInfoSystemPrompt] = None
-    id: Optional[Any]
+    name: StrictStr
+    created_at: Union[StrictFloat, StrictInt]
+    members: List[StrictStr]
+    owner: StrictStr
+    description: StrictStr
+    type: StrictStr
+    model_name: StrictStr
+    system_prompt: Optional[SystemPromptInfo] = None
+    id: StrictStr
     __properties: ClassVar[List[str]] = ["name", "created_at", "members", "owner", "description", "type", "model_name", "system_prompt", "id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -58,7 +55,7 @@ class ProjectInfo(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ProjectInfo from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -72,59 +69,26 @@ class ProjectInfo(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of system_prompt
         if self.system_prompt:
             _dict['system_prompt'] = self.system_prompt.to_dict()
-        # set to None if name (nullable) is None
+        # set to None if system_prompt (nullable) is None
         # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
-        # set to None if created_at (nullable) is None
-        # and model_fields_set contains the field
-        if self.created_at is None and "created_at" in self.model_fields_set:
-            _dict['created_at'] = None
-
-        # set to None if members (nullable) is None
-        # and model_fields_set contains the field
-        if self.members is None and "members" in self.model_fields_set:
-            _dict['members'] = None
-
-        # set to None if owner (nullable) is None
-        # and model_fields_set contains the field
-        if self.owner is None and "owner" in self.model_fields_set:
-            _dict['owner'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['type'] = None
-
-        # set to None if model_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.model_name is None and "model_name" in self.model_fields_set:
-            _dict['model_name'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
+        if self.system_prompt is None and "system_prompt" in self.model_fields_set:
+            _dict['system_prompt'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ProjectInfo from a dict"""
         if obj is None:
             return None
@@ -140,7 +104,7 @@ class ProjectInfo(BaseModel):
             "description": obj.get("description"),
             "type": obj.get("type"),
             "model_name": obj.get("model_name"),
-            "system_prompt": ProjectInfoSystemPrompt.from_dict(obj.get("system_prompt")) if obj.get("system_prompt") is not None else None,
+            "system_prompt": SystemPromptInfo.from_dict(obj["system_prompt"]) if obj.get("system_prompt") is not None else None,
             "id": obj.get("id")
         })
         return _obj

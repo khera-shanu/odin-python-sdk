@@ -17,30 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.fix_markdown_tabs import FixMarkdownTabs
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class MdHTMLConversionRequest(BaseModel):
     """
     MdHTMLConversionRequest
     """ # noqa: E501
-    mode: Optional[Any] = Field(description="'markdown' for HTML to Markdown conversion, 'html' for Markdown to HTML conversion.")
-    content: Optional[Any] = Field(description="The content to be converted.")
-    fix_markdown_tabs: Optional[FixMarkdownTabs] = None
+    mode: StrictStr = Field(description="'markdown' for HTML to Markdown conversion, 'html' for Markdown to HTML conversion.")
+    content: StrictStr = Field(description="The content to be converted.")
+    fix_markdown_tabs: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["mode", "content", "fix_markdown_tabs"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +48,7 @@ class MdHTMLConversionRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of MdHTMLConversionRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,29 +62,23 @@ class MdHTMLConversionRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of fix_markdown_tabs
-        if self.fix_markdown_tabs:
-            _dict['fix_markdown_tabs'] = self.fix_markdown_tabs.to_dict()
-        # set to None if mode (nullable) is None
+        # set to None if fix_markdown_tabs (nullable) is None
         # and model_fields_set contains the field
-        if self.mode is None and "mode" in self.model_fields_set:
-            _dict['mode'] = None
-
-        # set to None if content (nullable) is None
-        # and model_fields_set contains the field
-        if self.content is None and "content" in self.model_fields_set:
-            _dict['content'] = None
+        if self.fix_markdown_tabs is None and "fix_markdown_tabs" in self.model_fields_set:
+            _dict['fix_markdown_tabs'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of MdHTMLConversionRequest from a dict"""
         if obj is None:
             return None
@@ -100,7 +89,7 @@ class MdHTMLConversionRequest(BaseModel):
         _obj = cls.model_validate({
             "mode": obj.get("mode"),
             "content": obj.get("content"),
-            "fix_markdown_tabs": FixMarkdownTabs.from_dict(obj.get("fix_markdown_tabs")) if obj.get("fix_markdown_tabs") is not None else None
+            "fix_markdown_tabs": obj.get("fix_markdown_tabs")
         })
         return _obj
 

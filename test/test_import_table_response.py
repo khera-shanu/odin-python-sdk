@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.import_table_response import ImportTableResponse
 
@@ -28,7 +27,7 @@ class TestImportTableResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ImportTableResponse:
         """Test ImportTableResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ImportTableResponse`
@@ -36,15 +35,15 @@ class TestImportTableResponse(unittest.TestCase):
         model = ImportTableResponse()
         if include_optional:
             return ImportTableResponse(
-                message = None,
-                data_type_id = None,
-                rows_imported = None
+                message = '',
+                data_type_id = '',
+                rows_imported = 56
             )
         else:
             return ImportTableResponse(
-                message = None,
-                data_type_id = None,
-                rows_imported = None,
+                message = '',
+                data_type_id = '',
+                rows_imported = 56,
         )
         """
 

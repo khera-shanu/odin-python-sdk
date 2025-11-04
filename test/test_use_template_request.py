@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.use_template_request import UseTemplateRequest
 
@@ -28,7 +27,7 @@ class TestUseTemplateRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UseTemplateRequest:
         """Test UseTemplateRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UseTemplateRequest`
@@ -36,13 +35,13 @@ class TestUseTemplateRequest(unittest.TestCase):
         model = UseTemplateRequest()
         if include_optional:
             return UseTemplateRequest(
-                template_name = None,
-                custom_title = None
+                template_name = '',
+                custom_title = ''
             )
         else:
             return UseTemplateRequest(
-                template_name = None,
-                custom_title = None,
+                template_name = '',
+                custom_title = '',
         )
         """
 

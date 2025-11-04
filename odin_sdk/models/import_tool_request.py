@@ -17,31 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.new_name1 import NewName1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ImportToolRequest(BaseModel):
     """
     ImportToolRequest
     """ # noqa: E501
-    tool_data: Optional[Any] = Field(description="The tool data to import")
-    project_id: Optional[Any] = Field(description="Target project ID for the imported tool")
-    new_name: Optional[NewName1] = None
-    import_as_draft: Optional[Any] = Field(default=None, description="Whether to import as draft (default) or publish immediately")
+    tool_data: Dict[str, Any] = Field(description="The tool data to import")
+    project_id: StrictStr = Field(description="Target project ID for the imported tool")
+    new_name: Optional[StrictStr] = None
+    import_as_draft: Optional[StrictBool] = Field(default=True, description="Whether to import as draft (default) or publish immediately")
     __properties: ClassVar[List[str]] = ["tool_data", "project_id", "new_name", "import_as_draft"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -54,7 +49,7 @@ class ImportToolRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ImportToolRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -68,34 +63,23 @@ class ImportToolRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of new_name
-        if self.new_name:
-            _dict['new_name'] = self.new_name.to_dict()
-        # set to None if tool_data (nullable) is None
+        # set to None if new_name (nullable) is None
         # and model_fields_set contains the field
-        if self.tool_data is None and "tool_data" in self.model_fields_set:
-            _dict['tool_data'] = None
-
-        # set to None if project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
-
-        # set to None if import_as_draft (nullable) is None
-        # and model_fields_set contains the field
-        if self.import_as_draft is None and "import_as_draft" in self.model_fields_set:
-            _dict['import_as_draft'] = None
+        if self.new_name is None and "new_name" in self.model_fields_set:
+            _dict['new_name'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ImportToolRequest from a dict"""
         if obj is None:
             return None
@@ -106,8 +90,8 @@ class ImportToolRequest(BaseModel):
         _obj = cls.model_validate({
             "tool_data": obj.get("tool_data"),
             "project_id": obj.get("project_id"),
-            "new_name": NewName1.from_dict(obj.get("new_name")) if obj.get("new_name") is not None else None,
-            "import_as_draft": obj.get("import_as_draft")
+            "new_name": obj.get("new_name"),
+            "import_as_draft": obj.get("import_as_draft") if obj.get("import_as_draft") is not None else True
         })
         return _obj
 

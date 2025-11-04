@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.email_verifier_request import EmailVerifierRequest
 
@@ -28,7 +27,7 @@ class TestEmailVerifierRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> EmailVerifierRequest:
         """Test EmailVerifierRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `EmailVerifierRequest`
@@ -36,12 +35,12 @@ class TestEmailVerifierRequest(unittest.TestCase):
         model = EmailVerifierRequest()
         if include_optional:
             return EmailVerifierRequest(
-                email = None,
-                email_anon_id = None
+                email = '',
+                email_anon_id = ''
             )
         else:
             return EmailVerifierRequest(
-                email = None,
+                email = '',
         )
         """
 

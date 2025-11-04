@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.blog_regenerate_section_request import BlogRegenerateSectionRequest
 
@@ -28,7 +27,7 @@ class TestBlogRegenerateSectionRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BlogRegenerateSectionRequest:
         """Test BlogRegenerateSectionRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BlogRegenerateSectionRequest`
@@ -36,25 +35,43 @@ class TestBlogRegenerateSectionRequest(unittest.TestCase):
         model = BlogRegenerateSectionRequest()
         if include_optional:
             return BlogRegenerateSectionRequest(
-                project_id = None,
+                project_id = '',
                 blog = odin_sdk.models.blog.Blog(
-                    title = null, 
-                    keywords = null, 
-                    goal = null, 
-                    final_content = null, 
-                    sections = null, ),
-                blog_section_index = None
+                    title = '', 
+                    keywords = [
+                        ''
+                        ], 
+                    goal = '', 
+                    final_content = '', 
+                    sections = [
+                        odin_sdk.models.blog_section.BlogSection(
+                            title = '', 
+                            content = '', 
+                            ideas = [
+                                ''
+                                ], )
+                        ], ),
+                blog_section_index = 56
             )
         else:
             return BlogRegenerateSectionRequest(
-                project_id = None,
+                project_id = '',
                 blog = odin_sdk.models.blog.Blog(
-                    title = null, 
-                    keywords = null, 
-                    goal = null, 
-                    final_content = null, 
-                    sections = null, ),
-                blog_section_index = None,
+                    title = '', 
+                    keywords = [
+                        ''
+                        ], 
+                    goal = '', 
+                    final_content = '', 
+                    sections = [
+                        odin_sdk.models.blog_section.BlogSection(
+                            title = '', 
+                            content = '', 
+                            ideas = [
+                                ''
+                                ], )
+                        ], ),
+                blog_section_index = 56,
         )
         """
 

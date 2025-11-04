@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.delete_data_type_response import DeleteDataTypeResponse
 
@@ -28,7 +27,7 @@ class TestDeleteDataTypeResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DeleteDataTypeResponse:
         """Test DeleteDataTypeResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DeleteDataTypeResponse`
@@ -36,11 +35,11 @@ class TestDeleteDataTypeResponse(unittest.TestCase):
         model = DeleteDataTypeResponse()
         if include_optional:
             return DeleteDataTypeResponse(
-                message = None
+                message = ''
             )
         else:
             return DeleteDataTypeResponse(
-                message = None,
+                message = '',
         )
         """
 

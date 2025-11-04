@@ -5,16 +5,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **object** | Name of the view | 
-**description** | [**Description6**](Description6.md) |  | [optional] 
-**type** | **object** | Type of view (grid, kanban, etc) | [optional] 
-**sort** | [**Sort**](Sort.md) |  | [optional] 
-**filter** | [**Filter**](Filter.md) |  | [optional] 
-**group** | [**Group**](Group.md) |  | [optional] 
-**options** | [**Options1**](Options1.md) |  | [optional] 
-**settings** | [**Settings**](Settings.md) |  | [optional] 
-**column_meta** | [**ColumnMeta**](ColumnMeta.md) |  | [optional] 
-**enable_share** | [**EnableShare**](EnableShare.md) |  | [optional] 
+**name** | **str** | Name of the view | 
+**description** | **str** |  | [optional] 
+**type** | **str** | Type of view (grid, kanban, etc) | [optional] [default to 'grid']
+**sort** | **object** |  | [optional] 
+**filter** | **object** |  | [optional] 
+**group** | **object** |  | [optional] 
+**options** | **object** |  | [optional] 
+**settings** | **object** |  | [optional] 
+**column_meta** | **object** |  | [optional] 
+**enable_share** | **bool** |  | [optional] 
 
 ## Example
 
@@ -26,12 +26,12 @@ json = "{}"
 # create an instance of CreateViewRequest from a JSON string
 create_view_request_instance = CreateViewRequest.from_json(json)
 # print the JSON string representation of the object
-print CreateViewRequest.to_json()
+print(CreateViewRequest.to_json())
 
 # convert the object into a dict
 create_view_request_dict = create_view_request_instance.to_dict()
 # create an instance of CreateViewRequest from a dict
-create_view_request_form_dict = create_view_request.from_dict(create_view_request_dict)
+create_view_request_from_dict = CreateViewRequest.from_dict(create_view_request_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

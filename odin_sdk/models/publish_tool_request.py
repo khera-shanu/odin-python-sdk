@@ -17,29 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.change_log1 import ChangeLog1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class PublishToolRequest(BaseModel):
     """
     PublishToolRequest
     """ # noqa: E501
-    version_type: Optional[Any] = Field(default=None, description="Version increment type: major, minor, or patch")
-    change_log: Optional[ChangeLog1] = None
+    version_type: Optional[StrictStr] = Field(default='patch', description="Version increment type: major, minor, or patch")
+    change_log: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["version_type", "change_log"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -52,7 +47,7 @@ class PublishToolRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of PublishToolRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -66,24 +61,23 @@ class PublishToolRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of change_log
-        if self.change_log:
-            _dict['change_log'] = self.change_log.to_dict()
-        # set to None if version_type (nullable) is None
+        # set to None if change_log (nullable) is None
         # and model_fields_set contains the field
-        if self.version_type is None and "version_type" in self.model_fields_set:
-            _dict['version_type'] = None
+        if self.change_log is None and "change_log" in self.model_fields_set:
+            _dict['change_log'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of PublishToolRequest from a dict"""
         if obj is None:
             return None
@@ -92,8 +86,8 @@ class PublishToolRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "version_type": obj.get("version_type"),
-            "change_log": ChangeLog1.from_dict(obj.get("change_log")) if obj.get("change_log") is not None else None
+            "version_type": obj.get("version_type") if obj.get("version_type") is not None else 'patch',
+            "change_log": obj.get("change_log")
         })
         return _obj
 

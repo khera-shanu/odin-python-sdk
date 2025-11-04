@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.custom_tool_version_response import CustomToolVersionResponse
 
@@ -28,7 +27,7 @@ class TestCustomToolVersionResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CustomToolVersionResponse:
         """Test CustomToolVersionResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CustomToolVersionResponse`
@@ -36,27 +35,30 @@ class TestCustomToolVersionResponse(unittest.TestCase):
         model = CustomToolVersionResponse()
         if include_optional:
             return CustomToolVersionResponse(
-                id = None,
-                tool_id = None,
-                version = None,
-                name = None,
-                description = None,
-                inputs = None,
-                steps = None,
-                published_by = None,
-                published_at = None,
-                change_log = None
+                id = '',
+                tool_id = '',
+                version = '',
+                name = '',
+                description = '',
+                inputs = odin_sdk.models.inputs.Inputs(),
+                steps = odin_sdk.models.steps.Steps(),
+                flow_layout = odin_sdk.models.flow_layout.flow_layout(),
+                published_by = '',
+                published_at = '',
+                change_log = '',
+                user_name = '',
+                user_email = ''
             )
         else:
             return CustomToolVersionResponse(
-                id = None,
-                tool_id = None,
-                version = None,
-                name = None,
-                inputs = None,
-                steps = None,
-                published_by = None,
-                published_at = None,
+                id = '',
+                tool_id = '',
+                version = '',
+                name = '',
+                inputs = odin_sdk.models.inputs.Inputs(),
+                steps = odin_sdk.models.steps.Steps(),
+                published_by = '',
+                published_at = '',
         )
         """
 

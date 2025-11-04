@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.import_tool_request import ImportToolRequest
 
@@ -28,7 +27,7 @@ class TestImportToolRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ImportToolRequest:
         """Test ImportToolRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ImportToolRequest`
@@ -36,15 +35,15 @@ class TestImportToolRequest(unittest.TestCase):
         model = ImportToolRequest()
         if include_optional:
             return ImportToolRequest(
-                tool_data = None,
-                project_id = None,
-                new_name = None,
-                import_as_draft = None
+                tool_data = odin_sdk.models.tool_data.Tool Data(),
+                project_id = '',
+                new_name = '',
+                import_as_draft = True
             )
         else:
             return ImportToolRequest(
-                tool_data = None,
-                project_id = None,
+                tool_data = odin_sdk.models.tool_data.Tool Data(),
+                project_id = '',
         )
         """
 

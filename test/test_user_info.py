@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.user_info import UserInfo
 
@@ -28,7 +27,7 @@ class TestUserInfo(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UserInfo:
         """Test UserInfo
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UserInfo`
@@ -36,24 +35,24 @@ class TestUserInfo(unittest.TestCase):
         model = UserInfo()
         if include_optional:
             return UserInfo(
-                project_id = None,
-                name = None,
-                email = None,
-                role = None,
-                user_id = None,
-                is_pending = None,
+                project_id = '',
+                name = '',
+                email = '',
+                role = '',
+                user_id = '',
+                is_pending = True,
                 invited_by = odin_sdk.models.invited_user.InvitedUser(
-                    uid = null, )
+                    uid = '', )
             )
         else:
             return UserInfo(
-                project_id = None,
-                name = None,
-                email = None,
-                role = None,
-                is_pending = None,
+                project_id = '',
+                name = '',
+                email = '',
+                role = '',
+                is_pending = True,
                 invited_by = odin_sdk.models.invited_user.InvitedUser(
-                    uid = null, ),
+                    uid = '', ),
         )
         """
 

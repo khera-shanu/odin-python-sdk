@@ -17,40 +17,31 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.actions import Actions
-from odin_sdk.models.created_at import CreatedAt
-from odin_sdk.models.created_by import CreatedBy
-from odin_sdk.models.members2 import Members2
-from odin_sdk.models.sanitized_name import SanitizedName
-from odin_sdk.models.updated_at import UpdatedAt
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class Role(BaseModel):
     """
     Role
     """ # noqa: E501
-    id: Optional[Any]
-    name: Optional[Any]
-    created_by: Optional[CreatedBy] = None
-    created_at: Optional[CreatedAt] = None
-    updated_at: Optional[UpdatedAt] = None
-    number_of_members: Optional[Any]
-    actions: Optional[Actions] = None
-    sanitized_name: Optional[SanitizedName] = None
-    members: Optional[Members2] = None
+    id: StrictStr
+    name: StrictStr
+    created_by: Optional[StrictStr] = None
+    created_at: Optional[Union[StrictFloat, StrictInt]] = None
+    updated_at: Optional[Union[StrictFloat, StrictInt]] = None
+    number_of_members: StrictInt
+    actions: Optional[StrictStr] = None
+    sanitized_name: Optional[StrictStr] = None
+    members: Optional[List[StrictStr]] = None
     __properties: ClassVar[List[str]] = ["id", "name", "created_by", "created_at", "updated_at", "number_of_members", "actions", "sanitized_name", "members"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -63,7 +54,7 @@ class Role(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of Role from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -77,49 +68,48 @@ class Role(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of created_by
-        if self.created_by:
-            _dict['created_by'] = self.created_by.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of created_at
-        if self.created_at:
-            _dict['created_at'] = self.created_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of updated_at
-        if self.updated_at:
-            _dict['updated_at'] = self.updated_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of actions
-        if self.actions:
-            _dict['actions'] = self.actions.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of sanitized_name
-        if self.sanitized_name:
-            _dict['sanitized_name'] = self.sanitized_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of members
-        if self.members:
-            _dict['members'] = self.members.to_dict()
-        # set to None if id (nullable) is None
+        # set to None if created_by (nullable) is None
         # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
+        if self.created_by is None and "created_by" in self.model_fields_set:
+            _dict['created_by'] = None
 
-        # set to None if name (nullable) is None
+        # set to None if created_at (nullable) is None
         # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
+        if self.created_at is None and "created_at" in self.model_fields_set:
+            _dict['created_at'] = None
 
-        # set to None if number_of_members (nullable) is None
+        # set to None if updated_at (nullable) is None
         # and model_fields_set contains the field
-        if self.number_of_members is None and "number_of_members" in self.model_fields_set:
-            _dict['number_of_members'] = None
+        if self.updated_at is None and "updated_at" in self.model_fields_set:
+            _dict['updated_at'] = None
+
+        # set to None if actions (nullable) is None
+        # and model_fields_set contains the field
+        if self.actions is None and "actions" in self.model_fields_set:
+            _dict['actions'] = None
+
+        # set to None if sanitized_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.sanitized_name is None and "sanitized_name" in self.model_fields_set:
+            _dict['sanitized_name'] = None
+
+        # set to None if members (nullable) is None
+        # and model_fields_set contains the field
+        if self.members is None and "members" in self.model_fields_set:
+            _dict['members'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of Role from a dict"""
         if obj is None:
             return None
@@ -130,13 +120,13 @@ class Role(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "name": obj.get("name"),
-            "created_by": CreatedBy.from_dict(obj.get("created_by")) if obj.get("created_by") is not None else None,
-            "created_at": CreatedAt.from_dict(obj.get("created_at")) if obj.get("created_at") is not None else None,
-            "updated_at": UpdatedAt.from_dict(obj.get("updated_at")) if obj.get("updated_at") is not None else None,
+            "created_by": obj.get("created_by"),
+            "created_at": obj.get("created_at"),
+            "updated_at": obj.get("updated_at"),
             "number_of_members": obj.get("number_of_members"),
-            "actions": Actions.from_dict(obj.get("actions")) if obj.get("actions") is not None else None,
-            "sanitized_name": SanitizedName.from_dict(obj.get("sanitized_name")) if obj.get("sanitized_name") is not None else None,
-            "members": Members2.from_dict(obj.get("members")) if obj.get("members") is not None else None
+            "actions": obj.get("actions"),
+            "sanitized_name": obj.get("sanitized_name"),
+            "members": obj.get("members")
         })
         return _obj
 

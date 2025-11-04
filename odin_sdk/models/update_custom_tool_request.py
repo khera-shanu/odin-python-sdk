@@ -17,35 +17,30 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.description5 import Description5
-from odin_sdk.models.inputs import Inputs
-from odin_sdk.models.is_public1 import IsPublic1
-from odin_sdk.models.name2 import Name2
-from odin_sdk.models.steps import Steps
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.tool_input import ToolInput
+from odin_sdk.models.tool_step import ToolStep
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UpdateCustomToolRequest(BaseModel):
     """
     UpdateCustomToolRequest
     """ # noqa: E501
-    name: Optional[Name2] = None
-    description: Optional[Description5] = None
-    inputs: Optional[Inputs] = None
-    steps: Optional[Steps] = None
-    is_public: Optional[IsPublic1] = None
-    __properties: ClassVar[List[str]] = ["name", "description", "inputs", "steps", "is_public"]
+    name: Optional[StrictStr] = None
+    description: Optional[StrictStr] = None
+    inputs: Optional[Dict[str, ToolInput]] = None
+    steps: Optional[Dict[str, ToolStep]] = None
+    flow_layout: Optional[Dict[str, Any]] = None
+    is_public: Optional[StrictBool] = None
+    __properties: ClassVar[List[str]] = ["name", "description", "inputs", "steps", "flow_layout", "is_public"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -58,7 +53,7 @@ class UpdateCustomToolRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of UpdateCustomToolRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -72,31 +67,62 @@ class UpdateCustomToolRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of name
-        if self.name:
-            _dict['name'] = self.name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of inputs
+        # override the default output from pydantic by calling `to_dict()` of each value in inputs (dict)
+        _field_dict = {}
         if self.inputs:
-            _dict['inputs'] = self.inputs.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of steps
+            for _key_inputs in self.inputs:
+                if self.inputs[_key_inputs]:
+                    _field_dict[_key_inputs] = self.inputs[_key_inputs].to_dict()
+            _dict['inputs'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of each value in steps (dict)
+        _field_dict = {}
         if self.steps:
-            _dict['steps'] = self.steps.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of is_public
-        if self.is_public:
-            _dict['is_public'] = self.is_public.to_dict()
+            for _key_steps in self.steps:
+                if self.steps[_key_steps]:
+                    _field_dict[_key_steps] = self.steps[_key_steps].to_dict()
+            _dict['steps'] = _field_dict
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if inputs (nullable) is None
+        # and model_fields_set contains the field
+        if self.inputs is None and "inputs" in self.model_fields_set:
+            _dict['inputs'] = None
+
+        # set to None if steps (nullable) is None
+        # and model_fields_set contains the field
+        if self.steps is None and "steps" in self.model_fields_set:
+            _dict['steps'] = None
+
+        # set to None if flow_layout (nullable) is None
+        # and model_fields_set contains the field
+        if self.flow_layout is None and "flow_layout" in self.model_fields_set:
+            _dict['flow_layout'] = None
+
+        # set to None if is_public (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_public is None and "is_public" in self.model_fields_set:
+            _dict['is_public'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of UpdateCustomToolRequest from a dict"""
         if obj is None:
             return None
@@ -105,11 +131,22 @@ class UpdateCustomToolRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": Name2.from_dict(obj.get("name")) if obj.get("name") is not None else None,
-            "description": Description5.from_dict(obj.get("description")) if obj.get("description") is not None else None,
-            "inputs": Inputs.from_dict(obj.get("inputs")) if obj.get("inputs") is not None else None,
-            "steps": Steps.from_dict(obj.get("steps")) if obj.get("steps") is not None else None,
-            "is_public": IsPublic1.from_dict(obj.get("is_public")) if obj.get("is_public") is not None else None
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "inputs": dict(
+                (_k, ToolInput.from_dict(_v))
+                for _k, _v in obj["inputs"].items()
+            )
+            if obj.get("inputs") is not None
+            else None,
+            "steps": dict(
+                (_k, ToolStep.from_dict(_v))
+                for _k, _v in obj["steps"].items()
+            )
+            if obj.get("steps") is not None
+            else None,
+            "flow_layout": obj.get("flow_layout"),
+            "is_public": obj.get("is_public")
         })
         return _obj
 

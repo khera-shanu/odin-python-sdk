@@ -17,37 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.default_value2 import DefaultValue2
-from odin_sdk.models.description import Description
-from odin_sdk.models.not_null import NotNull
-from odin_sdk.models.options import Options
-from odin_sdk.models.type4 import Type4
-from odin_sdk.models.unique import Unique
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UpdateColumnMetadataRequest(BaseModel):
     """
     UpdateColumnMetadataRequest
     """ # noqa: E501
-    description: Optional[Description] = None
-    type: Optional[Type4] = None
-    options: Optional[Options] = None
-    not_null: Optional[NotNull] = None
-    unique: Optional[Unique] = None
-    default_value: Optional[DefaultValue2] = None
+    description: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    options: Optional[Dict[str, Any]] = None
+    not_null: Optional[StrictBool] = None
+    unique: Optional[StrictBool] = None
+    default_value: Optional[Any] = Field(default=None, description="Default value for the column")
     __properties: ClassVar[List[str]] = ["description", "type", "options", "not_null", "unique", "default_value"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -60,7 +51,7 @@ class UpdateColumnMetadataRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of UpdateColumnMetadataRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -74,34 +65,51 @@ class UpdateColumnMetadataRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of type
-        if self.type:
-            _dict['type'] = self.type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of options
-        if self.options:
-            _dict['options'] = self.options.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of not_null
-        if self.not_null:
-            _dict['not_null'] = self.not_null.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of unique
-        if self.unique:
-            _dict['unique'] = self.unique.to_dict()
         # override the default output from pydantic by calling `to_dict()` of default_value
         if self.default_value:
             _dict['default_value'] = self.default_value.to_dict()
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
+
+        # set to None if options (nullable) is None
+        # and model_fields_set contains the field
+        if self.options is None and "options" in self.model_fields_set:
+            _dict['options'] = None
+
+        # set to None if not_null (nullable) is None
+        # and model_fields_set contains the field
+        if self.not_null is None and "not_null" in self.model_fields_set:
+            _dict['not_null'] = None
+
+        # set to None if unique (nullable) is None
+        # and model_fields_set contains the field
+        if self.unique is None and "unique" in self.model_fields_set:
+            _dict['unique'] = None
+
+        # set to None if default_value (nullable) is None
+        # and model_fields_set contains the field
+        if self.default_value is None and "default_value" in self.model_fields_set:
+            _dict['default_value'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of UpdateColumnMetadataRequest from a dict"""
         if obj is None:
             return None
@@ -110,12 +118,12 @@ class UpdateColumnMetadataRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "description": Description.from_dict(obj.get("description")) if obj.get("description") is not None else None,
-            "type": Type4.from_dict(obj.get("type")) if obj.get("type") is not None else None,
-            "options": Options.from_dict(obj.get("options")) if obj.get("options") is not None else None,
-            "not_null": NotNull.from_dict(obj.get("not_null")) if obj.get("not_null") is not None else None,
-            "unique": Unique.from_dict(obj.get("unique")) if obj.get("unique") is not None else None,
-            "default_value": DefaultValue2.from_dict(obj.get("default_value")) if obj.get("default_value") is not None else None
+            "description": obj.get("description"),
+            "type": obj.get("type"),
+            "options": obj.get("options"),
+            "not_null": obj.get("not_null"),
+            "unique": obj.get("unique"),
+            "default_value": AnyOf.from_dict(obj["default_value"]) if obj.get("default_value") is not None else None
         })
         return _obj
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.get_templates_response import GetTemplatesResponse
 
@@ -28,7 +27,7 @@ class TestGetTemplatesResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetTemplatesResponse:
         """Test GetTemplatesResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `GetTemplatesResponse`
@@ -36,13 +35,39 @@ class TestGetTemplatesResponse(unittest.TestCase):
         model = GetTemplatesResponse()
         if include_optional:
             return GetTemplatesResponse(
-                message = None,
-                templates = None
+                message = '',
+                templates = [
+                    odin_sdk.models.template_preview.TemplatePreview(
+                        template_id = '', 
+                        title = '', 
+                        description = '', 
+                        fields_count = 56, 
+                        preview_fields = [
+                            odin_sdk.models.template_field.TemplateField(
+                                name = '', 
+                                type = '', 
+                                description = '', )
+                            ], 
+                        category = '', )
+                    ]
             )
         else:
             return GetTemplatesResponse(
-                message = None,
-                templates = None,
+                message = '',
+                templates = [
+                    odin_sdk.models.template_preview.TemplatePreview(
+                        template_id = '', 
+                        title = '', 
+                        description = '', 
+                        fields_count = 56, 
+                        preview_fields = [
+                            odin_sdk.models.template_field.TemplateField(
+                                name = '', 
+                                type = '', 
+                                description = '', )
+                            ], 
+                        category = '', )
+                    ],
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.chat_model_info_response import ChatModelInfoResponse
 
@@ -28,7 +27,7 @@ class TestChatModelInfoResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ChatModelInfoResponse:
         """Test ChatModelInfoResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ChatModelInfoResponse`
@@ -36,11 +35,29 @@ class TestChatModelInfoResponse(unittest.TestCase):
         model = ChatModelInfoResponse()
         if include_optional:
             return ChatModelInfoResponse(
-                available_models = None
+                available_models = [
+                    odin_sdk.models.llm_model.LLMModel(
+                        key = '', 
+                        display_name = '', 
+                        name = '', 
+                        api_type = '', 
+                        cost = 1.337, 
+                        free_plan = True, 
+                        hidden = True, )
+                    ]
             )
         else:
             return ChatModelInfoResponse(
-                available_models = None,
+                available_models = [
+                    odin_sdk.models.llm_model.LLMModel(
+                        key = '', 
+                        display_name = '', 
+                        name = '', 
+                        api_type = '', 
+                        cost = 1.337, 
+                        free_plan = True, 
+                        hidden = True, )
+                    ],
         )
         """
 

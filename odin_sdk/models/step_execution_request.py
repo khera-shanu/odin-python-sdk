@@ -17,30 +17,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class StepExecutionRequest(BaseModel):
     """
     StepExecutionRequest
     """ # noqa: E501
-    project_id: Optional[Any] = Field(description="The project ID")
-    tool_id: Optional[Any] = Field(description="The tool ID to save results to")
-    step_id: Optional[Any] = Field(description="The step ID to execute")
-    tool_config: Optional[Any] = Field(description="The complete tool configuration")
-    __properties: ClassVar[List[str]] = ["project_id", "tool_id", "step_id", "tool_config"]
+    project_id: StrictStr = Field(description="The project ID")
+    tool_id: StrictStr = Field(description="The tool ID to save results to")
+    step_id: StrictStr = Field(description="The step ID to execute")
+    tool_config: Dict[str, Any] = Field(description="The complete tool configuration")
+    email_index: Optional[StrictInt] = None
+    __properties: ClassVar[List[str]] = ["project_id", "tool_id", "step_id", "tool_config", "email_index"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +50,7 @@ class StepExecutionRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of StepExecutionRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,36 +64,23 @@ class StepExecutionRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if project_id (nullable) is None
+        # set to None if email_index (nullable) is None
         # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
-
-        # set to None if tool_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.tool_id is None and "tool_id" in self.model_fields_set:
-            _dict['tool_id'] = None
-
-        # set to None if step_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.step_id is None and "step_id" in self.model_fields_set:
-            _dict['step_id'] = None
-
-        # set to None if tool_config (nullable) is None
-        # and model_fields_set contains the field
-        if self.tool_config is None and "tool_config" in self.model_fields_set:
-            _dict['tool_config'] = None
+        if self.email_index is None and "email_index" in self.model_fields_set:
+            _dict['email_index'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of StepExecutionRequest from a dict"""
         if obj is None:
             return None
@@ -108,7 +92,8 @@ class StepExecutionRequest(BaseModel):
             "project_id": obj.get("project_id"),
             "tool_id": obj.get("tool_id"),
             "step_id": obj.get("step_id"),
-            "tool_config": obj.get("tool_config")
+            "tool_config": obj.get("tool_config"),
+            "email_index": obj.get("email_index")
         })
         return _obj
 

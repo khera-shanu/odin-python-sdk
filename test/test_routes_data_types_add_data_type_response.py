@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.routes_data_types_add_data_type_response import RoutesDataTypesAddDataTypeResponse
 
@@ -28,7 +27,7 @@ class TestRoutesDataTypesAddDataTypeResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RoutesDataTypesAddDataTypeResponse:
         """Test RoutesDataTypesAddDataTypeResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `RoutesDataTypesAddDataTypeResponse`
@@ -36,15 +35,15 @@ class TestRoutesDataTypesAddDataTypeResponse(unittest.TestCase):
         model = RoutesDataTypesAddDataTypeResponse()
         if include_optional:
             return RoutesDataTypesAddDataTypeResponse(
-                message = None,
-                data_type_id = None,
-                view_id = None
+                message = '',
+                data_type_id = '',
+                view_id = ''
             )
         else:
             return RoutesDataTypesAddDataTypeResponse(
-                message = None,
-                data_type_id = None,
-                view_id = None,
+                message = '',
+                data_type_id = '',
+                view_id = '',
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.prospeo_request import ProspeoRequest
 
@@ -28,7 +27,7 @@ class TestProspeoRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ProspeoRequest:
         """Test ProspeoRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ProspeoRequest`
@@ -36,11 +35,11 @@ class TestProspeoRequest(unittest.TestCase):
         model = ProspeoRequest()
         if include_optional:
             return ProspeoRequest(
-                api_type = None
+                api_type = ''
             )
         else:
             return ProspeoRequest(
-                api_type = None,
+                api_type = '',
         )
         """
 

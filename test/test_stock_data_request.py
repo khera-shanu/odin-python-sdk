@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.stock_data_request import StockDataRequest
 
@@ -28,7 +27,7 @@ class TestStockDataRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> StockDataRequest:
         """Test StockDataRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `StockDataRequest`
@@ -36,13 +35,17 @@ class TestStockDataRequest(unittest.TestCase):
         model = StockDataRequest()
         if include_optional:
             return StockDataRequest(
-                symbol = None,
-                metrics = None
+                symbol = '',
+                metrics = [
+                    ''
+                    ]
             )
         else:
             return StockDataRequest(
-                symbol = None,
-                metrics = None,
+                symbol = '',
+                metrics = [
+                    ''
+                    ],
         )
         """
 

@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
 from odin_sdk.models.role import Role
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CreateRoleResponse(BaseModel):
     """
     CreateRoleResponse
     """ # noqa: E501
-    message: Optional[Any]
+    message: StrictStr
     role: Role
     __properties: ClassVar[List[str]] = ["message", "role"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class CreateRoleResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CreateRoleResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,24 +62,21 @@ class CreateRoleResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of role
         if self.role:
             _dict['role'] = self.role.to_dict()
-        # set to None if message (nullable) is None
-        # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CreateRoleResponse from a dict"""
         if obj is None:
             return None
@@ -92,7 +86,7 @@ class CreateRoleResponse(BaseModel):
 
         _obj = cls.model_validate({
             "message": obj.get("message"),
-            "role": Role.from_dict(obj.get("role")) if obj.get("role") is not None else None
+            "role": Role.from_dict(obj["role"]) if obj.get("role") is not None else None
         })
         return _obj
 

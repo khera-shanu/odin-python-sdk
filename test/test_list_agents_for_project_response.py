@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.list_agents_for_project_response import ListAgentsForProjectResponse
 
@@ -28,7 +27,7 @@ class TestListAgentsForProjectResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ListAgentsForProjectResponse:
         """Test ListAgentsForProjectResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ListAgentsForProjectResponse`
@@ -36,7 +35,7 @@ class TestListAgentsForProjectResponse(unittest.TestCase):
         model = ListAgentsForProjectResponse()
         if include_optional:
             return ListAgentsForProjectResponse(
-                agents = None
+                agents = odin_sdk.models.agents.Agents()
             )
         else:
             return ListAgentsForProjectResponse(

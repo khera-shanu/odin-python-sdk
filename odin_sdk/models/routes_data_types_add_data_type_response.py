@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
+from typing import Optional, Set
+from typing_extensions import Self
 
 class RoutesDataTypesAddDataTypeResponse(BaseModel):
     """
     RoutesDataTypesAddDataTypeResponse
     """ # noqa: E501
-    message: Optional[Any]
-    data_type_id: Optional[Any]
-    view_id: Optional[Any]
+    message: StrictStr
+    data_type_id: StrictStr
+    view_id: StrictStr
     __properties: ClassVar[List[str]] = ["message", "data_type_id", "view_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class RoutesDataTypesAddDataTypeResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of RoutesDataTypesAddDataTypeResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,31 +62,18 @@ class RoutesDataTypesAddDataTypeResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if message (nullable) is None
-        # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
-
-        # set to None if data_type_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.data_type_id is None and "data_type_id" in self.model_fields_set:
-            _dict['data_type_id'] = None
-
-        # set to None if view_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.view_id is None and "view_id" in self.model_fields_set:
-            _dict['view_id'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of RoutesDataTypesAddDataTypeResponse from a dict"""
         if obj is None:
             return None

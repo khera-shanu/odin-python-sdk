@@ -5,42 +5,44 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **object** |  | 
-**name** | **object** |  | 
-**owner** | [**Owner1**](Owner1.md) |  | [optional] 
-**created_at** | [**CreatedAt3**](CreatedAt3.md) |  | [optional] 
-**type** | [**Type3**](Type3.md) |  | [optional] 
-**model_name** | [**ModelName3**](ModelName3.md) |  | [optional] 
-**members** | [**Members**](Members.md) |  | 
-**description** | [**Description10**](Description10.md) |  | [optional] 
-**is_favorite** | [**IsFavorite**](IsFavorite.md) |  | [optional] 
-**kb_info** | [**ProjectKbInfo**](ProjectKbInfo.md) |  | [optional] 
-**kb_last_synced** | [**KbLastSynced**](KbLastSynced.md) |  | [optional] 
-**kb_status** | [**KbStatus**](KbStatus.md) |  | [optional] 
-**kb_sync_schedule** | [**KbSyncSchedule**](KbSyncSchedule.md) |  | [optional] 
-**blacklisted_docs** | [**BlacklistedDocs**](BlacklistedDocs.md) |  | [optional] 
-**team_id** | [**TeamId**](TeamId.md) |  | [optional] 
-**system_prompt** | [**SystemPrompt**](SystemPrompt.md) |  | [optional] 
-**custom_agent** | **object** |  | [optional] 
-**custom_agent_name** | [**CustomAgentName**](CustomAgentName.md) |  | [optional] 
-**updated_at** | [**UpdatedAt**](UpdatedAt.md) |  | [optional] 
-**is_public** | [**IsPublic**](IsPublic.md) |  | [optional] 
-**use_textract** | [**UseTextract**](UseTextract.md) |  | [optional] 
-**mask_pii** | [**MaskPii**](MaskPii.md) |  | [optional] 
-**inline_citations** | [**InlineCitations**](InlineCitations.md) |  | [optional] 
-**custom_chatbot** | [**ProjectCustomChatbot**](ProjectCustomChatbot.md) |  | [optional] 
-**feedback_history** | [**FeedbackHistory**](FeedbackHistory.md) |  | [optional] 
-**api_keys** | [**ProjectApiKeys**](ProjectApiKeys.md) |  | [optional] 
-**kb_version** | [**KbVersion**](KbVersion.md) |  | [optional] 
-**embedding_model** | [**EmbeddingModel**](EmbeddingModel.md) |  | [optional] 
-**teamsbot_upload_method** | [**TeamsbotUploadMethod**](TeamsbotUploadMethod.md) |  | [optional] 
-**teamsbot_static_message_footer** | [**TeamsbotStaticMessageFooter**](TeamsbotStaticMessageFooter.md) |  | [optional] 
-**teamsbot_show_feedback_buttons** | [**TeamsbotShowFeedbackButtons**](TeamsbotShowFeedbackButtons.md) |  | [optional] 
-**teamsbot_show_kb_search_message** | [**TeamsbotShowKbSearchMessage**](TeamsbotShowKbSearchMessage.md) |  | [optional] 
-**teamsbot_show_message_sources** | [**TeamsbotShowMessageSources**](TeamsbotShowMessageSources.md) |  | [optional] 
-**shared_to_team** | [**SharedToTeam**](SharedToTeam.md) |  | [optional] 
-**team_default_role** | [**TeamDefaultRole**](TeamDefaultRole.md) |  | [optional] 
-**shared** | [**Shared**](Shared.md) |  | [optional] 
+**id** | **str** |  | 
+**name** | **str** |  | 
+**owner** | **str** |  | [optional] 
+**created_at** | **float** |  | [optional] 
+**type** | **str** |  | [optional] 
+**model_name** | **str** |  | [optional] 
+**members** | [**List[RoutesProjectsMember]**](RoutesProjectsMember.md) |  | 
+**description** | **str** |  | [optional] 
+**is_favorite** | **bool** |  | [optional] 
+**kb_info** | [**KbInfo**](KbInfo.md) |  | [optional] 
+**kb_last_synced** | **float** |  | [optional] 
+**kb_status** | **str** |  | [optional] 
+**kb_sync_schedule** | **float** |  | [optional] 
+**blacklisted_docs** | **List[str]** |  | [optional] 
+**team_id** | **str** |  | [optional] 
+**system_prompt** | [**AnyOf**](AnyOf.md) |  | [optional] 
+**custom_agent** | **str** |  | [optional] 
+**custom_agent_name** | **str** |  | [optional] 
+**updated_at** | **float** |  | [optional] 
+**is_public** | **bool** |  | [optional] 
+**use_textract** | **bool** |  | [optional] 
+**mask_pii** | **bool** |  | [optional] 
+**inline_citations** | **bool** |  | [optional] 
+**custom_chatbot** | [**CustomChatbot**](CustomChatbot.md) |  | [optional] 
+**feedback_history** | **List[object]** |  | [optional] 
+**api_keys** | [**APIKey**](APIKey.md) |  | [optional] 
+**kb_version** | **int** |  | [optional] 
+**embedding_model** | **str** |  | [optional] 
+**teamsbot_upload_method** | **str** |  | [optional] 
+**teamsbot_static_message_footer** | **str** |  | [optional] 
+**teamsbot_show_feedback_buttons** | **bool** |  | [optional] 
+**teamsbot_show_kb_search_message** | **bool** |  | [optional] 
+**teamsbot_show_message_sources** | **bool** |  | [optional] 
+**shared_to_team** | **bool** |  | [optional] 
+**team_default_role** | **str** |  | [optional] 
+**enable_automator_v2** | **bool** |  | [optional] 
+**shared** | **str** |  | [optional] 
+**owner_name** | **str** |  | [optional] 
 
 ## Example
 
@@ -52,12 +54,12 @@ json = "{}"
 # create an instance of Project from a JSON string
 project_instance = Project.from_json(json)
 # print the JSON string representation of the object
-print Project.to_json()
+print(Project.to_json())
 
 # convert the object into a dict
 project_dict = project_instance.to_dict()
 # create an instance of Project from a dict
-project_form_dict = project.from_dict(project_dict)
+project_from_dict = Project.from_dict(project_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

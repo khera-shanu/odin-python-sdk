@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.routes_projects_member import RoutesProjectsMember
 
@@ -28,7 +27,7 @@ class TestRoutesProjectsMember(unittest.TestCase):
 
     def make_instance(self, include_optional) -> RoutesProjectsMember:
         """Test RoutesProjectsMember
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `RoutesProjectsMember`
@@ -36,14 +35,15 @@ class TestRoutesProjectsMember(unittest.TestCase):
         model = RoutesProjectsMember()
         if include_optional:
             return RoutesProjectsMember(
-                id = None,
-                role = None,
-                project_id = None,
-                user_id = None,
-                name = None,
-                email = None,
-                is_pending = None,
-                invited_by = None
+                id = '',
+                role = '',
+                project_id = '',
+                user_id = '',
+                name = '',
+                email = '',
+                is_pending = True,
+                invited_by = odin_sdk.models.invited_user.InvitedUser(
+                    uid = '', )
             )
         else:
             return RoutesProjectsMember(

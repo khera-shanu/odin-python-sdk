@@ -17,32 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ToolStep(BaseModel):
     """
     ToolStep
     """ # noqa: E501
-    id: Optional[Any] = Field(description="Unique identifier for the step")
-    tool_id: Optional[Any] = Field(description="The tool ID for this step", alias="toolId")
-    type: Optional[Any] = Field(description="The type of step (api, etc.)")
-    label: Optional[Any] = Field(description="Display label for the step")
-    description: Optional[Any] = Field(description="Description of what the step does")
-    settings: Optional[Any] = Field(default=None, description="Step settings")
+    id: StrictStr = Field(description="Unique identifier for the step")
+    tool_id: StrictStr = Field(description="The tool ID for this step", alias="toolId")
+    type: StrictStr = Field(description="The type of step (api, etc.)")
+    label: StrictStr = Field(description="Display label for the step")
+    description: StrictStr = Field(description="Description of what the step does")
+    settings: Optional[Dict[str, Any]] = Field(default=None, description="Step settings")
     __properties: ClassVar[List[str]] = ["id", "toolId", "type", "label", "description", "settings"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -55,7 +51,7 @@ class ToolStep(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ToolStep from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -69,46 +65,18 @@ class ToolStep(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
-
-        # set to None if tool_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.tool_id is None and "tool_id" in self.model_fields_set:
-            _dict['toolId'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['type'] = None
-
-        # set to None if label (nullable) is None
-        # and model_fields_set contains the field
-        if self.label is None and "label" in self.model_fields_set:
-            _dict['label'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
-        # set to None if settings (nullable) is None
-        # and model_fields_set contains the field
-        if self.settings is None and "settings" in self.model_fields_set:
-            _dict['settings'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ToolStep from a dict"""
         if obj is None:
             return None

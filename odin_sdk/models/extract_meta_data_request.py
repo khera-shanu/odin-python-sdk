@@ -17,30 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ExtractMetaDataRequest(BaseModel):
     """
     ExtractMetaDataRequest
     """ # noqa: E501
-    text: Optional[Any] = Field(description="Text to extract information from.")
-    example_json: Optional[Any] = Field(description="Information to extract from the text along with python datatypes.")
-    model: Optional[Any] = Field(default=None, description="Model to use for the extraction. Defaults to gpt-4o-mini.")
-    temperature: Optional[Any] = Field(default=None, description="Temperature to use for the extraction. Defaults to 0.0.")
+    text: StrictStr = Field(description="Text to extract information from.")
+    example_json: Dict[str, Any] = Field(description="Information to extract from the text along with python datatypes.")
+    model: Optional[StrictStr] = Field(default='gpt-4o-mini', description="Model to use for the extraction. Defaults to gpt-4o-mini.")
+    temperature: Optional[Union[StrictFloat, StrictInt]] = Field(default=0.0, description="Temperature to use for the extraction. Defaults to 0.0.")
     __properties: ClassVar[List[str]] = ["text", "example_json", "model", "temperature"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +49,7 @@ class ExtractMetaDataRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ExtractMetaDataRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,36 +63,18 @@ class ExtractMetaDataRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if text (nullable) is None
-        # and model_fields_set contains the field
-        if self.text is None and "text" in self.model_fields_set:
-            _dict['text'] = None
-
-        # set to None if example_json (nullable) is None
-        # and model_fields_set contains the field
-        if self.example_json is None and "example_json" in self.model_fields_set:
-            _dict['example_json'] = None
-
-        # set to None if model (nullable) is None
-        # and model_fields_set contains the field
-        if self.model is None and "model" in self.model_fields_set:
-            _dict['model'] = None
-
-        # set to None if temperature (nullable) is None
-        # and model_fields_set contains the field
-        if self.temperature is None and "temperature" in self.model_fields_set:
-            _dict['temperature'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ExtractMetaDataRequest from a dict"""
         if obj is None:
             return None
@@ -107,8 +85,8 @@ class ExtractMetaDataRequest(BaseModel):
         _obj = cls.model_validate({
             "text": obj.get("text"),
             "example_json": obj.get("example_json"),
-            "model": obj.get("model"),
-            "temperature": obj.get("temperature")
+            "model": obj.get("model") if obj.get("model") is not None else 'gpt-4o-mini',
+            "temperature": obj.get("temperature") if obj.get("temperature") is not None else 0.0
         })
         return _obj
 

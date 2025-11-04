@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.custom_chatbot import CustomChatbot
 
@@ -28,7 +27,7 @@ class TestCustomChatbot(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CustomChatbot:
         """Test CustomChatbot
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CustomChatbot`
@@ -36,6 +35,26 @@ class TestCustomChatbot(unittest.TestCase):
         model = CustomChatbot()
         if include_optional:
             return CustomChatbot(
+                input_placeholder_text = '',
+                display_sources = True,
+                primary_color = '',
+                font_size = '',
+                toggle_icon_color = '',
+                text_color = '',
+                caret_bg_color = '',
+                suggestions = [
+                    ''
+                    ],
+                chatbot_name = '',
+                enable_multiple_chats = True,
+                auto_show_welcome_message_after = '',
+                welcome_message = '',
+                pre_chat_attention_image = '',
+                pre_chat_attention_image_behavior = '',
+                toggle_button_image = '',
+                widget_avatar_image = '',
+                show_thinking_process = True,
+                enable_authentication = True
             )
         else:
             return CustomChatbot(

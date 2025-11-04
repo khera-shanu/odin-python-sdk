@@ -17,27 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
+from typing import Optional, Set
+from typing_extensions import Self
 
 class GetJsonRequest(BaseModel):
     """
     GetJsonRequest
     """ # noqa: E501
-    project_id: Optional[Any]
-    json_id: Optional[Any]
+    project_id: StrictStr
+    json_id: StrictStr
     __properties: ClassVar[List[str]] = ["project_id", "json_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -50,7 +47,7 @@ class GetJsonRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of GetJsonRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,26 +61,18 @@ class GetJsonRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
-
-        # set to None if json_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.json_id is None and "json_id" in self.model_fields_set:
-            _dict['json_id'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of GetJsonRequest from a dict"""
         if obj is None:
             return None

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.fetch_kb_documents_request import FetchKBDocumentsRequest
 
@@ -28,7 +27,7 @@ class TestFetchKBDocumentsRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> FetchKBDocumentsRequest:
         """Test FetchKBDocumentsRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `FetchKBDocumentsRequest`
@@ -36,13 +35,17 @@ class TestFetchKBDocumentsRequest(unittest.TestCase):
         model = FetchKBDocumentsRequest()
         if include_optional:
             return FetchKBDocumentsRequest(
-                project_id = None,
-                content_keys = None
+                project_id = '',
+                content_keys = [
+                    ''
+                    ]
             )
         else:
             return FetchKBDocumentsRequest(
-                project_id = None,
-                content_keys = None,
+                project_id = '',
+                content_keys = [
+                    ''
+                    ],
         )
         """
 

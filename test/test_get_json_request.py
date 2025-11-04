@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.get_json_request import GetJsonRequest
 
@@ -28,7 +27,7 @@ class TestGetJsonRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetJsonRequest:
         """Test GetJsonRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `GetJsonRequest`
@@ -36,13 +35,13 @@ class TestGetJsonRequest(unittest.TestCase):
         model = GetJsonRequest()
         if include_optional:
             return GetJsonRequest(
-                project_id = None,
-                json_id = None
+                project_id = '',
+                json_id = ''
             )
         else:
             return GetJsonRequest(
-                project_id = None,
-                json_id = None,
+                project_id = '',
+                json_id = '',
         )
         """
 

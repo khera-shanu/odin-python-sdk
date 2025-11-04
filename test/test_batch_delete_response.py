@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.batch_delete_response import BatchDeleteResponse
 
@@ -28,7 +27,7 @@ class TestBatchDeleteResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BatchDeleteResponse:
         """Test BatchDeleteResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BatchDeleteResponse`
@@ -36,11 +35,11 @@ class TestBatchDeleteResponse(unittest.TestCase):
         model = BatchDeleteResponse()
         if include_optional:
             return BatchDeleteResponse(
-                message = None
+                message = ''
             )
         else:
             return BatchDeleteResponse(
-                message = None,
+                message = '',
         )
         """
 

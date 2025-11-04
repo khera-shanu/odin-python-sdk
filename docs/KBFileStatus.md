@@ -1,28 +1,20 @@
 # KBFileStatus
 
 
-## Properties
+## Enum
 
-Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+* `SYNCED` (value: `'synced'`)
 
-## Example
+* `SYNCING` (value: `'syncing'`)
 
-```python
-from odin_sdk.models.kb_file_status import KBFileStatus
+* `QUEUED` (value: `'queued'`)
 
-# TODO update the JSON string below
-json = "{}"
-# create an instance of KBFileStatus from a JSON string
-kb_file_status_instance = KBFileStatus.from_json(json)
-# print the JSON string representation of the object
-print KBFileStatus.to_json()
+* `FAILED` (value: `'failed'`)
 
-# convert the object into a dict
-kb_file_status_dict = kb_file_status_instance.to_dict()
-# create an instance of KBFileStatus from a dict
-kb_file_status_form_dict = kb_file_status.from_dict(kb_file_status_dict)
-```
+* `DELETING` (value: `'deleting'`)
+
+* `TIMEOUT` (value: `'timeout'`)
+
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

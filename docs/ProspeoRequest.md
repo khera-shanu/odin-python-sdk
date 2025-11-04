@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**api_type** | **object** |  | 
+**api_type** | **str** |  | 
 
 ## Example
 
@@ -17,12 +17,12 @@ json = "{}"
 # create an instance of ProspeoRequest from a JSON string
 prospeo_request_instance = ProspeoRequest.from_json(json)
 # print the JSON string representation of the object
-print ProspeoRequest.to_json()
+print(ProspeoRequest.to_json())
 
 # convert the object into a dict
 prospeo_request_dict = prospeo_request_instance.to_dict()
 # create an instance of ProspeoRequest from a dict
-prospeo_request_form_dict = prospeo_request.from_dict(prospeo_request_dict)
+prospeo_request_from_dict = ProspeoRequest.from_dict(prospeo_request_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -17,33 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.char_count import CharCount
-from odin_sdk.models.disk_usage import DiskUsage
-from odin_sdk.models.url import Url
-from odin_sdk.models.word_count import WordCount
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class KbInfo(BaseModel):
     """
     KbInfo
     """ # noqa: E501
-    word_count: Optional[WordCount] = None
-    char_count: Optional[CharCount] = None
-    disk_usage: Optional[DiskUsage] = None
-    url: Optional[Url] = None
+    word_count: Optional[StrictInt] = None
+    char_count: Optional[StrictInt] = None
+    disk_usage: Optional[StrictInt] = None
+    url: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["word_count", "char_count", "disk_usage", "url"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +49,7 @@ class KbInfo(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of KbInfo from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,28 +63,38 @@ class KbInfo(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of word_count
-        if self.word_count:
-            _dict['word_count'] = self.word_count.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of char_count
-        if self.char_count:
-            _dict['char_count'] = self.char_count.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of disk_usage
-        if self.disk_usage:
-            _dict['disk_usage'] = self.disk_usage.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of url
-        if self.url:
-            _dict['url'] = self.url.to_dict()
+        # set to None if word_count (nullable) is None
+        # and model_fields_set contains the field
+        if self.word_count is None and "word_count" in self.model_fields_set:
+            _dict['word_count'] = None
+
+        # set to None if char_count (nullable) is None
+        # and model_fields_set contains the field
+        if self.char_count is None and "char_count" in self.model_fields_set:
+            _dict['char_count'] = None
+
+        # set to None if disk_usage (nullable) is None
+        # and model_fields_set contains the field
+        if self.disk_usage is None and "disk_usage" in self.model_fields_set:
+            _dict['disk_usage'] = None
+
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['url'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of KbInfo from a dict"""
         if obj is None:
             return None
@@ -100,10 +103,10 @@ class KbInfo(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "word_count": WordCount.from_dict(obj.get("word_count")) if obj.get("word_count") is not None else None,
-            "char_count": CharCount.from_dict(obj.get("char_count")) if obj.get("char_count") is not None else None,
-            "disk_usage": DiskUsage.from_dict(obj.get("disk_usage")) if obj.get("disk_usage") is not None else None,
-            "url": Url.from_dict(obj.get("url")) if obj.get("url") is not None else None
+            "word_count": obj.get("word_count"),
+            "char_count": obj.get("char_count"),
+            "disk_usage": obj.get("disk_usage"),
+            "url": obj.get("url")
         })
         return _obj
 

@@ -17,30 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.new_name import NewName
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ClonePublicToolRequest(BaseModel):
     """
     ClonePublicToolRequest
     """ # noqa: E501
-    public_tool_id: Optional[Any] = Field(description="ID of the public tool to clone")
-    target_project_id: Optional[Any] = Field(description="Project ID where the tool should be cloned")
-    new_name: Optional[NewName] = None
+    public_tool_id: StrictStr = Field(description="ID of the public tool to clone")
+    target_project_id: StrictStr = Field(description="Project ID where the tool should be cloned")
+    new_name: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["public_tool_id", "target_project_id", "new_name"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +48,7 @@ class ClonePublicToolRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ClonePublicToolRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,29 +62,23 @@ class ClonePublicToolRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of new_name
-        if self.new_name:
-            _dict['new_name'] = self.new_name.to_dict()
-        # set to None if public_tool_id (nullable) is None
+        # set to None if new_name (nullable) is None
         # and model_fields_set contains the field
-        if self.public_tool_id is None and "public_tool_id" in self.model_fields_set:
-            _dict['public_tool_id'] = None
-
-        # set to None if target_project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.target_project_id is None and "target_project_id" in self.model_fields_set:
-            _dict['target_project_id'] = None
+        if self.new_name is None and "new_name" in self.model_fields_set:
+            _dict['new_name'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ClonePublicToolRequest from a dict"""
         if obj is None:
             return None
@@ -100,7 +89,7 @@ class ClonePublicToolRequest(BaseModel):
         _obj = cls.model_validate({
             "public_tool_id": obj.get("public_tool_id"),
             "target_project_id": obj.get("target_project_id"),
-            "new_name": NewName.from_dict(obj.get("new_name")) if obj.get("new_name") is not None else None
+            "new_name": obj.get("new_name")
         })
         return _obj
 

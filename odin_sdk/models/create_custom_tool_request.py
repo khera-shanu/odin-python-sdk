@@ -17,32 +17,30 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.description5 import Description5
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.tool_input import ToolInput
+from odin_sdk.models.tool_step import ToolStep
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CreateCustomToolRequest(BaseModel):
     """
     CreateCustomToolRequest
     """ # noqa: E501
-    name: Optional[Any] = Field(description="Name of the custom tool")
-    description: Optional[Description5] = None
-    inputs: Optional[Any] = Field(default=None, description="Tool inputs configuration")
-    steps: Optional[Any] = Field(default=None, description="Tool steps configuration")
-    project_id: Optional[Any] = Field(description="Project ID this tool belongs to")
-    __properties: ClassVar[List[str]] = ["name", "description", "inputs", "steps", "project_id"]
+    name: StrictStr = Field(description="Name of the custom tool")
+    description: Optional[StrictStr] = None
+    inputs: Optional[Dict[str, ToolInput]] = Field(default=None, description="Tool inputs configuration")
+    steps: Optional[Dict[str, ToolStep]] = Field(default=None, description="Tool steps configuration")
+    flow_layout: Optional[Dict[str, Any]] = None
+    project_id: StrictStr = Field(description="Project ID this tool belongs to")
+    __properties: ClassVar[List[str]] = ["name", "description", "inputs", "steps", "flow_layout", "project_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -55,7 +53,7 @@ class CreateCustomToolRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CreateCustomToolRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -69,39 +67,42 @@ class CreateCustomToolRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # set to None if name (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of each value in inputs (dict)
+        _field_dict = {}
+        if self.inputs:
+            for _key_inputs in self.inputs:
+                if self.inputs[_key_inputs]:
+                    _field_dict[_key_inputs] = self.inputs[_key_inputs].to_dict()
+            _dict['inputs'] = _field_dict
+        # override the default output from pydantic by calling `to_dict()` of each value in steps (dict)
+        _field_dict = {}
+        if self.steps:
+            for _key_steps in self.steps:
+                if self.steps[_key_steps]:
+                    _field_dict[_key_steps] = self.steps[_key_steps].to_dict()
+            _dict['steps'] = _field_dict
+        # set to None if description (nullable) is None
         # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
 
-        # set to None if inputs (nullable) is None
+        # set to None if flow_layout (nullable) is None
         # and model_fields_set contains the field
-        if self.inputs is None and "inputs" in self.model_fields_set:
-            _dict['inputs'] = None
-
-        # set to None if steps (nullable) is None
-        # and model_fields_set contains the field
-        if self.steps is None and "steps" in self.model_fields_set:
-            _dict['steps'] = None
-
-        # set to None if project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.flow_layout is None and "flow_layout" in self.model_fields_set:
+            _dict['flow_layout'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CreateCustomToolRequest from a dict"""
         if obj is None:
             return None
@@ -111,7 +112,20 @@ class CreateCustomToolRequest(BaseModel):
 
         _obj = cls.model_validate({
             "name": obj.get("name"),
-            "description": Description5.from_dict(obj.get("description")) if obj.get("description") is not None else None,
+            "description": obj.get("description"),
+            "inputs": dict(
+                (_k, ToolInput.from_dict(_v))
+                for _k, _v in obj["inputs"].items()
+            )
+            if obj.get("inputs") is not None
+            else None,
+            "steps": dict(
+                (_k, ToolStep.from_dict(_v))
+                for _k, _v in obj["steps"].items()
+            )
+            if obj.get("steps") is not None
+            else None,
+            "flow_layout": obj.get("flow_layout"),
             "project_id": obj.get("project_id")
         })
         return _obj

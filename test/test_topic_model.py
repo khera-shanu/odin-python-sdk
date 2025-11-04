@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.topic_model import TopicModel
 
@@ -28,7 +27,7 @@ class TestTopicModel(unittest.TestCase):
 
     def make_instance(self, include_optional) -> TopicModel:
         """Test TopicModel
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `TopicModel`
@@ -36,13 +35,29 @@ class TestTopicModel(unittest.TestCase):
         model = TopicModel()
         if include_optional:
             return TopicModel(
-                keywords = None,
-                urls = None
+                keywords = [
+                    odin_sdk.models.topic_model_keyword.TopicModelKeyword(
+                        keyword = '', 
+                        current_count = 56, 
+                        min_count = 56, 
+                        max_count = 56, )
+                    ],
+                urls = [
+                    ''
+                    ]
             )
         else:
             return TopicModel(
-                keywords = None,
-                urls = None,
+                keywords = [
+                    odin_sdk.models.topic_model_keyword.TopicModelKeyword(
+                        keyword = '', 
+                        current_count = 56, 
+                        min_count = 56, 
+                        max_count = 56, )
+                    ],
+                urls = [
+                    ''
+                    ],
         )
         """
 

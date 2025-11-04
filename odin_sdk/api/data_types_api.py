@@ -11,84 +11,38 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
-import io
 import warnings
-
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Dict, List, Optional, Tuple, Union, Any
-
-try:
-    from typing import Annotated
-except ImportError:
-    from typing_extensions import Annotated
-
-from pydantic import Field
+from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
-from pydantic import StrictStr
 
-from typing import Any, Optional
-
-from odin_sdk.models.activate_data_types_request import ActivateDataTypesRequest
-from odin_sdk.models.activate_data_types_response import ActivateDataTypesResponse
-from odin_sdk.models.add_column_request import AddColumnRequest
-from odin_sdk.models.add_column_response import AddColumnResponse
-from odin_sdk.models.add_data_type_row_request import AddDataTypeRowRequest
-from odin_sdk.models.add_data_type_row_response import AddDataTypeRowResponse
-from odin_sdk.models.add_multiple_columns_request import AddMultipleColumnsRequest
-from odin_sdk.models.add_multiple_columns_response import AddMultipleColumnsResponse
-from odin_sdk.models.add_multiple_data_type_rows_request import AddMultipleDataTypeRowsRequest
-from odin_sdk.models.add_multiple_data_type_rows_response import AddMultipleDataTypeRowsResponse
-from odin_sdk.models.compute_all_rows_response import ComputeAllRowsResponse
+from pydantic import Field, StrictBool, StrictBytes, StrictStr
+from typing import Any, Dict, Optional, Tuple, Union
+from typing_extensions import Annotated
 from odin_sdk.models.compute_column_async_response import ComputeColumnAsyncResponse
 from odin_sdk.models.compute_column_cancel_response import ComputeColumnCancelResponse
 from odin_sdk.models.compute_column_jobs_response import ComputeColumnJobsResponse
 from odin_sdk.models.compute_column_request import ComputeColumnRequest
-from odin_sdk.models.compute_column_response import ComputeColumnResponse
 from odin_sdk.models.compute_column_status_response import ComputeColumnStatusResponse
-from odin_sdk.models.compute_row_columns_request import ComputeRowColumnsRequest
-from odin_sdk.models.compute_row_columns_response import ComputeRowColumnsResponse
 from odin_sdk.models.create_view_request import CreateViewRequest
 from odin_sdk.models.create_view_response import CreateViewResponse
-from odin_sdk.models.delete_column_response import DeleteColumnResponse
 from odin_sdk.models.delete_data_type_response import DeleteDataTypeResponse
-from odin_sdk.models.export_data_type_response import ExportDataTypeResponse
-from odin_sdk.models.extract_data_type_request import ExtractDataTypeRequest
-from odin_sdk.models.extract_data_type_response import ExtractDataTypeResponse
-from odin_sdk.models.extraction_settings_response import ExtractionSettingsResponse
-from odin_sdk.models.get_available_records_response import GetAvailableRecordsResponse
-from odin_sdk.models.get_child_records_response import GetChildRecordsResponse
-from odin_sdk.models.get_dashboard_data_request import GetDashboardDataRequest
-from odin_sdk.models.get_dashboard_data_response import GetDashboardDataResponse
-from odin_sdk.models.get_data_type_json_response import GetDataTypeJsonResponse
 from odin_sdk.models.get_data_type_view_response import GetDataTypeViewResponse
-from odin_sdk.models.get_sql_user_info_response import GetSQLUserInfoResponse
+from odin_sdk.models.get_grouped_data_type_view_response import GetGroupedDataTypeViewResponse
 from odin_sdk.models.get_templates_response import GetTemplatesResponse
 from odin_sdk.models.import_table_response import ImportTableResponse
-from odin_sdk.models.rename_data_type_request import RenameDataTypeRequest
-from odin_sdk.models.rename_data_type_response import RenameDataTypeResponse
 from odin_sdk.models.routes_data_types_add_data_type_request import RoutesDataTypesAddDataTypeRequest
 from odin_sdk.models.routes_data_types_add_data_type_response import RoutesDataTypesAddDataTypeResponse
 from odin_sdk.models.routes_data_types_get_data_type_response import RoutesDataTypesGetDataTypeResponse
 from odin_sdk.models.routes_data_types_get_data_types_response import RoutesDataTypesGetDataTypesResponse
-from odin_sdk.models.run_extraction_test_request import RunExtractionTestRequest
-from odin_sdk.models.run_extraction_test_response import RunExtractionTestResponse
-from odin_sdk.models.save_extraction_settings_request import SaveExtractionSettingsRequest
 from odin_sdk.models.update_column_metadata_request import UpdateColumnMetadataRequest
 from odin_sdk.models.update_column_metadata_response import UpdateColumnMetadataResponse
-from odin_sdk.models.update_column_value_request import UpdateColumnValueRequest
-from odin_sdk.models.update_column_value_response import UpdateColumnValueResponse
-from odin_sdk.models.update_record_links_request import UpdateRecordLinksRequest
-from odin_sdk.models.update_record_links_response import UpdateRecordLinksResponse
-from odin_sdk.models.update_row_order_request import UpdateRowOrderRequest
-from odin_sdk.models.update_row_order_response import UpdateRowOrderResponse
 from odin_sdk.models.update_view_request import UpdateViewRequest
 from odin_sdk.models.update_view_response import UpdateViewResponse
 from odin_sdk.models.use_template_request import UseTemplateRequest
 from odin_sdk.models.use_template_response import UseTemplateResponse
-from odin_sdk.models.validation_result_response import ValidationResultResponse
 
-from odin_sdk.api_client import ApiClient
+from odin_sdk.api_client import ApiClient, RequestSerialized
 from odin_sdk.api_response import ApiResponse
 from odin_sdk.rest import RESTResponseType
 
@@ -107,1676 +61,11 @@ class DataTypesApi:
 
 
     @validate_call
-    def activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        activate_data_types_request: ActivateDataTypesRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ActivateDataTypesResponse:
-        """Activate Data Type For Project
-
-        Activate a Data Type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param activate_data_types_request: (required)
-        :type activate_data_types_request: ActivateDataTypesRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            activate_data_types_request=activate_data_types_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActivateDataTypesResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        activate_data_types_request: ActivateDataTypesRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ActivateDataTypesResponse]:
-        """Activate Data Type For Project
-
-        Activate a Data Type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param activate_data_types_request: (required)
-        :type activate_data_types_request: ActivateDataTypesRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            activate_data_types_request=activate_data_types_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActivateDataTypesResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        activate_data_types_request: ActivateDataTypesRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Activate Data Type For Project
-
-        Activate a Data Type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param activate_data_types_request: (required)
-        :type activate_data_types_request: ActivateDataTypesRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            activate_data_types_request=activate_data_types_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ActivateDataTypesResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _activate_data_type_for_project_project_project_id_data_types_data_type_id_activate_put_serialize(
-        self,
-        project_id,
-        data_type_id,
-        activate_data_types_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if activate_data_types_request is not None:
-            _body_params = activate_data_types_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/activate',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def add_column_project_project_id_data_type_data_type_id_column_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_column_request: AddColumnRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AddColumnResponse:
-        """Add Column
-
-        Add a new column to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_column_request: (required)
-        :type add_column_request: AddColumnRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_column_project_project_id_data_type_data_type_id_column_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_column_request=add_column_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def add_column_project_project_id_data_type_data_type_id_column_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_column_request: AddColumnRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AddColumnResponse]:
-        """Add Column
-
-        Add a new column to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_column_request: (required)
-        :type add_column_request: AddColumnRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_column_project_project_id_data_type_data_type_id_column_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_column_request=add_column_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def add_column_project_project_id_data_type_data_type_id_column_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_column_request: AddColumnRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add Column
-
-        Add a new column to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_column_request: (required)
-        :type add_column_request: AddColumnRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_column_project_project_id_data_type_data_type_id_column_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_column_request=add_column_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _add_column_project_project_id_data_type_data_type_id_column_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        add_column_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if add_column_request is not None:
-            _body_params = add_column_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/column',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def add_data_type_row_project_project_id_data_type_data_type_id_row_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_data_type_row_request: AddDataTypeRowRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AddDataTypeRowResponse:
-        """Add Data Type Row
-
-        Add a new row to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_data_type_row_request: (required)
-        :type add_data_type_row_request: AddDataTypeRowRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_data_type_row_project_project_id_data_type_data_type_id_row_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_data_type_row_request=add_data_type_row_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddDataTypeRowResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def add_data_type_row_project_project_id_data_type_data_type_id_row_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_data_type_row_request: AddDataTypeRowRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AddDataTypeRowResponse]:
-        """Add Data Type Row
-
-        Add a new row to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_data_type_row_request: (required)
-        :type add_data_type_row_request: AddDataTypeRowRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_data_type_row_project_project_id_data_type_data_type_id_row_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_data_type_row_request=add_data_type_row_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddDataTypeRowResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def add_data_type_row_project_project_id_data_type_data_type_id_row_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_data_type_row_request: AddDataTypeRowRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add Data Type Row
-
-        Add a new row to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_data_type_row_request: (required)
-        :type add_data_type_row_request: AddDataTypeRowRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_data_type_row_project_project_id_data_type_data_type_id_row_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_data_type_row_request=add_data_type_row_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddDataTypeRowResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _add_data_type_row_project_project_id_data_type_data_type_id_row_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        add_data_type_row_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if add_data_type_row_request is not None:
-            _body_params = add_data_type_row_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/row',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def add_multiple_columns_project_project_id_data_type_data_type_id_columns_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_multiple_columns_request: AddMultipleColumnsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AddMultipleColumnsResponse:
-        """Add Multiple Columns
-
-        Add multiple new columns to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_multiple_columns_request: (required)
-        :type add_multiple_columns_request: AddMultipleColumnsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_multiple_columns_project_project_id_data_type_data_type_id_columns_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_multiple_columns_request=add_multiple_columns_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddMultipleColumnsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def add_multiple_columns_project_project_id_data_type_data_type_id_columns_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_multiple_columns_request: AddMultipleColumnsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AddMultipleColumnsResponse]:
-        """Add Multiple Columns
-
-        Add multiple new columns to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_multiple_columns_request: (required)
-        :type add_multiple_columns_request: AddMultipleColumnsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_multiple_columns_project_project_id_data_type_data_type_id_columns_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_multiple_columns_request=add_multiple_columns_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddMultipleColumnsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def add_multiple_columns_project_project_id_data_type_data_type_id_columns_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_multiple_columns_request: AddMultipleColumnsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add Multiple Columns
-
-        Add multiple new columns to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_multiple_columns_request: (required)
-        :type add_multiple_columns_request: AddMultipleColumnsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_multiple_columns_project_project_id_data_type_data_type_id_columns_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_multiple_columns_request=add_multiple_columns_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddMultipleColumnsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _add_multiple_columns_project_project_id_data_type_data_type_id_columns_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        add_multiple_columns_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if add_multiple_columns_request is not None:
-            _body_params = add_multiple_columns_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/columns',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_multiple_data_type_rows_request: AddMultipleDataTypeRowsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AddMultipleDataTypeRowsResponse:
-        """Add Multiple Data Type Rows
-
-        Add multiple rows to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_multiple_data_type_rows_request: (required)
-        :type add_multiple_data_type_rows_request: AddMultipleDataTypeRowsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_multiple_data_type_rows_request=add_multiple_data_type_rows_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddMultipleDataTypeRowsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_multiple_data_type_rows_request: AddMultipleDataTypeRowsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AddMultipleDataTypeRowsResponse]:
-        """Add Multiple Data Type Rows
-
-        Add multiple rows to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_multiple_data_type_rows_request: (required)
-        :type add_multiple_data_type_rows_request: AddMultipleDataTypeRowsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_multiple_data_type_rows_request=add_multiple_data_type_rows_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddMultipleDataTypeRowsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        add_multiple_data_type_rows_request: AddMultipleDataTypeRowsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Add Multiple Data Type Rows
-
-        Add multiple rows to a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param add_multiple_data_type_rows_request: (required)
-        :type add_multiple_data_type_rows_request: AddMultipleDataTypeRowsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            add_multiple_data_type_rows_request=add_multiple_data_type_rows_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "AddMultipleDataTypeRowsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _add_multiple_data_type_rows_project_project_id_data_type_data_type_id_rows_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        add_multiple_data_type_rows_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if add_multiple_data_type_rows_request is not None:
-            _body_params = add_multiple_data_type_rows_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/rows',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def cancel_compute_column_job_project_project_id_data_type_data_type_id_compute_column_cancel_execution_id_post(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        execution_id: Any,
+        data_type_id: StrictStr,
+        execution_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1799,9 +88,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param execution_id: (required)
-        :type execution_id: object
+        :type execution_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1859,8 +148,8 @@ class DataTypesApi:
     def cancel_compute_column_job_project_project_id_data_type_data_type_id_compute_column_cancel_execution_id_post_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        execution_id: Any,
+        data_type_id: StrictStr,
+        execution_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1883,9 +172,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param execution_id: (required)
-        :type execution_id: object
+        :type execution_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -1943,8 +232,8 @@ class DataTypesApi:
     def cancel_compute_column_job_project_project_id_data_type_data_type_id_compute_column_cancel_execution_id_post_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        execution_id: Any,
+        data_type_id: StrictStr,
+        execution_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -1967,9 +256,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param execution_id: (required)
-        :type execution_id: object
+        :type execution_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -2030,7 +319,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2041,7 +330,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2062,11 +353,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -2092,332 +384,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        bypass_celery: Optional[Any] = None,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ComputeAllRowsResponse:
-        """Compute All Rows
-
-        Compute values for all rows in a data type table using LLM
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param bypass_celery:
-        :type bypass_celery: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            bypass_celery=bypass_celery,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeAllRowsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        bypass_celery: Optional[Any] = None,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ComputeAllRowsResponse]:
-        """Compute All Rows
-
-        Compute values for all rows in a data type table using LLM
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param bypass_celery:
-        :type bypass_celery: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            bypass_celery=bypass_celery,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeAllRowsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        bypass_celery: Optional[Any] = None,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Compute All Rows
-
-        Compute values for all rows in a data type table using LLM
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param bypass_celery:
-        :type bypass_celery: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            bypass_celery=bypass_celery,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeAllRowsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _compute_all_rows_project_project_id_data_type_data_type_id_compute_all_rows_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        bypass_celery,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        if bypass_celery is not None:
-            
-            _query_params.append(('bypass_celery', bypass_celery))
-            
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/compute-all-rows',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def compute_column_values_async_project_project_id_data_type_data_type_id_compute_column_async_post(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         compute_column_request: ComputeColumnRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -2441,7 +411,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param compute_column_request: (required)
         :type compute_column_request: ComputeColumnRequest
         :param x_api_key: Your Odin API key.
@@ -2501,7 +471,7 @@ class DataTypesApi:
     def compute_column_values_async_project_project_id_data_type_data_type_id_compute_column_async_post_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         compute_column_request: ComputeColumnRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -2525,7 +495,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param compute_column_request: (required)
         :type compute_column_request: ComputeColumnRequest
         :param x_api_key: Your Odin API key.
@@ -2585,7 +555,7 @@ class DataTypesApi:
     def compute_column_values_async_project_project_id_data_type_data_type_id_compute_column_async_post_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         compute_column_request: ComputeColumnRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -2609,7 +579,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param compute_column_request: (required)
         :type compute_column_request: ComputeColumnRequest
         :param x_api_key: Your Odin API key.
@@ -2672,7 +642,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2683,7 +653,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2704,11 +676,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2731,687 +704,6 @@ class DataTypesApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/project/{project_id}/data-type/{data_type_id}/compute-column/async',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def compute_column_values_project_project_id_data_type_data_type_id_compute_column_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        compute_column_request: ComputeColumnRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ComputeColumnResponse:
-        """Compute Column Values
-
-        Compute values for a column using LLM if configured
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param compute_column_request: (required)
-        :type compute_column_request: ComputeColumnRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_column_values_project_project_id_data_type_data_type_id_compute_column_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            compute_column_request=compute_column_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def compute_column_values_project_project_id_data_type_data_type_id_compute_column_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        compute_column_request: ComputeColumnRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ComputeColumnResponse]:
-        """Compute Column Values
-
-        Compute values for a column using LLM if configured
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param compute_column_request: (required)
-        :type compute_column_request: ComputeColumnRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_column_values_project_project_id_data_type_data_type_id_compute_column_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            compute_column_request=compute_column_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def compute_column_values_project_project_id_data_type_data_type_id_compute_column_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        compute_column_request: ComputeColumnRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Compute Column Values
-
-        Compute values for a column using LLM if configured
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param compute_column_request: (required)
-        :type compute_column_request: ComputeColumnRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_column_values_project_project_id_data_type_data_type_id_compute_column_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            compute_column_request=compute_column_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _compute_column_values_project_project_id_data_type_data_type_id_compute_column_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        compute_column_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if compute_column_request is not None:
-            _body_params = compute_column_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/compute-column',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        compute_row_columns_request: ComputeRowColumnsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ComputeRowColumnsResponse:
-        """Compute Row Columns
-
-        Compute values for one or more columns in a specific row using LLM
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param compute_row_columns_request: (required)
-        :type compute_row_columns_request: ComputeRowColumnsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            compute_row_columns_request=compute_row_columns_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeRowColumnsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        compute_row_columns_request: ComputeRowColumnsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ComputeRowColumnsResponse]:
-        """Compute Row Columns
-
-        Compute values for one or more columns in a specific row using LLM
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param compute_row_columns_request: (required)
-        :type compute_row_columns_request: ComputeRowColumnsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            compute_row_columns_request=compute_row_columns_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeRowColumnsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        compute_row_columns_request: ComputeRowColumnsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Compute Row Columns
-
-        Compute values for one or more columns in a specific row using LLM
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param compute_row_columns_request: (required)
-        :type compute_row_columns_request: ComputeRowColumnsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            compute_row_columns_request=compute_row_columns_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ComputeRowColumnsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _compute_row_columns_project_project_id_data_type_data_type_id_row_row_id_compute_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        row_id,
-        compute_row_columns_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        if row_id is not None:
-            _path_params['row_id'] = row_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if compute_row_columns_request is not None:
-            _body_params = compute_row_columns_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/row/{row_id}/compute',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -3673,7 +965,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3684,7 +976,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3703,11 +997,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3749,7 +1044,7 @@ class DataTypesApi:
     def create_data_type_view_project_project_id_data_type_data_type_id_view_post(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         create_view_request: CreateViewRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3773,7 +1068,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param create_view_request: (required)
         :type create_view_request: CreateViewRequest
         :param x_api_key: Your Odin API key.
@@ -3833,7 +1128,7 @@ class DataTypesApi:
     def create_data_type_view_project_project_id_data_type_data_type_id_view_post_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         create_view_request: CreateViewRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3857,7 +1152,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param create_view_request: (required)
         :type create_view_request: CreateViewRequest
         :param x_api_key: Your Odin API key.
@@ -3917,7 +1212,7 @@ class DataTypesApi:
     def create_data_type_view_project_project_id_data_type_data_type_id_view_post_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         create_view_request: CreateViewRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -3941,7 +1236,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param create_view_request: (required)
         :type create_view_request: CreateViewRequest
         :param x_api_key: Your Odin API key.
@@ -4004,7 +1299,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -4015,7 +1310,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -4036,11 +1333,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4079,330 +1377,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def delete_column_project_project_id_data_type_data_type_id_column_column_name_delete(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        column_name: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> DeleteColumnResponse:
-        """Delete Column
-
-        Delete a column from a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param column_name: (required)
-        :type column_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_column_project_project_id_data_type_data_type_id_column_column_name_delete_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            column_name=column_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def delete_column_project_project_id_data_type_data_type_id_column_column_name_delete_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        column_name: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[DeleteColumnResponse]:
-        """Delete Column
-
-        Delete a column from a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param column_name: (required)
-        :type column_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_column_project_project_id_data_type_data_type_id_column_column_name_delete_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            column_name=column_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def delete_column_project_project_id_data_type_data_type_id_column_column_name_delete_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        column_name: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete Column
-
-        Delete a column from a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param column_name: (required)
-        :type column_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_column_project_project_id_data_type_data_type_id_column_column_name_delete_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            column_name=column_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteColumnResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _delete_column_project_project_id_data_type_data_type_id_column_column_name_delete_serialize(
-        self,
-        project_id,
-        data_type_id,
-        column_name,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        if column_name is not None:
-            _path_params['column_name'] = column_name
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/column/{column_name}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def delete_data_type_by_id_project_project_id_data_types_data_type_id_delete(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -4425,7 +1403,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -4482,7 +1460,7 @@ class DataTypesApi:
     def delete_data_type_by_id_project_project_id_data_types_data_type_id_delete_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -4505,7 +1483,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -4562,7 +1540,7 @@ class DataTypesApi:
     def delete_data_type_by_id_project_project_id_data_types_data_type_id_delete_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
+        data_type_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -4585,7 +1563,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -4644,7 +1622,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -4655,7 +1633,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -4674,11 +1654,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -4704,1673 +1685,12 @@ class DataTypesApi:
 
 
     @validate_call
-    def delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> DeleteDataTypeResponse:
-        """Delete Data Type Row
-
-        Delete a row from a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[DeleteDataTypeResponse]:
-        """Delete Data Type Row
-
-        Delete a row from a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Delete Data Type Row
-
-        Delete a row from a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "DeleteDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _delete_data_type_row_project_project_id_data_type_data_type_id_row_row_id_delete_serialize(
-        self,
-        project_id,
-        data_type_id,
-        row_id,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        if row_id is not None:
-            _path_params['row_id'] = row_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='DELETE',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/row/{row_id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def export_data_type_config_project_project_id_data_type_data_type_id_export_get(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExportDataTypeResponse:
-        """Export Data Type Config
-
-        Export a data type configuration for import elsewhere
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._export_data_type_config_project_project_id_data_type_data_type_id_export_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExportDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def export_data_type_config_project_project_id_data_type_data_type_id_export_get_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExportDataTypeResponse]:
-        """Export Data Type Config
-
-        Export a data type configuration for import elsewhere
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._export_data_type_config_project_project_id_data_type_data_type_id_export_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExportDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def export_data_type_config_project_project_id_data_type_data_type_id_export_get_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Export Data Type Config
-
-        Export a data type configuration for import elsewhere
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._export_data_type_config_project_project_id_data_type_data_type_id_export_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExportDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _export_data_type_config_project_project_id_data_type_data_type_id_export_get_serialize(
-        self,
-        project_id,
-        data_type_id,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/export',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def extract_data_type_from_doc_project_project_id_extract_data_type_post(
-        self,
-        project_id: StrictStr,
-        extract_data_type_request: ExtractDataTypeRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExtractDataTypeResponse:
-        """Extract Data Type From Doc
-
-        Extract the data types from content
-
-        :param project_id: (required)
-        :type project_id: str
-        :param extract_data_type_request: (required)
-        :type extract_data_type_request: ExtractDataTypeRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._extract_data_type_from_doc_project_project_id_extract_data_type_post_serialize(
-            project_id=project_id,
-            extract_data_type_request=extract_data_type_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def extract_data_type_from_doc_project_project_id_extract_data_type_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        extract_data_type_request: ExtractDataTypeRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExtractDataTypeResponse]:
-        """Extract Data Type From Doc
-
-        Extract the data types from content
-
-        :param project_id: (required)
-        :type project_id: str
-        :param extract_data_type_request: (required)
-        :type extract_data_type_request: ExtractDataTypeRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._extract_data_type_from_doc_project_project_id_extract_data_type_post_serialize(
-            project_id=project_id,
-            extract_data_type_request=extract_data_type_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def extract_data_type_from_doc_project_project_id_extract_data_type_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        extract_data_type_request: ExtractDataTypeRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Extract Data Type From Doc
-
-        Extract the data types from content
-
-        :param project_id: (required)
-        :type project_id: str
-        :param extract_data_type_request: (required)
-        :type extract_data_type_request: ExtractDataTypeRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._extract_data_type_from_doc_project_project_id_extract_data_type_post_serialize(
-            project_id=project_id,
-            extract_data_type_request=extract_data_type_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _extract_data_type_from_doc_project_project_id_extract_data_type_post_serialize(
-        self,
-        project_id,
-        extract_data_type_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if extract_data_type_request is not None:
-            _body_params = extract_data_type_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/extract/data-type',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the target data type")],
-        parent_data_type_id: Annotated[Any, Field(description="ID of the parent data type")],
-        parent_record_id: Annotated[Any, Field(description="ID of the parent record")],
-        field_name: Annotated[Any, Field(description="Name of the collection field in the parent table")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetAvailableRecordsResponse:
-        """Get Available Records For Linking
-
-        Fetch all records available for linking to a parent record
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the target data type (required)
-        :type data_type_id: object
-        :param parent_data_type_id: ID of the parent data type (required)
-        :type parent_data_type_id: object
-        :param parent_record_id: ID of the parent record (required)
-        :type parent_record_id: object
-        :param field_name: Name of the collection field in the parent table (required)
-        :type field_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            parent_data_type_id=parent_data_type_id,
-            parent_record_id=parent_record_id,
-            field_name=field_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetAvailableRecordsResponse",
-            '404': "GetAvailableRecordsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the target data type")],
-        parent_data_type_id: Annotated[Any, Field(description="ID of the parent data type")],
-        parent_record_id: Annotated[Any, Field(description="ID of the parent record")],
-        field_name: Annotated[Any, Field(description="Name of the collection field in the parent table")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetAvailableRecordsResponse]:
-        """Get Available Records For Linking
-
-        Fetch all records available for linking to a parent record
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the target data type (required)
-        :type data_type_id: object
-        :param parent_data_type_id: ID of the parent data type (required)
-        :type parent_data_type_id: object
-        :param parent_record_id: ID of the parent record (required)
-        :type parent_record_id: object
-        :param field_name: Name of the collection field in the parent table (required)
-        :type field_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            parent_data_type_id=parent_data_type_id,
-            parent_record_id=parent_record_id,
-            field_name=field_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetAvailableRecordsResponse",
-            '404': "GetAvailableRecordsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the target data type")],
-        parent_data_type_id: Annotated[Any, Field(description="ID of the parent data type")],
-        parent_record_id: Annotated[Any, Field(description="ID of the parent record")],
-        field_name: Annotated[Any, Field(description="Name of the collection field in the parent table")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Available Records For Linking
-
-        Fetch all records available for linking to a parent record
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the target data type (required)
-        :type data_type_id: object
-        :param parent_data_type_id: ID of the parent data type (required)
-        :type parent_data_type_id: object
-        :param parent_record_id: ID of the parent record (required)
-        :type parent_record_id: object
-        :param field_name: Name of the collection field in the parent table (required)
-        :type field_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            parent_data_type_id=parent_data_type_id,
-            parent_record_id=parent_record_id,
-            field_name=field_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetAvailableRecordsResponse",
-            '404': "GetAvailableRecordsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _get_available_records_for_linking_project_project_id_data_types_data_type_id_available_for_linking_get_serialize(
-        self,
-        project_id,
-        data_type_id,
-        parent_data_type_id,
-        parent_record_id,
-        field_name,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        if parent_data_type_id is not None:
-            
-            _query_params.append(('parent_data_type_id', parent_data_type_id))
-            
-        if parent_record_id is not None:
-            
-            _query_params.append(('parent_record_id', parent_record_id))
-            
-        if field_name is not None:
-            
-            _query_params.append(('field_name', field_name))
-            
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/available-for-linking',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def get_child_records_project_project_id_data_types_data_type_id_children_get(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the child data type")],
-        parent_data_type_id: Annotated[Any, Field(description="ID of the parent data type")],
-        parent_record_id: Annotated[Any, Field(description="ID of the parent record")],
-        field_name: Annotated[Any, Field(description="Name of the collection field in the parent table")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetChildRecordsResponse:
-        """Get Child Records
-
-        Fetch all child records related to a parent record through a foreign key relationship
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the child data type (required)
-        :type data_type_id: object
-        :param parent_data_type_id: ID of the parent data type (required)
-        :type parent_data_type_id: object
-        :param parent_record_id: ID of the parent record (required)
-        :type parent_record_id: object
-        :param field_name: Name of the collection field in the parent table (required)
-        :type field_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_child_records_project_project_id_data_types_data_type_id_children_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            parent_data_type_id=parent_data_type_id,
-            parent_record_id=parent_record_id,
-            field_name=field_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetChildRecordsResponse",
-            '404': "GetChildRecordsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_child_records_project_project_id_data_types_data_type_id_children_get_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the child data type")],
-        parent_data_type_id: Annotated[Any, Field(description="ID of the parent data type")],
-        parent_record_id: Annotated[Any, Field(description="ID of the parent record")],
-        field_name: Annotated[Any, Field(description="Name of the collection field in the parent table")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetChildRecordsResponse]:
-        """Get Child Records
-
-        Fetch all child records related to a parent record through a foreign key relationship
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the child data type (required)
-        :type data_type_id: object
-        :param parent_data_type_id: ID of the parent data type (required)
-        :type parent_data_type_id: object
-        :param parent_record_id: ID of the parent record (required)
-        :type parent_record_id: object
-        :param field_name: Name of the collection field in the parent table (required)
-        :type field_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_child_records_project_project_id_data_types_data_type_id_children_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            parent_data_type_id=parent_data_type_id,
-            parent_record_id=parent_record_id,
-            field_name=field_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetChildRecordsResponse",
-            '404': "GetChildRecordsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def get_child_records_project_project_id_data_types_data_type_id_children_get_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the child data type")],
-        parent_data_type_id: Annotated[Any, Field(description="ID of the parent data type")],
-        parent_record_id: Annotated[Any, Field(description="ID of the parent record")],
-        field_name: Annotated[Any, Field(description="Name of the collection field in the parent table")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Child Records
-
-        Fetch all child records related to a parent record through a foreign key relationship
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the child data type (required)
-        :type data_type_id: object
-        :param parent_data_type_id: ID of the parent data type (required)
-        :type parent_data_type_id: object
-        :param parent_record_id: ID of the parent record (required)
-        :type parent_record_id: object
-        :param field_name: Name of the collection field in the parent table (required)
-        :type field_name: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_child_records_project_project_id_data_types_data_type_id_children_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            parent_data_type_id=parent_data_type_id,
-            parent_record_id=parent_record_id,
-            field_name=field_name,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetChildRecordsResponse",
-            '404': "GetChildRecordsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _get_child_records_project_project_id_data_types_data_type_id_children_get_serialize(
-        self,
-        project_id,
-        data_type_id,
-        parent_data_type_id,
-        parent_record_id,
-        field_name,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        if parent_data_type_id is not None:
-            
-            _query_params.append(('parent_data_type_id', parent_data_type_id))
-            
-        if parent_record_id is not None:
-            
-            _query_params.append(('parent_record_id', parent_record_id))
-            
-        if field_name is not None:
-            
-            _query_params.append(('field_name', field_name))
-            
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/children',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def get_compute_column_jobs_project_project_id_data_type_data_type_id_compute_column_jobs_get(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        data_type_id: StrictStr,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        offset: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -6393,11 +1713,11 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -6456,9 +1776,9 @@ class DataTypesApi:
     def get_compute_column_jobs_project_project_id_data_type_data_type_id_compute_column_jobs_get_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        data_type_id: StrictStr,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        offset: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -6481,11 +1801,11 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -6544,9 +1864,9 @@ class DataTypesApi:
     def get_compute_column_jobs_project_project_id_data_type_data_type_id_compute_column_jobs_get_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        limit: Optional[Any] = None,
-        offset: Optional[Any] = None,
+        data_type_id: StrictStr,
+        limit: Optional[Annotated[int, Field(le=100, strict=True, ge=1)]] = None,
+        offset: Optional[Annotated[int, Field(strict=True, ge=0)]] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -6569,11 +1889,11 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param limit:
-        :type limit: object
+        :type limit: int
         :param offset:
-        :type offset: object
+        :type offset: int
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -6636,7 +1956,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -6647,7 +1967,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -6674,11 +1996,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -6707,8 +2030,8 @@ class DataTypesApi:
     def get_compute_column_status_project_project_id_data_type_data_type_id_compute_column_status_execution_id_get(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        execution_id: Any,
+        data_type_id: StrictStr,
+        execution_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -6731,9 +2054,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param execution_id: (required)
-        :type execution_id: object
+        :type execution_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -6791,8 +2114,8 @@ class DataTypesApi:
     def get_compute_column_status_project_project_id_data_type_data_type_id_compute_column_status_execution_id_get_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        execution_id: Any,
+        data_type_id: StrictStr,
+        execution_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -6815,9 +2138,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param execution_id: (required)
-        :type execution_id: object
+        :type execution_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -6875,8 +2198,8 @@ class DataTypesApi:
     def get_compute_column_status_project_project_id_data_type_data_type_id_compute_column_status_execution_id_get_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        execution_id: Any,
+        data_type_id: StrictStr,
+        execution_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -6899,9 +2222,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param execution_id: (required)
-        :type execution_id: object
+        :type execution_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -6962,7 +2285,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -6973,7 +2296,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -6994,11 +2319,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -7024,343 +2350,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        get_dashboard_data_request: GetDashboardDataRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetDashboardDataResponse:
-        """Get Dashboard Data
-
-        Get aggregated dashboard data for a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param get_dashboard_data_request: (required)
-        :type get_dashboard_data_request: GetDashboardDataRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            get_dashboard_data_request=get_dashboard_data_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetDashboardDataResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        get_dashboard_data_request: GetDashboardDataRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetDashboardDataResponse]:
-        """Get Dashboard Data
-
-        Get aggregated dashboard data for a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param get_dashboard_data_request: (required)
-        :type get_dashboard_data_request: GetDashboardDataRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            get_dashboard_data_request=get_dashboard_data_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetDashboardDataResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        get_dashboard_data_request: GetDashboardDataRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Dashboard Data
-
-        Get aggregated dashboard data for a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param get_dashboard_data_request: (required)
-        :type get_dashboard_data_request: GetDashboardDataRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            get_dashboard_data_request=get_dashboard_data_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetDashboardDataResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _get_dashboard_data_project_project_id_data_type_data_type_id_dashboard_data_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        get_dashboard_data_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if get_dashboard_data_request is not None:
-            _body_params = get_dashboard_data_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/dashboard-data',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def get_data_type_by_id_project_project_id_data_types_data_type_id_get(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -7383,7 +2376,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -7441,7 +2434,7 @@ class DataTypesApi:
     def get_data_type_by_id_project_project_id_data_types_data_type_id_get_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -7464,7 +2457,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -7522,7 +2515,7 @@ class DataTypesApi:
     def get_data_type_by_id_project_project_id_data_types_data_type_id_get_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -7545,7 +2538,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -7605,7 +2598,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -7616,7 +2609,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -7635,11 +2630,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -7665,318 +2661,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def get_data_type_json_project_project_id_data_types_data_type_id_json_get(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetDataTypeJsonResponse:
-        """Get Data Type Json
-
-        Get the JSON version of a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_data_type_json_project_project_id_data_types_data_type_id_json_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetDataTypeJsonResponse",
-            '404': "GetDataTypeJsonResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_data_type_json_project_project_id_data_types_data_type_id_json_get_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetDataTypeJsonResponse]:
-        """Get Data Type Json
-
-        Get the JSON version of a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_data_type_json_project_project_id_data_types_data_type_id_json_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetDataTypeJsonResponse",
-            '404': "GetDataTypeJsonResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def get_data_type_json_project_project_id_data_types_data_type_id_json_get_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Data Type Json
-
-        Get the JSON version of a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_data_type_json_project_project_id_data_types_data_type_id_json_get_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetDataTypeJsonResponse",
-            '404': "GetDataTypeJsonResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _get_data_type_json_project_project_id_data_types_data_type_id_json_get_serialize(
-        self,
-        project_id,
-        data_type_id,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/json',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def get_data_type_view_by_id_project_project_id_data_types_data_type_id_view_get(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -7999,7 +2687,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8057,7 +2745,7 @@ class DataTypesApi:
     def get_data_type_view_by_id_project_project_id_data_types_data_type_id_view_get_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8080,7 +2768,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8138,7 +2826,7 @@ class DataTypesApi:
     def get_data_type_view_by_id_project_project_id_data_types_data_type_id_view_get_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8161,7 +2849,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8221,7 +2909,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -8232,7 +2920,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -8251,11 +2941,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -8284,7 +2975,7 @@ class DataTypesApi:
     def get_data_types_project_project_id_data_types_get(
         self,
         project_id: StrictStr,
-        sent_internally: Optional[Any] = None,
+        sent_internally: Optional[StrictBool] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8307,7 +2998,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param sent_internally:
-        :type sent_internally: SentInternally1
+        :type sent_internally: bool
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8364,7 +3055,7 @@ class DataTypesApi:
     def get_data_types_project_project_id_data_types_get_with_http_info(
         self,
         project_id: StrictStr,
-        sent_internally: Optional[Any] = None,
+        sent_internally: Optional[StrictBool] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8387,7 +3078,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param sent_internally:
-        :type sent_internally: SentInternally1
+        :type sent_internally: bool
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8444,7 +3135,7 @@ class DataTypesApi:
     def get_data_types_project_project_id_data_types_get_without_preload_content(
         self,
         project_id: StrictStr,
-        sent_internally: Optional[Any] = None,
+        sent_internally: Optional[StrictBool] = None,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8467,7 +3158,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param sent_internally:
-        :type sent_internally: SentInternally1
+        :type sent_internally: bool
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8526,7 +3217,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -8537,7 +3228,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -8558,11 +3251,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -8588,10 +3282,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get(
+    def get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8606,15 +3300,15 @@ class DataTypesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExtractionSettingsResponse:
-        """Get Extraction Settings
+    ) -> GetGroupedDataTypeViewResponse:
+        """Get Grouped Data Type View By Id
 
-        Get extraction settings for a data type
+        Fetch a specific data type view grouped by a column with pagination support. Query params: group_column (string), group_column_type (string), search (string), sort_column (string), sort_direction (asc/desc)
 
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8641,7 +3335,7 @@ class DataTypesApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get_serialize(
+        _param = self._get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get_serialize(
             project_id=project_id,
             data_type_id=data_type_id,
             x_api_key=x_api_key,
@@ -8653,7 +3347,8 @@ class DataTypesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractionSettingsResponse",
+            '200': "GetGroupedDataTypeViewResponse",
+            '404': "GetGroupedDataTypeViewResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -8668,10 +3363,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get_with_http_info(
+    def get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8686,15 +3381,15 @@ class DataTypesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExtractionSettingsResponse]:
-        """Get Extraction Settings
+    ) -> ApiResponse[GetGroupedDataTypeViewResponse]:
+        """Get Grouped Data Type View By Id
 
-        Get extraction settings for a data type
+        Fetch a specific data type view grouped by a column with pagination support. Query params: group_column (string), group_column_type (string), search (string), sort_column (string), sort_direction (asc/desc)
 
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8721,7 +3416,7 @@ class DataTypesApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get_serialize(
+        _param = self._get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get_serialize(
             project_id=project_id,
             data_type_id=data_type_id,
             x_api_key=x_api_key,
@@ -8733,7 +3428,8 @@ class DataTypesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractionSettingsResponse",
+            '200': "GetGroupedDataTypeViewResponse",
+            '404': "GetGroupedDataTypeViewResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -8748,10 +3444,10 @@ class DataTypesApi:
 
 
     @validate_call
-    def get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get_without_preload_content(
+    def get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
+        data_type_id: Annotated[StrictStr, Field(description="ID of the data type")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -8767,14 +3463,14 @@ class DataTypesApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Get Extraction Settings
+        """Get Grouped Data Type View By Id
 
-        Get extraction settings for a data type
+        Fetch a specific data type view grouped by a column with pagination support. Query params: group_column (string), group_column_type (string), search (string), sort_column (string), sort_direction (asc/desc)
 
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -8801,7 +3497,7 @@ class DataTypesApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get_serialize(
+        _param = self._get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get_serialize(
             project_id=project_id,
             data_type_id=data_type_id,
             x_api_key=x_api_key,
@@ -8813,7 +3509,8 @@ class DataTypesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractionSettingsResponse",
+            '200': "GetGroupedDataTypeViewResponse",
+            '404': "GetGroupedDataTypeViewResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -8823,7 +3520,7 @@ class DataTypesApi:
         return response_data.response
 
 
-    def _get_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_get_serialize(
+    def _get_grouped_data_type_view_by_id_project_project_id_data_types_data_type_id_view_grouped_get_serialize(
         self,
         project_id,
         data_type_id,
@@ -8833,7 +3530,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -8844,7 +3541,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -8863,11 +3562,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -8876,297 +3576,7 @@ class DataTypesApi:
 
         return self.api_client.param_serialize(
             method='GET',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/extraction-settings',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def get_sql_user_info_project_project_id_sql_user_info_get(
-        self,
-        project_id: StrictStr,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetSQLUserInfoResponse:
-        """Get Sql User Info
-
-        Get SQL user information for a project
-
-        :param project_id: (required)
-        :type project_id: str
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_sql_user_info_project_project_id_sql_user_info_get_serialize(
-            project_id=project_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetSQLUserInfoResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def get_sql_user_info_project_project_id_sql_user_info_get_with_http_info(
-        self,
-        project_id: StrictStr,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetSQLUserInfoResponse]:
-        """Get Sql User Info
-
-        Get SQL user information for a project
-
-        :param project_id: (required)
-        :type project_id: str
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_sql_user_info_project_project_id_sql_user_info_get_serialize(
-            project_id=project_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetSQLUserInfoResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def get_sql_user_info_project_project_id_sql_user_info_get_without_preload_content(
-        self,
-        project_id: StrictStr,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Get Sql User Info
-
-        Get SQL user information for a project
-
-        :param project_id: (required)
-        :type project_id: str
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._get_sql_user_info_project_project_id_sql_user_info_get_serialize(
-            project_id=project_id,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetSQLUserInfoResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _get_sql_user_info_project_project_id_sql_user_info_get_serialize(
-        self,
-        project_id,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='GET',
-            resource_path='/project/{project_id}/sql-user-info',
+            resource_path='/project/{project_id}/data-types/{data_type_id}/view/grouped',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -9186,7 +3596,7 @@ class DataTypesApi:
     def get_template_details_project_project_id_data_type_templates_template_name_get(
         self,
         project_id: StrictStr,
-        template_name: Any,
+        template_name: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -9209,7 +3619,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param template_name: (required)
-        :type template_name: object
+        :type template_name: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -9266,7 +3676,7 @@ class DataTypesApi:
     def get_template_details_project_project_id_data_type_templates_template_name_get_with_http_info(
         self,
         project_id: StrictStr,
-        template_name: Any,
+        template_name: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -9289,7 +3699,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param template_name: (required)
-        :type template_name: object
+        :type template_name: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -9346,7 +3756,7 @@ class DataTypesApi:
     def get_template_details_project_project_id_data_type_templates_template_name_get_without_preload_content(
         self,
         project_id: StrictStr,
-        template_name: Any,
+        template_name: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -9369,7 +3779,7 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param template_name: (required)
-        :type template_name: object
+        :type template_name: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -9428,7 +3838,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -9439,7 +3849,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -9458,11 +3870,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -9720,7 +4133,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -9731,7 +4144,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -9748,11 +4163,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -9781,13 +4197,13 @@ class DataTypesApi:
     def import_table_project_project_id_import_table_post(
         self,
         project_id: StrictStr,
-        title: Optional[Any],
-        description: Optional[Any],
-        column_mappings: Optional[Any],
-        file: Optional[Any],
+        title: StrictStr,
+        description: StrictStr,
+        column_mappings: StrictStr,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        delimiter: Annotated[Optional[Any], Field(description="The delimiter used in the file")] = None,
+        delimiter: Annotated[Optional[StrictStr], Field(description="The delimiter used in the file")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9808,19 +4224,19 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param title: (required)
-        :type title: object
+        :type title: str
         :param description: (required)
-        :type description: object
+        :type description: str
         :param column_mappings: (required)
-        :type column_mappings: object
+        :type column_mappings: str
         :param file: (required)
-        :type file: object
+        :type file: bytearray
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
         :type x_api_secret: str
         :param delimiter: The delimiter used in the file
-        :type delimiter: object
+        :type delimiter: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9877,13 +4293,13 @@ class DataTypesApi:
     def import_table_project_project_id_import_table_post_with_http_info(
         self,
         project_id: StrictStr,
-        title: Optional[Any],
-        description: Optional[Any],
-        column_mappings: Optional[Any],
-        file: Optional[Any],
+        title: StrictStr,
+        description: StrictStr,
+        column_mappings: StrictStr,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        delimiter: Annotated[Optional[Any], Field(description="The delimiter used in the file")] = None,
+        delimiter: Annotated[Optional[StrictStr], Field(description="The delimiter used in the file")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -9904,19 +4320,19 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param title: (required)
-        :type title: object
+        :type title: str
         :param description: (required)
-        :type description: object
+        :type description: str
         :param column_mappings: (required)
-        :type column_mappings: object
+        :type column_mappings: str
         :param file: (required)
-        :type file: object
+        :type file: bytearray
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
         :type x_api_secret: str
         :param delimiter: The delimiter used in the file
-        :type delimiter: object
+        :type delimiter: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -9973,13 +4389,13 @@ class DataTypesApi:
     def import_table_project_project_id_import_table_post_without_preload_content(
         self,
         project_id: StrictStr,
-        title: Optional[Any],
-        description: Optional[Any],
-        column_mappings: Optional[Any],
-        file: Optional[Any],
+        title: StrictStr,
+        description: StrictStr,
+        column_mappings: StrictStr,
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        delimiter: Annotated[Optional[Any], Field(description="The delimiter used in the file")] = None,
+        delimiter: Annotated[Optional[StrictStr], Field(description="The delimiter used in the file")] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10000,19 +4416,19 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param title: (required)
-        :type title: object
+        :type title: str
         :param description: (required)
-        :type description: object
+        :type description: str
         :param column_mappings: (required)
-        :type column_mappings: object
+        :type column_mappings: str
         :param file: (required)
-        :type file: object
+        :type file: bytearray
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
         :type x_api_secret: str
         :param delimiter: The delimiter used in the file
-        :type delimiter: object
+        :type delimiter: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10075,7 +4491,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -10086,7 +4502,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -10106,18 +4524,19 @@ class DataTypesApi:
         if column_mappings is not None:
             _form_params.append(('column_mappings', column_mappings))
         if file is not None:
-            _form_params.append(('file', file))
+            _files['file'] = file
         if delimiter is not None:
             _form_params.append(('delimiter', delimiter))
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -10156,1343 +4575,11 @@ class DataTypesApi:
 
 
     @validate_call
-    def rename_data_type_project_project_id_data_type_data_type_id_rename_put(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        rename_data_type_request: RenameDataTypeRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RenameDataTypeResponse:
-        """Rename Data Type
-
-        Rename a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param rename_data_type_request: (required)
-        :type rename_data_type_request: RenameDataTypeRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._rename_data_type_project_project_id_data_type_data_type_id_rename_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            rename_data_type_request=rename_data_type_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RenameDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def rename_data_type_project_project_id_data_type_data_type_id_rename_put_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        rename_data_type_request: RenameDataTypeRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[RenameDataTypeResponse]:
-        """Rename Data Type
-
-        Rename a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param rename_data_type_request: (required)
-        :type rename_data_type_request: RenameDataTypeRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._rename_data_type_project_project_id_data_type_data_type_id_rename_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            rename_data_type_request=rename_data_type_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RenameDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def rename_data_type_project_project_id_data_type_data_type_id_rename_put_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        rename_data_type_request: RenameDataTypeRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Rename Data Type
-
-        Rename a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param rename_data_type_request: (required)
-        :type rename_data_type_request: RenameDataTypeRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._rename_data_type_project_project_id_data_type_data_type_id_rename_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            rename_data_type_request=rename_data_type_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RenameDataTypeResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _rename_data_type_project_project_id_data_type_data_type_id_rename_put_serialize(
-        self,
-        project_id,
-        data_type_id,
-        rename_data_type_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if rename_data_type_request is not None:
-            _body_params = rename_data_type_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/rename',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        run_extraction_test_request: RunExtractionTestRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RunExtractionTestResponse:
-        """Run Extraction Endpoint
-
-        Run an extraction test on a sample document using custom extraction configuration
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param run_extraction_test_request: (required)
-        :type run_extraction_test_request: RunExtractionTestRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            run_extraction_test_request=run_extraction_test_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RunExtractionTestResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        run_extraction_test_request: RunExtractionTestRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[RunExtractionTestResponse]:
-        """Run Extraction Endpoint
-
-        Run an extraction test on a sample document using custom extraction configuration
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param run_extraction_test_request: (required)
-        :type run_extraction_test_request: RunExtractionTestRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            run_extraction_test_request=run_extraction_test_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RunExtractionTestResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        run_extraction_test_request: RunExtractionTestRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Run Extraction Endpoint
-
-        Run an extraction test on a sample document using custom extraction configuration
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param run_extraction_test_request: (required)
-        :type run_extraction_test_request: RunExtractionTestRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            run_extraction_test_request=run_extraction_test_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "RunExtractionTestResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _run_extraction_endpoint_project_project_id_data_types_data_type_id_extraction_test_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        run_extraction_test_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if run_extraction_test_request is not None:
-            _body_params = run_extraction_test_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/extraction-test',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        run_extraction_test_request: RunExtractionTestRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ValidationResultResponse:
-        """Run Extraction Validation
-
-        Run extraction validation against data type schema
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param run_extraction_test_request: (required)
-        :type run_extraction_test_request: RunExtractionTestRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            run_extraction_test_request=run_extraction_test_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ValidationResultResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        run_extraction_test_request: RunExtractionTestRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ValidationResultResponse]:
-        """Run Extraction Validation
-
-        Run extraction validation against data type schema
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param run_extraction_test_request: (required)
-        :type run_extraction_test_request: RunExtractionTestRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            run_extraction_test_request=run_extraction_test_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ValidationResultResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        run_extraction_test_request: RunExtractionTestRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Run Extraction Validation
-
-        Run extraction validation against data type schema
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param run_extraction_test_request: (required)
-        :type run_extraction_test_request: RunExtractionTestRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            run_extraction_test_request=run_extraction_test_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ValidationResultResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _run_extraction_validation_project_project_id_data_types_data_type_id_extraction_validation_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        run_extraction_test_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if run_extraction_test_request is not None:
-            _body_params = run_extraction_test_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/extraction-validation',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        save_extraction_settings_request: SaveExtractionSettingsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ExtractionSettingsResponse:
-        """Save Extraction Settings
-
-        Save extraction settings for a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param save_extraction_settings_request: (required)
-        :type save_extraction_settings_request: SaveExtractionSettingsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            save_extraction_settings_request=save_extraction_settings_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractionSettingsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        save_extraction_settings_request: SaveExtractionSettingsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ExtractionSettingsResponse]:
-        """Save Extraction Settings
-
-        Save extraction settings for a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param save_extraction_settings_request: (required)
-        :type save_extraction_settings_request: SaveExtractionSettingsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            save_extraction_settings_request=save_extraction_settings_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractionSettingsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Annotated[Any, Field(description="ID of the data type")],
-        save_extraction_settings_request: SaveExtractionSettingsRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Save Extraction Settings
-
-        Save extraction settings for a data type
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: ID of the data type (required)
-        :type data_type_id: object
-        :param save_extraction_settings_request: (required)
-        :type save_extraction_settings_request: SaveExtractionSettingsRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            save_extraction_settings_request=save_extraction_settings_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ExtractionSettingsResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _save_extraction_settings_project_project_id_data_types_data_type_id_extraction_settings_post_serialize(
-        self,
-        project_id,
-        data_type_id,
-        save_extraction_settings_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if save_extraction_settings_request is not None:
-            _body_params = save_extraction_settings_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='POST',
-            resource_path='/project/{project_id}/data-types/{data_type_id}/extraction-settings',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def update_column_metadata_project_project_id_data_type_data_type_id_column_column_name_metadata_put(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        column_name: Any,
+        data_type_id: StrictStr,
+        column_name: StrictStr,
         update_column_metadata_request: UpdateColumnMetadataRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -11516,9 +4603,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param column_name: (required)
-        :type column_name: object
+        :type column_name: str
         :param update_column_metadata_request: (required)
         :type update_column_metadata_request: UpdateColumnMetadataRequest
         :param x_api_key: Your Odin API key.
@@ -11579,8 +4666,8 @@ class DataTypesApi:
     def update_column_metadata_project_project_id_data_type_data_type_id_column_column_name_metadata_put_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        column_name: Any,
+        data_type_id: StrictStr,
+        column_name: StrictStr,
         update_column_metadata_request: UpdateColumnMetadataRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -11604,9 +4691,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param column_name: (required)
-        :type column_name: object
+        :type column_name: str
         :param update_column_metadata_request: (required)
         :type update_column_metadata_request: UpdateColumnMetadataRequest
         :param x_api_key: Your Odin API key.
@@ -11667,8 +4754,8 @@ class DataTypesApi:
     def update_column_metadata_project_project_id_data_type_data_type_id_column_column_name_metadata_put_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        column_name: Any,
+        data_type_id: StrictStr,
+        column_name: StrictStr,
         update_column_metadata_request: UpdateColumnMetadataRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -11692,9 +4779,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param column_name: (required)
-        :type column_name: object
+        :type column_name: str
         :param update_column_metadata_request: (required)
         :type update_column_metadata_request: UpdateColumnMetadataRequest
         :param x_api_key: Your Odin API key.
@@ -11759,7 +4846,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -11770,7 +4857,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -11793,11 +4882,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -11836,359 +4926,11 @@ class DataTypesApi:
 
 
     @validate_call
-    def update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        update_column_value_request: UpdateColumnValueRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UpdateColumnValueResponse:
-        """Update Column Value
-
-        Update a column value in a data type table row
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param update_column_value_request: (required)
-        :type update_column_value_request: UpdateColumnValueRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            update_column_value_request=update_column_value_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateColumnValueResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        update_column_value_request: UpdateColumnValueRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UpdateColumnValueResponse]:
-        """Update Column Value
-
-        Update a column value in a data type table row
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param update_column_value_request: (required)
-        :type update_column_value_request: UpdateColumnValueRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            update_column_value_request=update_column_value_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateColumnValueResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        update_column_value_request: UpdateColumnValueRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update Column Value
-
-        Update a column value in a data type table row
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param update_column_value_request: (required)
-        :type update_column_value_request: UpdateColumnValueRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            update_column_value_request=update_column_value_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateColumnValueResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _update_column_value_project_project_id_data_type_data_type_id_row_row_id_column_put_serialize(
-        self,
-        project_id,
-        data_type_id,
-        row_id,
-        update_column_value_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        if row_id is not None:
-            _path_params['row_id'] = row_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if update_column_value_request is not None:
-            _body_params = update_column_value_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/row/{row_id}/column',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
     def update_data_type_view_project_project_id_data_type_data_type_id_view_view_id_put(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        view_id: Any,
+        data_type_id: StrictStr,
+        view_id: StrictStr,
         update_view_request: UpdateViewRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -12212,9 +4954,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param view_id: (required)
-        :type view_id: object
+        :type view_id: str
         :param update_view_request: (required)
         :type update_view_request: UpdateViewRequest
         :param x_api_key: Your Odin API key.
@@ -12275,8 +5017,8 @@ class DataTypesApi:
     def update_data_type_view_project_project_id_data_type_data_type_id_view_view_id_put_with_http_info(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        view_id: Any,
+        data_type_id: StrictStr,
+        view_id: StrictStr,
         update_view_request: UpdateViewRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -12300,9 +5042,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param view_id: (required)
-        :type view_id: object
+        :type view_id: str
         :param update_view_request: (required)
         :type update_view_request: UpdateViewRequest
         :param x_api_key: Your Odin API key.
@@ -12363,8 +5105,8 @@ class DataTypesApi:
     def update_data_type_view_project_project_id_data_type_data_type_id_view_view_id_put_without_preload_content(
         self,
         project_id: StrictStr,
-        data_type_id: Any,
-        view_id: Any,
+        data_type_id: StrictStr,
+        view_id: StrictStr,
         update_view_request: UpdateViewRequest,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
@@ -12388,9 +5130,9 @@ class DataTypesApi:
         :param project_id: (required)
         :type project_id: str
         :param data_type_id: (required)
-        :type data_type_id: object
+        :type data_type_id: str
         :param view_id: (required)
-        :type view_id: object
+        :type view_id: str
         :param update_view_request: (required)
         :type update_view_request: UpdateViewRequest
         :param x_api_key: Your Odin API key.
@@ -12455,7 +5197,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -12466,7 +5208,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -12489,11 +5233,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -12516,687 +5261,6 @@ class DataTypesApi:
         return self.api_client.param_serialize(
             method='PUT',
             resource_path='/project/{project_id}/data-type/{data_type_id}/view/{view_id}',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        update_record_links_request: UpdateRecordLinksRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UpdateRecordLinksResponse:
-        """Update Record Links
-
-        Update links between a record and target records
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param update_record_links_request: (required)
-        :type update_record_links_request: UpdateRecordLinksRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            update_record_links_request=update_record_links_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateRecordLinksResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        update_record_links_request: UpdateRecordLinksRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UpdateRecordLinksResponse]:
-        """Update Record Links
-
-        Update links between a record and target records
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param update_record_links_request: (required)
-        :type update_record_links_request: UpdateRecordLinksRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            update_record_links_request=update_record_links_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateRecordLinksResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        row_id: Any,
-        update_record_links_request: UpdateRecordLinksRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update Record Links
-
-        Update links between a record and target records
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param row_id: (required)
-        :type row_id: object
-        :param update_record_links_request: (required)
-        :type update_record_links_request: UpdateRecordLinksRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            row_id=row_id,
-            update_record_links_request=update_record_links_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateRecordLinksResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _update_record_links_project_project_id_data_type_data_type_id_row_row_id_links_put_serialize(
-        self,
-        project_id,
-        data_type_id,
-        row_id,
-        update_record_links_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        if row_id is not None:
-            _path_params['row_id'] = row_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if update_record_links_request is not None:
-            _body_params = update_record_links_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/row/{row_id}/links',
-            path_params=_path_params,
-            query_params=_query_params,
-            header_params=_header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            auth_settings=_auth_settings,
-            collection_formats=_collection_formats,
-            _host=_host,
-            _request_auth=_request_auth
-        )
-
-
-
-
-    @validate_call
-    def update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        update_row_order_request: UpdateRowOrderRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> UpdateRowOrderResponse:
-        """Update Row Order Endpoint
-
-        Update the order of a row in a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param update_row_order_request: (required)
-        :type update_row_order_request: UpdateRowOrderRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            update_row_order_request=update_row_order_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateRowOrderResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
-
-
-    @validate_call
-    def update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put_with_http_info(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        update_row_order_request: UpdateRowOrderRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[UpdateRowOrderResponse]:
-        """Update Row Order Endpoint
-
-        Update the order of a row in a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param update_row_order_request: (required)
-        :type update_row_order_request: UpdateRowOrderRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            update_row_order_request=update_row_order_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateRowOrderResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        )
-
-
-    @validate_call
-    def update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put_without_preload_content(
-        self,
-        project_id: StrictStr,
-        data_type_id: Any,
-        update_row_order_request: UpdateRowOrderRequest,
-        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
-        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
-        _request_timeout: Union[
-            None,
-            Annotated[StrictFloat, Field(gt=0)],
-            Tuple[
-                Annotated[StrictFloat, Field(gt=0)],
-                Annotated[StrictFloat, Field(gt=0)]
-            ]
-        ] = None,
-        _request_auth: Optional[Dict[StrictStr, Any]] = None,
-        _content_type: Optional[StrictStr] = None,
-        _headers: Optional[Dict[StrictStr, Any]] = None,
-        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> RESTResponseType:
-        """Update Row Order Endpoint
-
-        Update the order of a row in a data type table
-
-        :param project_id: (required)
-        :type project_id: str
-        :param data_type_id: (required)
-        :type data_type_id: object
-        :param update_row_order_request: (required)
-        :type update_row_order_request: UpdateRowOrderRequest
-        :param x_api_key: Your Odin API key.
-        :type x_api_key: str
-        :param x_api_secret: Your Odin API secret.
-        :type x_api_secret: str
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :type _request_timeout: int, tuple(int, int), optional
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the
-                              authentication in the spec for a single request.
-        :type _request_auth: dict, optional
-        :param _content_type: force content-type for the request.
-        :type _content_type: str, Optional
-        :param _headers: set to override the headers for a single
-                         request; this effectively ignores the headers
-                         in the spec for a single request.
-        :type _headers: dict, optional
-        :param _host_index: set to override the host_index for a single
-                            request; this effectively ignores the host_index
-                            in the spec for a single request.
-        :type _host_index: int, optional
-        :return: Returns the result object.
-        """ # noqa: E501
-
-        _param = self._update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put_serialize(
-            project_id=project_id,
-            data_type_id=data_type_id,
-            update_row_order_request=update_row_order_request,
-            x_api_key=x_api_key,
-            x_api_secret=x_api_secret,
-            _request_auth=_request_auth,
-            _content_type=_content_type,
-            _headers=_headers,
-            _host_index=_host_index
-        )
-
-        _response_types_map: Dict[str, Optional[str]] = {
-            '200': "UpdateRowOrderResponse",
-            '422': "HTTPValidationError",
-        }
-        response_data = self.api_client.call_api(
-            *_param,
-            _request_timeout=_request_timeout
-        )
-        return response_data.response
-
-
-    def _update_row_order_endpoint_project_project_id_data_type_data_type_id_row_order_put_serialize(
-        self,
-        project_id,
-        data_type_id,
-        update_row_order_request,
-        x_api_key,
-        x_api_secret,
-        _request_auth,
-        _content_type,
-        _headers,
-        _host_index,
-    ) -> Tuple:
-
-        _host = None
-
-        _collection_formats: Dict[str, str] = {
-        }
-
-        _path_params: Dict[str, str] = {}
-        _query_params: List[Tuple[str, str]] = []
-        _header_params: Dict[str, Optional[str]] = _headers or {}
-        _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
-        _body_params: Optional[bytes] = None
-
-        # process the path parameters
-        if project_id is not None:
-            _path_params['project_id'] = project_id
-        if data_type_id is not None:
-            _path_params['data_type_id'] = data_type_id
-        # process the query parameters
-        # process the header parameters
-        if x_api_key is not None:
-            _header_params['X-API-KEY'] = x_api_key
-        if x_api_secret is not None:
-            _header_params['X-API-SECRET'] = x_api_secret
-        # process the form parameters
-        # process the body parameter
-        if update_row_order_request is not None:
-            _body_params = update_row_order_request
-
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
-
-        # set the HTTP header `Content-Type`
-        if _content_type:
-            _header_params['Content-Type'] = _content_type
-        else:
-            _default_content_type = (
-                self.api_client.select_header_content_type(
-                    [
-                        'application/json'
-                    ]
-                )
-            )
-            if _default_content_type is not None:
-                _header_params['Content-Type'] = _default_content_type
-
-        # authentication setting
-        _auth_settings: List[str] = [
-        ]
-
-        return self.api_client.param_serialize(
-            method='PUT',
-            resource_path='/project/{project_id}/data-type/{data_type_id}/row-order',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -13458,7 +5522,7 @@ class DataTypesApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -13469,7 +5533,9 @@ class DataTypesApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -13488,11 +5554,12 @@ class DataTypesApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

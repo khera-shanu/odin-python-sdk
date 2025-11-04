@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.add_user_to_project_request import AddUserToProjectRequest
 
@@ -28,7 +27,7 @@ class TestAddUserToProjectRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AddUserToProjectRequest:
         """Test AddUserToProjectRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AddUserToProjectRequest`
@@ -36,14 +35,22 @@ class TestAddUserToProjectRequest(unittest.TestCase):
         model = AddUserToProjectRequest()
         if include_optional:
             return AddUserToProjectRequest(
-                project_id = None,
-                users = None,
-                send_mail = None
+                project_id = '',
+                users = [
+                    odin_sdk.models.user_details.UserDetails(
+                        email = '', 
+                        role = '', )
+                    ],
+                send_mail = True
             )
         else:
             return AddUserToProjectRequest(
-                project_id = None,
-                users = None,
+                project_id = '',
+                users = [
+                    odin_sdk.models.user_details.UserDetails(
+                        email = '', 
+                        role = '', )
+                    ],
         )
         """
 

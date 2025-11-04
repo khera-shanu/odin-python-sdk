@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.use_template_response import UseTemplateResponse
 
@@ -28,7 +27,7 @@ class TestUseTemplateResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UseTemplateResponse:
         """Test UseTemplateResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UseTemplateResponse`
@@ -36,15 +35,15 @@ class TestUseTemplateResponse(unittest.TestCase):
         model = UseTemplateResponse()
         if include_optional:
             return UseTemplateResponse(
-                message = None,
-                data_type_id = None,
-                template_used = None
+                message = '',
+                data_type_id = '',
+                template_used = ''
             )
         else:
             return UseTemplateResponse(
-                message = None,
-                data_type_id = None,
-                template_used = None,
+                message = '',
+                data_type_id = '',
+                template_used = '',
         )
         """
 

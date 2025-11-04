@@ -17,33 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.content1 import Content1
-from odin_sdk.models.content_keys1 import ContentKeys1
-from odin_sdk.models.project_id5 import ProjectId5
-from odin_sdk.models.scrub_pii import ScrubPii
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class PIICheckRequest(BaseModel):
     """
     PIICheckRequest
     """ # noqa: E501
-    project_id: Optional[ProjectId5] = None
-    content_keys: Optional[ContentKeys1] = None
-    content: Optional[Content1] = None
-    scrub_pii: Optional[ScrubPii] = None
+    project_id: Optional[StrictStr] = None
+    content_keys: Optional[List[StrictStr]] = None
+    content: Optional[StrictStr] = None
+    scrub_pii: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["project_id", "content_keys", "content", "scrub_pii"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +49,7 @@ class PIICheckRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of PIICheckRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,28 +63,38 @@ class PIICheckRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of project_id
-        if self.project_id:
-            _dict['project_id'] = self.project_id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of content_keys
-        if self.content_keys:
-            _dict['content_keys'] = self.content_keys.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of content
-        if self.content:
-            _dict['content'] = self.content.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of scrub_pii
-        if self.scrub_pii:
-            _dict['scrub_pii'] = self.scrub_pii.to_dict()
+        # set to None if project_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.project_id is None and "project_id" in self.model_fields_set:
+            _dict['project_id'] = None
+
+        # set to None if content_keys (nullable) is None
+        # and model_fields_set contains the field
+        if self.content_keys is None and "content_keys" in self.model_fields_set:
+            _dict['content_keys'] = None
+
+        # set to None if content (nullable) is None
+        # and model_fields_set contains the field
+        if self.content is None and "content" in self.model_fields_set:
+            _dict['content'] = None
+
+        # set to None if scrub_pii (nullable) is None
+        # and model_fields_set contains the field
+        if self.scrub_pii is None and "scrub_pii" in self.model_fields_set:
+            _dict['scrub_pii'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of PIICheckRequest from a dict"""
         if obj is None:
             return None
@@ -100,10 +103,10 @@ class PIICheckRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "project_id": ProjectId5.from_dict(obj.get("project_id")) if obj.get("project_id") is not None else None,
-            "content_keys": ContentKeys1.from_dict(obj.get("content_keys")) if obj.get("content_keys") is not None else None,
-            "content": Content1.from_dict(obj.get("content")) if obj.get("content") is not None else None,
-            "scrub_pii": ScrubPii.from_dict(obj.get("scrub_pii")) if obj.get("scrub_pii") is not None else None
+            "project_id": obj.get("project_id"),
+            "content_keys": obj.get("content_keys"),
+            "content": obj.get("content"),
+            "scrub_pii": obj.get("scrub_pii")
         })
         return _obj
 

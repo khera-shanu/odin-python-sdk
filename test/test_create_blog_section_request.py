@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_blog_section_request import CreateBlogSectionRequest
 
@@ -28,7 +27,7 @@ class TestCreateBlogSectionRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateBlogSectionRequest:
         """Test CreateBlogSectionRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateBlogSectionRequest`
@@ -36,14 +35,18 @@ class TestCreateBlogSectionRequest(unittest.TestCase):
         model = CreateBlogSectionRequest()
         if include_optional:
             return CreateBlogSectionRequest(
-                keywords = None,
-                initial_blog_content = None,
-                retries = None
+                keywords = [
+                    ''
+                    ],
+                initial_blog_content = '',
+                retries = 56
             )
         else:
             return CreateBlogSectionRequest(
-                keywords = None,
-                initial_blog_content = None,
+                keywords = [
+                    ''
+                    ],
+                initial_blog_content = '',
         )
         """
 

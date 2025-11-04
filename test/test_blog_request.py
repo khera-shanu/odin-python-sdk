@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.blog_request import BlogRequest
 
@@ -28,7 +27,7 @@ class TestBlogRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BlogRequest:
         """Test BlogRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BlogRequest`
@@ -36,23 +35,41 @@ class TestBlogRequest(unittest.TestCase):
         model = BlogRequest()
         if include_optional:
             return BlogRequest(
-                project_id = None,
+                project_id = '',
                 blog = odin_sdk.models.blog.Blog(
-                    title = null, 
-                    keywords = null, 
-                    goal = null, 
-                    final_content = null, 
-                    sections = null, )
+                    title = '', 
+                    keywords = [
+                        ''
+                        ], 
+                    goal = '', 
+                    final_content = '', 
+                    sections = [
+                        odin_sdk.models.blog_section.BlogSection(
+                            title = '', 
+                            content = '', 
+                            ideas = [
+                                ''
+                                ], )
+                        ], )
             )
         else:
             return BlogRequest(
-                project_id = None,
+                project_id = '',
                 blog = odin_sdk.models.blog.Blog(
-                    title = null, 
-                    keywords = null, 
-                    goal = null, 
-                    final_content = null, 
-                    sections = null, ),
+                    title = '', 
+                    keywords = [
+                        ''
+                        ], 
+                    goal = '', 
+                    final_content = '', 
+                    sections = [
+                        odin_sdk.models.blog_section.BlogSection(
+                            title = '', 
+                            content = '', 
+                            ideas = [
+                                ''
+                                ], )
+                        ], ),
         )
         """
 

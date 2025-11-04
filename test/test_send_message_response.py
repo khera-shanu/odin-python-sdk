@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.send_message_response import SendMessageResponse
 
@@ -28,7 +27,7 @@ class TestSendMessageResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> SendMessageResponse:
         """Test SendMessageResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `SendMessageResponse`
@@ -36,15 +35,15 @@ class TestSendMessageResponse(unittest.TestCase):
         model = SendMessageResponse()
         if include_optional:
             return SendMessageResponse(
-                message = None,
-                chat_id = None,
-                message_id = None
+                message = odin_sdk.models.message.Message(),
+                chat_id = '',
+                message_id = ''
             )
         else:
             return SendMessageResponse(
-                message = None,
-                chat_id = None,
-                message_id = None,
+                message = odin_sdk.models.message.Message(),
+                chat_id = '',
+                message_id = '',
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.custom_tool_list_response import CustomToolListResponse
 
@@ -28,7 +27,7 @@ class TestCustomToolListResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CustomToolListResponse:
         """Test CustomToolListResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CustomToolListResponse`
@@ -36,13 +35,81 @@ class TestCustomToolListResponse(unittest.TestCase):
         model = CustomToolListResponse()
         if include_optional:
             return CustomToolListResponse(
-                tools = None,
-                total = None
+                tools = [
+                    odin_sdk.models.custom_tool_response.CustomToolResponse(
+                        id = '', 
+                        name = '', 
+                        description = '', 
+                        inputs = {
+                            'key' : odin_sdk.models.tool_input.ToolInput(
+                                id = '', 
+                                type = '', 
+                                value = null, 
+                                manual_input = True, 
+                                required = True, 
+                                description = '', )
+                            }, 
+                        steps = {
+                            'key' : odin_sdk.models.tool_step.ToolStep(
+                                id = '', 
+                                tool_id = '', 
+                                type = '', 
+                                label = '', 
+                                description = '', 
+                                settings = odin_sdk.models.settings.Settings(), )
+                            }, 
+                        test_step_results = odin_sdk.models.test_step_results.Test Step Results(), 
+                        flow_layout = odin_sdk.models.flow_layout.flow_layout(), 
+                        project_id = '', 
+                        created_by = '', 
+                        created_at = '', 
+                        updated_at = '', 
+                        is_published = True, 
+                        version = '', 
+                        published_at = '', 
+                        is_draft = True, 
+                        is_public = True, )
+                    ],
+                total = 56
             )
         else:
             return CustomToolListResponse(
-                tools = None,
-                total = None,
+                tools = [
+                    odin_sdk.models.custom_tool_response.CustomToolResponse(
+                        id = '', 
+                        name = '', 
+                        description = '', 
+                        inputs = {
+                            'key' : odin_sdk.models.tool_input.ToolInput(
+                                id = '', 
+                                type = '', 
+                                value = null, 
+                                manual_input = True, 
+                                required = True, 
+                                description = '', )
+                            }, 
+                        steps = {
+                            'key' : odin_sdk.models.tool_step.ToolStep(
+                                id = '', 
+                                tool_id = '', 
+                                type = '', 
+                                label = '', 
+                                description = '', 
+                                settings = odin_sdk.models.settings.Settings(), )
+                            }, 
+                        test_step_results = odin_sdk.models.test_step_results.Test Step Results(), 
+                        flow_layout = odin_sdk.models.flow_layout.flow_layout(), 
+                        project_id = '', 
+                        created_by = '', 
+                        created_at = '', 
+                        updated_at = '', 
+                        is_published = True, 
+                        version = '', 
+                        published_at = '', 
+                        is_draft = True, 
+                        is_public = True, )
+                    ],
+                total = 56,
         )
         """
 

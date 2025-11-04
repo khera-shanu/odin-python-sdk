@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.domain_search_request import DomainSearchRequest
 
@@ -28,7 +27,7 @@ class TestDomainSearchRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DomainSearchRequest:
         """Test DomainSearchRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DomainSearchRequest`
@@ -36,14 +35,14 @@ class TestDomainSearchRequest(unittest.TestCase):
         model = DomainSearchRequest()
         if include_optional:
             return DomainSearchRequest(
-                company = None,
-                limit = None,
-                email_type = None,
-                company_enrichment = None
+                company = '',
+                limit = 56,
+                email_type = '',
+                company_enrichment = True
             )
         else:
             return DomainSearchRequest(
-                company = None,
+                company = '',
         )
         """
 

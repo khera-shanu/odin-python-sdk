@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.invited_user import InvitedUser
 
@@ -28,7 +27,7 @@ class TestInvitedUser(unittest.TestCase):
 
     def make_instance(self, include_optional) -> InvitedUser:
         """Test InvitedUser
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `InvitedUser`
@@ -36,11 +35,11 @@ class TestInvitedUser(unittest.TestCase):
         model = InvitedUser()
         if include_optional:
             return InvitedUser(
-                uid = None
+                uid = ''
             )
         else:
             return InvitedUser(
-                uid = None,
+                uid = '',
         )
         """
 

@@ -17,30 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.blog_section import BlogSection
+from typing import Optional, Set
+from typing_extensions import Self
 
 class Blog(BaseModel):
     """
     Blog
     """ # noqa: E501
-    title: Optional[Any]
-    keywords: Optional[Any] = None
-    goal: Optional[Any] = None
-    final_content: Optional[Any] = None
-    sections: Optional[Any] = None
+    title: StrictStr
+    keywords: Optional[List[StrictStr]] = None
+    goal: Optional[StrictStr] = ''
+    final_content: Optional[StrictStr] = ''
+    sections: Optional[List[BlogSection]] = None
     __properties: ClassVar[List[str]] = ["title", "keywords", "goal", "final_content", "sections"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +51,7 @@ class Blog(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of Blog from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,41 +65,25 @@ class Blog(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if title (nullable) is None
-        # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['title'] = None
-
-        # set to None if keywords (nullable) is None
-        # and model_fields_set contains the field
-        if self.keywords is None and "keywords" in self.model_fields_set:
-            _dict['keywords'] = None
-
-        # set to None if goal (nullable) is None
-        # and model_fields_set contains the field
-        if self.goal is None and "goal" in self.model_fields_set:
-            _dict['goal'] = None
-
-        # set to None if final_content (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_content is None and "final_content" in self.model_fields_set:
-            _dict['final_content'] = None
-
-        # set to None if sections (nullable) is None
-        # and model_fields_set contains the field
-        if self.sections is None and "sections" in self.model_fields_set:
-            _dict['sections'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in sections (list)
+        _items = []
+        if self.sections:
+            for _item_sections in self.sections:
+                if _item_sections:
+                    _items.append(_item_sections.to_dict())
+            _dict['sections'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of Blog from a dict"""
         if obj is None:
             return None
@@ -112,9 +94,9 @@ class Blog(BaseModel):
         _obj = cls.model_validate({
             "title": obj.get("title"),
             "keywords": obj.get("keywords"),
-            "goal": obj.get("goal"),
-            "final_content": obj.get("final_content"),
-            "sections": obj.get("sections")
+            "goal": obj.get("goal") if obj.get("goal") is not None else '',
+            "final_content": obj.get("final_content") if obj.get("final_content") is not None else '',
+            "sections": [BlogSection.from_dict(_item) for _item in obj["sections"]] if obj.get("sections") is not None else None
         })
         return _obj
 

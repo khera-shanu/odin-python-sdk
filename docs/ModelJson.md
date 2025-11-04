@@ -5,9 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**project_id** | **object** |  | 
-**title** | [**Title**](Title.md) |  | [optional] 
-**content** | [**Content**](Content.md) |  | [optional] 
+**project_id** | **str** |  | 
+**title** | **str** |  | [optional] 
+**content** | **str** |  | [optional] 
 
 ## Example
 
@@ -19,12 +19,12 @@ json = "{}"
 # create an instance of ModelJson from a JSON string
 model_json_instance = ModelJson.from_json(json)
 # print the JSON string representation of the object
-print ModelJson.to_json()
+print(ModelJson.to_json())
 
 # convert the object into a dict
 model_json_dict = model_json_instance.to_dict()
 # create an instance of ModelJson from a dict
-model_json_form_dict = model_json.from_dict(model_json_dict)
+model_json_from_dict = ModelJson.from_dict(model_json_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

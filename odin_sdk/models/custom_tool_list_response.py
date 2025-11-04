@@ -17,28 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
+from typing import Any, ClassVar, Dict, List
+from odin_sdk.models.custom_tool_response import CustomToolResponse
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CustomToolListResponse(BaseModel):
     """
     CustomToolListResponse
     """ # noqa: E501
-    tools: Optional[Any] = Field(description="List of custom tools")
-    total: Optional[Any] = Field(description="Total number of tools")
+    tools: List[CustomToolResponse] = Field(description="List of custom tools")
+    total: StrictInt = Field(description="Total number of tools")
     __properties: ClassVar[List[str]] = ["tools", "total"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +48,7 @@ class CustomToolListResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of CustomToolListResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,26 +62,25 @@ class CustomToolListResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if tools (nullable) is None
-        # and model_fields_set contains the field
-        if self.tools is None and "tools" in self.model_fields_set:
-            _dict['tools'] = None
-
-        # set to None if total (nullable) is None
-        # and model_fields_set contains the field
-        if self.total is None and "total" in self.model_fields_set:
-            _dict['total'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in tools (list)
+        _items = []
+        if self.tools:
+            for _item_tools in self.tools:
+                if _item_tools:
+                    _items.append(_item_tools.to_dict())
+            _dict['tools'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of CustomToolListResponse from a dict"""
         if obj is None:
             return None
@@ -93,7 +89,7 @@ class CustomToolListResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "tools": obj.get("tools"),
+            "tools": [CustomToolResponse.from_dict(_item) for _item in obj["tools"]] if obj.get("tools") is not None else None,
             "total": obj.get("total")
         })
         return _obj

@@ -17,28 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.user_details import UserDetails
+from typing import Optional, Set
+from typing_extensions import Self
 
 class AddUserToProjectRequest(BaseModel):
     """
     AddUserToProjectRequest
     """ # noqa: E501
-    project_id: Optional[Any]
-    users: Optional[Any]
-    send_mail: Optional[Any] = None
+    project_id: StrictStr
+    users: List[UserDetails]
+    send_mail: Optional[StrictBool] = True
     __properties: ClassVar[List[str]] = ["project_id", "users", "send_mail"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +49,7 @@ class AddUserToProjectRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of AddUserToProjectRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,31 +63,25 @@ class AddUserToProjectRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if project_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
-
-        # set to None if users (nullable) is None
-        # and model_fields_set contains the field
-        if self.users is None and "users" in self.model_fields_set:
-            _dict['users'] = None
-
-        # set to None if send_mail (nullable) is None
-        # and model_fields_set contains the field
-        if self.send_mail is None and "send_mail" in self.model_fields_set:
-            _dict['send_mail'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in users (list)
+        _items = []
+        if self.users:
+            for _item_users in self.users:
+                if _item_users:
+                    _items.append(_item_users.to_dict())
+            _dict['users'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of AddUserToProjectRequest from a dict"""
         if obj is None:
             return None
@@ -99,8 +91,8 @@ class AddUserToProjectRequest(BaseModel):
 
         _obj = cls.model_validate({
             "project_id": obj.get("project_id"),
-            "users": obj.get("users"),
-            "send_mail": obj.get("send_mail")
+            "users": [UserDetails.from_dict(_item) for _item in obj["users"]] if obj.get("users") is not None else None,
+            "send_mail": obj.get("send_mail") if obj.get("send_mail") is not None else True
         })
         return _obj
 

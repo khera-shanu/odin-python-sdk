@@ -13,133 +13,199 @@
 
 
 from __future__ import annotations
-from inspect import getfullargspec
-import json
 import pprint
 import re  # noqa: F401
+import json
 
-from typing import Any, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
-from typing import Union, Any, List, TYPE_CHECKING, Optional, Dict
-from typing_extensions import Literal
-from pydantic import StrictStr, Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
-
-CUSTOMCHATBOT_ANY_OF_SCHEMAS = ["object"]
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from typing import Optional, Set
+from typing_extensions import Self
 
 class CustomChatbot(BaseModel):
     """
     CustomChatbot
-    """
+    """ # noqa: E501
+    input_placeholder_text: Optional[StrictStr] = Field(default=None, alias="inputPlaceholderText")
+    display_sources: Optional[StrictBool] = Field(default=None, alias="displaySources")
+    primary_color: Optional[StrictStr] = Field(default=None, alias="primaryColor")
+    font_size: Optional[StrictStr] = Field(default=None, alias="fontSize")
+    toggle_icon_color: Optional[StrictStr] = Field(default=None, alias="toggleIconColor")
+    text_color: Optional[StrictStr] = Field(default=None, alias="textColor")
+    caret_bg_color: Optional[StrictStr] = Field(default=None, alias="caretBgColor")
+    suggestions: Optional[List[StrictStr]] = None
+    chatbot_name: Optional[StrictStr] = Field(default=None, alias="chatbotName")
+    enable_multiple_chats: Optional[StrictBool] = Field(default=None, alias="enableMultipleChats")
+    auto_show_welcome_message_after: Optional[StrictStr] = Field(default=None, alias="autoShowWelcomeMessageAfter")
+    welcome_message: Optional[StrictStr] = Field(default=None, alias="welcomeMessage")
+    pre_chat_attention_image: Optional[StrictStr] = Field(default=None, alias="preChatAttentionImage")
+    pre_chat_attention_image_behavior: Optional[StrictStr] = Field(default=None, alias="preChatAttentionImageBehavior")
+    toggle_button_image: Optional[StrictStr] = Field(default=None, alias="toggleButtonImage")
+    widget_avatar_image: Optional[StrictStr] = Field(default=None, alias="widgetAvatarImage")
+    show_thinking_process: Optional[StrictBool] = Field(default=None, alias="showThinkingProcess")
+    enable_authentication: Optional[StrictBool] = Field(default=None, alias="enableAuthentication")
+    __properties: ClassVar[List[str]] = ["inputPlaceholderText", "displaySources", "primaryColor", "fontSize", "toggleIconColor", "textColor", "caretBgColor", "suggestions", "chatbotName", "enableMultipleChats", "autoShowWelcomeMessageAfter", "welcomeMessage", "preChatAttentionImage", "preChatAttentionImageBehavior", "toggleButtonImage", "widgetAvatarImage", "showThinkingProcess", "enableAuthentication"]
 
-    # data type: object
-    anyof_schema_1_validator: Optional[Any] = None
-    # data type: object
-    anyof_schema_2_validator: Optional[Any] = None
-    if TYPE_CHECKING:
-        actual_instance: Optional[Union[object]] = None
-    else:
-        actual_instance: Any = None
-    any_of_schemas: List[str] = Literal[CUSTOMCHATBOT_ANY_OF_SCHEMAS]
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
-    model_config = {
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
-
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_anyof(cls, v):
-        instance = CustomChatbot.model_construct()
-        error_messages = []
-        # validate data type: object
-        try:
-            instance.anyof_schema_1_validator = v
-            return v
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # validate data type: object
-        try:
-            instance.anyof_schema_2_validator = v
-            return v
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        if error_messages:
-            # no match
-            raise ValueError("No match found when setting the actual_instance in CustomChatbot with anyOf schemas: object. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: dict) -> Self:
-        return cls.from_json(json.dumps(obj))
-
-    @classmethod
-    def from_json(cls, json_str: str) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        error_messages = []
-        # deserialize data into object
-        try:
-            # validation
-            instance.anyof_schema_1_validator = json.loads(json_str)
-            # assign value to actual_instance
-            instance.actual_instance = instance.anyof_schema_1_validator
-            return instance
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into object
-        try:
-            # validation
-            instance.anyof_schema_2_validator = json.loads(json_str)
-            # assign value to actual_instance
-            instance.actual_instance = instance.anyof_schema_2_validator
-            return instance
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if error_messages:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into CustomChatbot with anyOf schemas: object. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        to_json = getattr(self.actual_instance, "to_json", None)
-        if callable(to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Dict:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        to_json = getattr(self.actual_instance, "to_json", None)
-        if callable(to_json):
-            return self.actual_instance.to_dict()
-        else:
-            return json.dumps(self.actual_instance)
 
     def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
+        """Returns the string representation of the model using alias"""
+        return pprint.pformat(self.model_dump(by_alias=True))
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of CustomChatbot from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
+
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
+
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
+
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # set to None if input_placeholder_text (nullable) is None
+        # and model_fields_set contains the field
+        if self.input_placeholder_text is None and "input_placeholder_text" in self.model_fields_set:
+            _dict['inputPlaceholderText'] = None
+
+        # set to None if display_sources (nullable) is None
+        # and model_fields_set contains the field
+        if self.display_sources is None and "display_sources" in self.model_fields_set:
+            _dict['displaySources'] = None
+
+        # set to None if primary_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.primary_color is None and "primary_color" in self.model_fields_set:
+            _dict['primaryColor'] = None
+
+        # set to None if font_size (nullable) is None
+        # and model_fields_set contains the field
+        if self.font_size is None and "font_size" in self.model_fields_set:
+            _dict['fontSize'] = None
+
+        # set to None if toggle_icon_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.toggle_icon_color is None and "toggle_icon_color" in self.model_fields_set:
+            _dict['toggleIconColor'] = None
+
+        # set to None if text_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.text_color is None and "text_color" in self.model_fields_set:
+            _dict['textColor'] = None
+
+        # set to None if caret_bg_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.caret_bg_color is None and "caret_bg_color" in self.model_fields_set:
+            _dict['caretBgColor'] = None
+
+        # set to None if suggestions (nullable) is None
+        # and model_fields_set contains the field
+        if self.suggestions is None and "suggestions" in self.model_fields_set:
+            _dict['suggestions'] = None
+
+        # set to None if chatbot_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.chatbot_name is None and "chatbot_name" in self.model_fields_set:
+            _dict['chatbotName'] = None
+
+        # set to None if enable_multiple_chats (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_multiple_chats is None and "enable_multiple_chats" in self.model_fields_set:
+            _dict['enableMultipleChats'] = None
+
+        # set to None if auto_show_welcome_message_after (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_show_welcome_message_after is None and "auto_show_welcome_message_after" in self.model_fields_set:
+            _dict['autoShowWelcomeMessageAfter'] = None
+
+        # set to None if welcome_message (nullable) is None
+        # and model_fields_set contains the field
+        if self.welcome_message is None and "welcome_message" in self.model_fields_set:
+            _dict['welcomeMessage'] = None
+
+        # set to None if pre_chat_attention_image (nullable) is None
+        # and model_fields_set contains the field
+        if self.pre_chat_attention_image is None and "pre_chat_attention_image" in self.model_fields_set:
+            _dict['preChatAttentionImage'] = None
+
+        # set to None if pre_chat_attention_image_behavior (nullable) is None
+        # and model_fields_set contains the field
+        if self.pre_chat_attention_image_behavior is None and "pre_chat_attention_image_behavior" in self.model_fields_set:
+            _dict['preChatAttentionImageBehavior'] = None
+
+        # set to None if toggle_button_image (nullable) is None
+        # and model_fields_set contains the field
+        if self.toggle_button_image is None and "toggle_button_image" in self.model_fields_set:
+            _dict['toggleButtonImage'] = None
+
+        # set to None if widget_avatar_image (nullable) is None
+        # and model_fields_set contains the field
+        if self.widget_avatar_image is None and "widget_avatar_image" in self.model_fields_set:
+            _dict['widgetAvatarImage'] = None
+
+        # set to None if show_thinking_process (nullable) is None
+        # and model_fields_set contains the field
+        if self.show_thinking_process is None and "show_thinking_process" in self.model_fields_set:
+            _dict['showThinkingProcess'] = None
+
+        # set to None if enable_authentication (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_authentication is None and "enable_authentication" in self.model_fields_set:
+            _dict['enableAuthentication'] = None
+
+        return _dict
+
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of CustomChatbot from a dict"""
+        if obj is None:
+            return None
+
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
+
+        _obj = cls.model_validate({
+            "inputPlaceholderText": obj.get("inputPlaceholderText"),
+            "displaySources": obj.get("displaySources"),
+            "primaryColor": obj.get("primaryColor"),
+            "fontSize": obj.get("fontSize"),
+            "toggleIconColor": obj.get("toggleIconColor"),
+            "textColor": obj.get("textColor"),
+            "caretBgColor": obj.get("caretBgColor"),
+            "suggestions": obj.get("suggestions"),
+            "chatbotName": obj.get("chatbotName"),
+            "enableMultipleChats": obj.get("enableMultipleChats"),
+            "autoShowWelcomeMessageAfter": obj.get("autoShowWelcomeMessageAfter"),
+            "welcomeMessage": obj.get("welcomeMessage"),
+            "preChatAttentionImage": obj.get("preChatAttentionImage"),
+            "preChatAttentionImageBehavior": obj.get("preChatAttentionImageBehavior"),
+            "toggleButtonImage": obj.get("toggleButtonImage"),
+            "widgetAvatarImage": obj.get("widgetAvatarImage"),
+            "showThinkingProcess": obj.get("showThinkingProcess"),
+            "enableAuthentication": obj.get("enableAuthentication")
+        })
+        return _obj
 
 

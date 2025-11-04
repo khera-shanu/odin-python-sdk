@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.delete_project_response import DeleteProjectResponse
 
@@ -28,7 +27,7 @@ class TestDeleteProjectResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DeleteProjectResponse:
         """Test DeleteProjectResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DeleteProjectResponse`
@@ -36,13 +35,13 @@ class TestDeleteProjectResponse(unittest.TestCase):
         model = DeleteProjectResponse()
         if include_optional:
             return DeleteProjectResponse(
-                message = None,
-                project_id = None
+                message = '',
+                project_id = ''
             )
         else:
             return DeleteProjectResponse(
-                message = None,
-                project_id = None,
+                message = '',
+                project_id = '',
         )
         """
 

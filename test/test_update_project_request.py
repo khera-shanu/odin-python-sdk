@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_project_request import UpdateProjectRequest
 
@@ -28,7 +27,7 @@ class TestUpdateProjectRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateProjectRequest:
         """Test UpdateProjectRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateProjectRequest`
@@ -36,37 +35,62 @@ class TestUpdateProjectRequest(unittest.TestCase):
         model = UpdateProjectRequest()
         if include_optional:
             return UpdateProjectRequest(
-                project_id = None,
-                name = None,
-                type = None,
-                model_name = None,
-                enrich_question = None,
-                enrich_sources = None,
-                description = None,
+                project_id = '',
+                name = '',
+                type = '',
+                model_name = '',
+                enrich_question = True,
+                enrich_sources = True,
+                description = '',
                 test_info = None,
-                is_public = None,
-                no_context_answer = None,
-                only_answer_with_context = None,
-                custom_chatbot = None,
-                use_textract = None,
-                mask_pii = None,
-                inline_citations = None,
-                data_extraction_method = None,
-                teamsbot_upload_method = None,
-                teamsbot_static_message_footer = None,
-                teamsbot_show_feedback_buttons = None,
-                teamsbot_show_kb_search_message = None,
-                teamsbot_show_message_sources = None,
-                enable_temporary_message_retention = None,
-                temporary_message_retention_duration = None,
-                docx_extraction_method = None,
-                shared_to_team = None,
-                team_default_role = None,
-                team_id = None
+                is_public = True,
+                no_context_answer = '',
+                only_answer_with_context = True,
+                custom_chatbot = odin_sdk.models.custom_chatbot.CustomChatbot(
+                    input_placeholder_text = '', 
+                    display_sources = True, 
+                    primary_color = '', 
+                    font_size = '', 
+                    toggle_icon_color = '', 
+                    text_color = '', 
+                    caret_bg_color = '', 
+                    suggestions = [
+                        ''
+                        ], 
+                    chatbot_name = '', 
+                    enable_multiple_chats = True, 
+                    auto_show_welcome_message_after = '', 
+                    welcome_message = '', 
+                    pre_chat_attention_image = '', 
+                    pre_chat_attention_image_behavior = '', 
+                    toggle_button_image = '', 
+                    widget_avatar_image = '', 
+                    show_thinking_process = True, 
+                    enable_authentication = True, ),
+                use_textract = True,
+                mask_pii = True,
+                inline_citations = True,
+                data_extraction_method = '',
+                teamsbot_upload_method = '',
+                teamsbot_static_message_footer = '',
+                teamsbot_show_feedback_buttons = True,
+                teamsbot_show_kb_search_message = True,
+                teamsbot_show_message_sources = True,
+                enable_temporary_message_retention = True,
+                temporary_message_retention_duration = 56,
+                docx_extraction_method = '',
+                shared_to_team = True,
+                team_default_role = '',
+                enable_automator_v2 = True,
+                team_id = '',
+                custom_agent = '',
+                custom_agent_name = '',
+                transcription_provider_key = '',
+                transcription_model_key = ''
             )
         else:
             return UpdateProjectRequest(
-                project_id = None,
+                project_id = '',
         )
         """
 

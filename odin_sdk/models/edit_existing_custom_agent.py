@@ -17,36 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.building_blocks import BuildingBlocks
-from odin_sdk.models.mask_urls import MaskUrls
-from odin_sdk.models.temperature1 import Temperature1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class EditExistingCustomAgent(BaseModel):
     """
     EditExistingCustomAgent
     """ # noqa: E501
-    project_id: Optional[Any] = Field(description="ID of the project in which to create the agent.")
-    agent_name: Optional[Any] = Field(description="Custom name of the agent.")
-    edit_agent_id: Optional[Any] = Field(description="ID of the agent to edit.")
-    personality: Optional[Any] = Field(default=None, description="Personality definition of the agent.")
-    building_blocks: Optional[BuildingBlocks] = None
-    temperature: Optional[Temperature1] = None
-    mask_urls: Optional[MaskUrls] = None
+    project_id: StrictStr = Field(description="ID of the project in which to create the agent.")
+    agent_name: StrictStr = Field(description="Custom name of the agent.")
+    edit_agent_id: StrictStr = Field(description="ID of the agent to edit.")
+    personality: Optional[StrictStr] = Field(default='You are a helpful agent.', description="Personality definition of the agent.")
+    building_blocks: Optional[List[Dict[str, Any]]] = None
+    temperature: Optional[Union[StrictFloat, StrictInt]] = None
+    mask_urls: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["project_id", "agent_name", "edit_agent_id", "personality", "building_blocks", "temperature", "mask_urls"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -59,7 +52,7 @@ class EditExistingCustomAgent(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of EditExistingCustomAgent from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -73,45 +66,33 @@ class EditExistingCustomAgent(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of building_blocks
-        if self.building_blocks:
-            _dict['building_blocks'] = self.building_blocks.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of temperature
-        if self.temperature:
-            _dict['temperature'] = self.temperature.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of mask_urls
-        if self.mask_urls:
-            _dict['mask_urls'] = self.mask_urls.to_dict()
-        # set to None if project_id (nullable) is None
+        # set to None if building_blocks (nullable) is None
         # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.building_blocks is None and "building_blocks" in self.model_fields_set:
+            _dict['building_blocks'] = None
 
-        # set to None if agent_name (nullable) is None
+        # set to None if temperature (nullable) is None
         # and model_fields_set contains the field
-        if self.agent_name is None and "agent_name" in self.model_fields_set:
-            _dict['agent_name'] = None
+        if self.temperature is None and "temperature" in self.model_fields_set:
+            _dict['temperature'] = None
 
-        # set to None if edit_agent_id (nullable) is None
+        # set to None if mask_urls (nullable) is None
         # and model_fields_set contains the field
-        if self.edit_agent_id is None and "edit_agent_id" in self.model_fields_set:
-            _dict['edit_agent_id'] = None
-
-        # set to None if personality (nullable) is None
-        # and model_fields_set contains the field
-        if self.personality is None and "personality" in self.model_fields_set:
-            _dict['personality'] = None
+        if self.mask_urls is None and "mask_urls" in self.model_fields_set:
+            _dict['mask_urls'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of EditExistingCustomAgent from a dict"""
         if obj is None:
             return None
@@ -123,10 +104,10 @@ class EditExistingCustomAgent(BaseModel):
             "project_id": obj.get("project_id"),
             "agent_name": obj.get("agent_name"),
             "edit_agent_id": obj.get("edit_agent_id"),
-            "personality": obj.get("personality"),
-            "building_blocks": BuildingBlocks.from_dict(obj.get("building_blocks")) if obj.get("building_blocks") is not None else None,
-            "temperature": Temperature1.from_dict(obj.get("temperature")) if obj.get("temperature") is not None else None,
-            "mask_urls": MaskUrls.from_dict(obj.get("mask_urls")) if obj.get("mask_urls") is not None else None
+            "personality": obj.get("personality") if obj.get("personality") is not None else 'You are a helpful agent.',
+            "building_blocks": obj.get("building_blocks"),
+            "temperature": obj.get("temperature"),
+            "mask_urls": obj.get("mask_urls")
         })
         return _obj
 

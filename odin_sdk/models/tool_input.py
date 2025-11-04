@@ -17,33 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.description11 import Description11
-from odin_sdk.models.id3 import Id3
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ToolInput(BaseModel):
     """
     ToolInput
     """ # noqa: E501
-    id: Optional[Id3] = None
-    type: Optional[Any] = Field(description="The input type (string, number, boolean, etc.)")
-    value: Optional[Any] = Field(description="The input value or description")
-    manual_input: Optional[Any] = Field(default=None, description="Whether this is manual input or agent controlled")
-    description: Optional[Description11] = None
-    __properties: ClassVar[List[str]] = ["id", "type", "value", "manual_input", "description"]
+    id: Optional[StrictStr] = None
+    type: StrictStr = Field(description="The input type (string, number, boolean, etc.)")
+    value: Optional[Any] = Field(default=None, description="The input value. Type depends on 'type'")
+    manual_input: Optional[StrictBool] = Field(default=False, description="Whether this is manual input or agent controlled")
+    required: Optional[StrictBool] = None
+    description: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "type", "value", "manual_input", "required", "description"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +51,7 @@ class ToolInput(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ToolInput from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,37 +65,38 @@ class ToolInput(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of id
-        if self.id:
-            _dict['id'] = self.id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # set to None if type (nullable) is None
+        # set to None if id (nullable) is None
         # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['type'] = None
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
 
         # set to None if value (nullable) is None
         # and model_fields_set contains the field
         if self.value is None and "value" in self.model_fields_set:
             _dict['value'] = None
 
-        # set to None if manual_input (nullable) is None
+        # set to None if required (nullable) is None
         # and model_fields_set contains the field
-        if self.manual_input is None and "manual_input" in self.model_fields_set:
-            _dict['manual_input'] = None
+        if self.required is None and "required" in self.model_fields_set:
+            _dict['required'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ToolInput from a dict"""
         if obj is None:
             return None
@@ -109,11 +105,12 @@ class ToolInput(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": Id3.from_dict(obj.get("id")) if obj.get("id") is not None else None,
+            "id": obj.get("id"),
             "type": obj.get("type"),
             "value": obj.get("value"),
-            "manual_input": obj.get("manual_input"),
-            "description": Description11.from_dict(obj.get("description")) if obj.get("description") is not None else None
+            "manual_input": obj.get("manual_input") if obj.get("manual_input") is not None else False,
+            "required": obj.get("required"),
+            "description": obj.get("description")
         })
         return _obj
 

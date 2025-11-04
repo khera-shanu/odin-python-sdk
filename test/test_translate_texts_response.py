@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.translate_texts_response import TranslateTextsResponse
 
@@ -28,7 +27,7 @@ class TestTranslateTextsResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> TranslateTextsResponse:
         """Test TranslateTextsResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `TranslateTextsResponse`
@@ -36,13 +35,21 @@ class TestTranslateTextsResponse(unittest.TestCase):
         model = TranslateTextsResponse()
         if include_optional:
             return TranslateTextsResponse(
-                message = None,
-                translated_texts = None
+                message = '',
+                translated_texts = [
+                    odin_sdk.models.translated_text.TranslatedText(
+                        original = '', 
+                        translation = '', )
+                    ]
             )
         else:
             return TranslateTextsResponse(
-                message = None,
-                translated_texts = None,
+                message = '',
+                translated_texts = [
+                    odin_sdk.models.translated_text.TranslatedText(
+                        original = '', 
+                        translation = '', )
+                    ],
         )
         """
 

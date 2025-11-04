@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.delete_chat_response import DeleteChatResponse
 
@@ -28,7 +27,7 @@ class TestDeleteChatResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DeleteChatResponse:
         """Test DeleteChatResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DeleteChatResponse`
@@ -36,11 +35,11 @@ class TestDeleteChatResponse(unittest.TestCase):
         model = DeleteChatResponse()
         if include_optional:
             return DeleteChatResponse(
-                message = None
+                message = ''
             )
         else:
             return DeleteChatResponse(
-                message = None,
+                message = '',
         )
         """
 

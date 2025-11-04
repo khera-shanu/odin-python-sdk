@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.delete_json_response import DeleteJsonResponse
 
@@ -28,7 +27,7 @@ class TestDeleteJsonResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> DeleteJsonResponse:
         """Test DeleteJsonResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `DeleteJsonResponse`
@@ -36,13 +35,13 @@ class TestDeleteJsonResponse(unittest.TestCase):
         model = DeleteJsonResponse()
         if include_optional:
             return DeleteJsonResponse(
-                message = None,
-                json_id = None
+                message = '',
+                json_id = ''
             )
         else:
             return DeleteJsonResponse(
-                message = None,
-                json_id = None,
+                message = '',
+                json_id = '',
         )
         """
 

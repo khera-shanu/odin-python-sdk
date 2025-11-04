@@ -17,34 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.data import Data
-from odin_sdk.models.error2 import Error2
-from odin_sdk.models.execution_time_ms1 import ExecutionTimeMs1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class StepExecutionResult(BaseModel):
     """
     StepExecutionResult
     """ # noqa: E501
-    success: Optional[Any] = Field(description="Whether the step execution was successful")
-    message: Optional[Any] = Field(description="A message describing the result")
-    data: Optional[Data] = None
-    error: Optional[Error2] = None
-    execution_time_ms: Optional[ExecutionTimeMs1] = None
-    __properties: ClassVar[List[str]] = ["success", "message", "data", "error", "execution_time_ms"]
+    success: StrictBool = Field(description="Whether the step execution was successful")
+    message: StrictStr = Field(description="A message describing the result")
+    data: Optional[Any] = Field(default=None, description="The step execution result data (workflow format)")
+    error: Optional[StrictStr] = None
+    execution_time_ms: Optional[StrictInt] = None
+    ui: Optional[Dict[str, Any]] = None
+    __properties: ClassVar[List[str]] = ["success", "message", "data", "error", "execution_time_ms", "ui"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -57,7 +51,7 @@ class StepExecutionResult(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of StepExecutionResult from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -71,35 +65,41 @@ class StepExecutionResult(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
         # override the default output from pydantic by calling `to_dict()` of data
         if self.data:
             _dict['data'] = self.data.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of error
-        if self.error:
-            _dict['error'] = self.error.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of execution_time_ms
-        if self.execution_time_ms:
-            _dict['execution_time_ms'] = self.execution_time_ms.to_dict()
-        # set to None if success (nullable) is None
+        # set to None if data (nullable) is None
         # and model_fields_set contains the field
-        if self.success is None and "success" in self.model_fields_set:
-            _dict['success'] = None
+        if self.data is None and "data" in self.model_fields_set:
+            _dict['data'] = None
 
-        # set to None if message (nullable) is None
+        # set to None if error (nullable) is None
         # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
+        if self.error is None and "error" in self.model_fields_set:
+            _dict['error'] = None
+
+        # set to None if execution_time_ms (nullable) is None
+        # and model_fields_set contains the field
+        if self.execution_time_ms is None and "execution_time_ms" in self.model_fields_set:
+            _dict['execution_time_ms'] = None
+
+        # set to None if ui (nullable) is None
+        # and model_fields_set contains the field
+        if self.ui is None and "ui" in self.model_fields_set:
+            _dict['ui'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of StepExecutionResult from a dict"""
         if obj is None:
             return None
@@ -110,9 +110,10 @@ class StepExecutionResult(BaseModel):
         _obj = cls.model_validate({
             "success": obj.get("success"),
             "message": obj.get("message"),
-            "data": Data.from_dict(obj.get("data")) if obj.get("data") is not None else None,
-            "error": Error2.from_dict(obj.get("error")) if obj.get("error") is not None else None,
-            "execution_time_ms": ExecutionTimeMs1.from_dict(obj.get("execution_time_ms")) if obj.get("execution_time_ms") is not None else None
+            "data": AnyOf.from_dict(obj["data"]) if obj.get("data") is not None else None,
+            "error": obj.get("error"),
+            "execution_time_ms": obj.get("execution_time_ms"),
+            "ui": obj.get("ui")
         })
         return _obj
 

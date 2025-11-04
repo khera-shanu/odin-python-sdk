@@ -11,24 +11,14 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
-import io
 import warnings
-
 from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
-from typing import Dict, List, Optional, Tuple, Union, Any
-
-try:
-    from typing import Annotated
-except ImportError:
-    from typing_extensions import Annotated
-
-from pydantic import Field
+from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
-from pydantic import StrictStr
 
-from typing import Any, Optional
-
+from pydantic import Field, StrictBytes, StrictStr
+from typing import Any, Optional, Tuple, Union
+from typing_extensions import Annotated
 from odin_sdk.models.ai_classify_request import AIClassifyRequest
 from odin_sdk.models.ai_classify_response import AIClassifyResponse
 from odin_sdk.models.ai_summarize_request import AISummarizeRequest
@@ -47,17 +37,16 @@ from odin_sdk.models.extract_meta_data_request import ExtractMetaDataRequest
 from odin_sdk.models.fetch_data_request import FetchDataRequest
 from odin_sdk.models.fetch_data_response import FetchDataResponse
 from odin_sdk.models.fetch_kb_documents_request import FetchKBDocumentsRequest
+from odin_sdk.models.fetch_kb_documents_response import FetchKBDocumentsResponse
 from odin_sdk.models.md_html_conversion_request import MdHTMLConversionRequest
 from odin_sdk.models.pii_check_request import PIICheckRequest
-from odin_sdk.models.response_fetch_kb_documents_tools_kb_fetch_documents_post import ResponseFetchKbDocumentsToolsKbFetchDocumentsPost
-from odin_sdk.models.response_get_step_result_tools_step_result_project_id_tool_id_step_id_get import ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet
 from odin_sdk.models.step_execution_request import StepExecutionRequest
 from odin_sdk.models.step_execution_result import StepExecutionResult
 from odin_sdk.models.stock_data_request import StockDataRequest
 from odin_sdk.models.translate_texts_request import TranslateTextsRequest
 from odin_sdk.models.translate_texts_response import TranslateTextsResponse
 
-from odin_sdk.api_client import ApiClient
+from odin_sdk.api_client import ApiClient, RequestSerialized
 from odin_sdk.api_response import ApiResponse
 from odin_sdk.rest import RESTResponseType
 
@@ -305,7 +294,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -316,7 +305,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -333,11 +324,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -608,7 +600,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -619,7 +611,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -636,11 +630,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -908,7 +903,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -919,7 +914,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -936,11 +933,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1182,7 +1180,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -1193,7 +1191,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1206,11 +1206,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1478,7 +1479,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -1489,7 +1490,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1506,11 +1509,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -1778,7 +1782,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -1789,7 +1793,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -1806,11 +1812,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2078,7 +2085,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2089,7 +2096,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2106,11 +2115,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2378,7 +2388,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2389,7 +2399,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2406,11 +2418,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2678,7 +2691,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2689,7 +2702,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -2706,11 +2721,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -2981,7 +2997,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -2992,7 +3008,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3009,11 +3027,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3284,7 +3303,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3295,7 +3314,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3312,11 +3333,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3357,10 +3379,10 @@ class ToolsApi:
     @validate_call
     def extract_info_from_file_tools_file_extract_start_post(
         self,
-        file: Optional[Any],
-        prompt: Optional[Any],
-        project_id: Optional[Any],
-        extract_commands: Optional[Any],
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        prompt: StrictStr,
+        project_id: StrictStr,
+        extract_commands: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -3381,13 +3403,13 @@ class ToolsApi:
         Gets the data from the file based on the commands provided.
 
         :param file: (required)
-        :type file: object
+        :type file: bytearray
         :param prompt: (required)
-        :type prompt: object
+        :type prompt: str
         :param project_id: (required)
-        :type project_id: object
+        :type project_id: str
         :param extract_commands: (required)
-        :type extract_commands: object
+        :type extract_commands: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -3445,10 +3467,10 @@ class ToolsApi:
     @validate_call
     def extract_info_from_file_tools_file_extract_start_post_with_http_info(
         self,
-        file: Optional[Any],
-        prompt: Optional[Any],
-        project_id: Optional[Any],
-        extract_commands: Optional[Any],
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        prompt: StrictStr,
+        project_id: StrictStr,
+        extract_commands: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -3469,13 +3491,13 @@ class ToolsApi:
         Gets the data from the file based on the commands provided.
 
         :param file: (required)
-        :type file: object
+        :type file: bytearray
         :param prompt: (required)
-        :type prompt: object
+        :type prompt: str
         :param project_id: (required)
-        :type project_id: object
+        :type project_id: str
         :param extract_commands: (required)
-        :type extract_commands: object
+        :type extract_commands: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -3533,10 +3555,10 @@ class ToolsApi:
     @validate_call
     def extract_info_from_file_tools_file_extract_start_post_without_preload_content(
         self,
-        file: Optional[Any],
-        prompt: Optional[Any],
-        project_id: Optional[Any],
-        extract_commands: Optional[Any],
+        file: Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]],
+        prompt: StrictStr,
+        project_id: StrictStr,
+        extract_commands: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -3557,13 +3579,13 @@ class ToolsApi:
         Gets the data from the file based on the commands provided.
 
         :param file: (required)
-        :type file: object
+        :type file: bytearray
         :param prompt: (required)
-        :type prompt: object
+        :type prompt: str
         :param project_id: (required)
-        :type project_id: object
+        :type project_id: str
         :param extract_commands: (required)
-        :type extract_commands: object
+        :type extract_commands: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -3626,7 +3648,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3637,7 +3659,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3649,7 +3673,7 @@ class ToolsApi:
             _header_params['X-API-SECRET'] = x_api_secret
         # process the form parameters
         if file is not None:
-            _form_params.append(('file', file))
+            _files['file'] = file
         if prompt is not None:
             _form_params.append(('prompt', prompt))
         if project_id is not None:
@@ -3660,11 +3684,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -3935,7 +3960,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -3946,7 +3971,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -3963,11 +3990,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4023,7 +4051,7 @@ class ToolsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ResponseFetchKbDocumentsToolsKbFetchDocumentsPost:
+    ) -> FetchKBDocumentsResponse:
         """Fetch Kb Documents
 
         Retrieves documents from the KB.
@@ -4067,7 +4095,7 @@ class ToolsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResponseFetchKbDocumentsToolsKbFetchDocumentsPost",
+            '200': "FetchKBDocumentsResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4099,7 +4127,7 @@ class ToolsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ResponseFetchKbDocumentsToolsKbFetchDocumentsPost]:
+    ) -> ApiResponse[FetchKBDocumentsResponse]:
         """Fetch Kb Documents
 
         Retrieves documents from the KB.
@@ -4143,7 +4171,7 @@ class ToolsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResponseFetchKbDocumentsToolsKbFetchDocumentsPost",
+            '200': "FetchKBDocumentsResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4219,7 +4247,7 @@ class ToolsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResponseFetchKbDocumentsToolsKbFetchDocumentsPost",
+            '200': "FetchKBDocumentsResponse",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4238,7 +4266,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -4249,7 +4277,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -4266,11 +4296,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4538,7 +4569,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -4549,7 +4580,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -4566,11 +4599,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -4609,11 +4643,9 @@ class ToolsApi:
 
 
     @validate_call
-    def get_step_result_tools_step_result_project_id_tool_id_step_id_get(
+    def get_available_tools_by_category_tools_available_by_category_get(
         self,
-        project_id: StrictStr,
-        tool_id: Any,
-        step_id: Any,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -4628,7 +4660,599 @@ class ToolsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet:
+    ) -> object:
+        """Get Available Tools By Category
+
+        Get all available toolkit tools organized by category
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_tools_by_category_tools_available_by_category_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_available_tools_by_category_tools_available_by_category_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Available Tools By Category
+
+        Get all available toolkit tools organized by category
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_tools_by_category_tools_available_by_category_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_available_tools_by_category_tools_available_by_category_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Available Tools By Category
+
+        Get all available toolkit tools organized by category
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_tools_by_category_tools_available_by_category_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_available_tools_by_category_tools_available_by_category_get_serialize(
+        self,
+        project_id,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/available/by-category',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_available_tools_tools_available_get(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Get Available Tools
+
+        Get all available toolkit tools with their input schemas for custom tool creation
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_tools_tools_available_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_available_tools_tools_available_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Get Available Tools
+
+        Get all available toolkit tools with their input schemas for custom tool creation
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_tools_tools_available_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_available_tools_tools_available_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Get Available Tools
+
+        Get all available toolkit tools with their input schemas for custom tool creation
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_available_tools_tools_available_get_serialize(
+            project_id=project_id,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_available_tools_tools_available_get_serialize(
+        self,
+        project_id,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/available',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_step_result_tools_step_result_project_id_tool_id_step_id_get(
+        self,
+        project_id: StrictStr,
+        tool_id: StrictStr,
+        step_id: StrictStr,
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> StepExecutionResult:
         """Get Step Result
 
         Get step execution result
@@ -4636,9 +5260,9 @@ class ToolsApi:
         :param project_id: (required)
         :type project_id: str
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param step_id: (required)
-        :type step_id: object
+        :type step_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -4678,7 +5302,7 @@ class ToolsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet",
+            '200': "StepExecutionResult",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4696,8 +5320,8 @@ class ToolsApi:
     def get_step_result_tools_step_result_project_id_tool_id_step_id_get_with_http_info(
         self,
         project_id: StrictStr,
-        tool_id: Any,
-        step_id: Any,
+        tool_id: StrictStr,
+        step_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -4712,7 +5336,7 @@ class ToolsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet]:
+    ) -> ApiResponse[StepExecutionResult]:
         """Get Step Result
 
         Get step execution result
@@ -4720,9 +5344,9 @@ class ToolsApi:
         :param project_id: (required)
         :type project_id: str
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param step_id: (required)
-        :type step_id: object
+        :type step_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -4762,7 +5386,7 @@ class ToolsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet",
+            '200': "StepExecutionResult",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4780,8 +5404,8 @@ class ToolsApi:
     def get_step_result_tools_step_result_project_id_tool_id_step_id_get_without_preload_content(
         self,
         project_id: StrictStr,
-        tool_id: Any,
-        step_id: Any,
+        tool_id: StrictStr,
+        step_id: StrictStr,
         x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
         x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
         _request_timeout: Union[
@@ -4804,9 +5428,9 @@ class ToolsApi:
         :param project_id: (required)
         :type project_id: str
         :param tool_id: (required)
-        :type tool_id: object
+        :type tool_id: str
         :param step_id: (required)
-        :type step_id: object
+        :type step_id: str
         :param x_api_key: Your Odin API key.
         :type x_api_key: str
         :param x_api_secret: Your Odin API secret.
@@ -4846,7 +5470,7 @@ class ToolsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet",
+            '200': "StepExecutionResult",
             '422': "HTTPValidationError",
         }
         response_data = self.api_client.call_api(
@@ -4867,7 +5491,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -4878,7 +5502,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -4899,11 +5525,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
 
         # authentication setting
@@ -5135,7 +5762,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -5146,7 +5773,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -5159,11 +5788,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -5431,7 +6061,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -5442,7 +6072,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -5459,11 +6091,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -5731,7 +6364,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -5742,7 +6375,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -5759,11 +6394,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -5786,6 +6422,318 @@ class ToolsApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/tools/ai/blog/section/regenerate',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def search_available_tools_tools_available_search_get(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        q: Annotated[StrictStr, Field(description="Search query")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> object:
+        """Search Available Tools
+
+        Search available toolkit tools by name or description
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param q: Search query (required)
+        :type q: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_available_tools_tools_available_search_get_serialize(
+            project_id=project_id,
+            q=q,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def search_available_tools_tools_available_search_get_with_http_info(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        q: Annotated[StrictStr, Field(description="Search query")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[object]:
+        """Search Available Tools
+
+        Search available toolkit tools by name or description
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param q: Search query (required)
+        :type q: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_available_tools_tools_available_search_get_serialize(
+            project_id=project_id,
+            q=q,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def search_available_tools_tools_available_search_get_without_preload_content(
+        self,
+        project_id: Annotated[StrictStr, Field(description="Project ID")],
+        q: Annotated[StrictStr, Field(description="Search query")],
+        x_api_key: Annotated[Optional[StrictStr], Field(description="Your Odin API key.")] = None,
+        x_api_secret: Annotated[Optional[StrictStr], Field(description="Your Odin API secret.")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Search Available Tools
+
+        Search available toolkit tools by name or description
+
+        :param project_id: Project ID (required)
+        :type project_id: str
+        :param q: Search query (required)
+        :type q: str
+        :param x_api_key: Your Odin API key.
+        :type x_api_key: str
+        :param x_api_secret: Your Odin API secret.
+        :type x_api_secret: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._search_available_tools_tools_available_search_get_serialize(
+            project_id=project_id,
+            q=q,
+            x_api_key=x_api_key,
+            x_api_secret=x_api_secret,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "object",
+            '422': "HTTPValidationError",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _search_available_tools_tools_available_search_get_serialize(
+        self,
+        project_id,
+        q,
+        x_api_key,
+        x_api_secret,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if project_id is not None:
+            
+            _query_params.append(('project_id', project_id))
+            
+        if q is not None:
+            
+            _query_params.append(('q', q))
+            
+        # process the header parameters
+        if x_api_key is not None:
+            _header_params['X-API-KEY'] = x_api_key
+        if x_api_secret is not None:
+            _header_params['X-API-SECRET'] = x_api_secret
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/tools/available/search',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -6034,7 +6982,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -6045,7 +6993,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -6062,11 +7012,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -6334,7 +7285,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -6345,7 +7296,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -6362,11 +7315,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:
@@ -6634,7 +7588,7 @@ class ToolsApi:
         _content_type,
         _headers,
         _host_index,
-    ) -> Tuple:
+    ) -> RequestSerialized:
 
         _host = None
 
@@ -6645,7 +7599,9 @@ class ToolsApi:
         _query_params: List[Tuple[str, str]] = []
         _header_params: Dict[str, Optional[str]] = _headers or {}
         _form_params: List[Tuple[str, str]] = []
-        _files: Dict[str, str] = {}
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
         _body_params: Optional[bytes] = None
 
         # process the path parameters
@@ -6662,11 +7618,12 @@ class ToolsApi:
 
 
         # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            [
-                'application/json'
-            ]
-        )
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
 
         # set the HTTP header `Content-Type`
         if _content_type:

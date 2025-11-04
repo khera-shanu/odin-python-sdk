@@ -17,28 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.profile_only import ProfileOnly
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class LinkedInEmailFinderRequest(BaseModel):
     """
     LinkedInEmailFinderRequest
     """ # noqa: E501
-    url: Optional[Any]
-    profile_only: Optional[ProfileOnly] = None
+    url: StrictStr
+    profile_only: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["url", "profile_only"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +47,7 @@ class LinkedInEmailFinderRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of LinkedInEmailFinderRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,24 +61,23 @@ class LinkedInEmailFinderRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of profile_only
-        if self.profile_only:
-            _dict['profile_only'] = self.profile_only.to_dict()
-        # set to None if url (nullable) is None
+        # set to None if profile_only (nullable) is None
         # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['url'] = None
+        if self.profile_only is None and "profile_only" in self.model_fields_set:
+            _dict['profile_only'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of LinkedInEmailFinderRequest from a dict"""
         if obj is None:
             return None
@@ -92,7 +87,7 @@ class LinkedInEmailFinderRequest(BaseModel):
 
         _obj = cls.model_validate({
             "url": obj.get("url"),
-            "profile_only": ProfileOnly.from_dict(obj.get("profile_only")) if obj.get("profile_only") is not None else None
+            "profile_only": obj.get("profile_only")
         })
         return _obj
 

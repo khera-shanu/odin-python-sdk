@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.compute_column_request import ComputeColumnRequest
 
@@ -28,7 +27,7 @@ class TestComputeColumnRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ComputeColumnRequest:
         """Test ComputeColumnRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ComputeColumnRequest`
@@ -36,13 +35,13 @@ class TestComputeColumnRequest(unittest.TestCase):
         model = ComputeColumnRequest()
         if include_optional:
             return ComputeColumnRequest(
-                column_name = None,
-                row_id = None,
-                recompute = None
+                column_name = '',
+                row_id = 56,
+                recompute = True
             )
         else:
             return ComputeColumnRequest(
-                column_name = None,
+                column_name = '',
         )
         """
 

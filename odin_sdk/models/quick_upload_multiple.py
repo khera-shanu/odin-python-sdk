@@ -17,35 +17,28 @@ from inspect import getfullargspec
 import json
 import pprint
 import re  # noqa: F401
+from pydantic import BaseModel, ConfigDict, Field, StrictBytes, StrictStr, ValidationError, field_validator
+from typing import List, Optional, Tuple, Union
+from typing import Union, Any, List, Set, TYPE_CHECKING, Optional, Dict
+from typing_extensions import Literal, Self
+from pydantic import Field
 
-from typing import Any, Optional
-from pydantic import BaseModel, Field, StrictStr, ValidationError, field_validator
-from typing import Union, Any, List, TYPE_CHECKING, Optional, Dict
-from typing_extensions import Literal
-from pydantic import StrictStr, Field
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
-
-QUICKUPLOADMULTIPLE_ANY_OF_SCHEMAS = ["object"]
+QUICKUPLOADMULTIPLE_ANY_OF_SCHEMAS = ["List[bytearray]", "bytearray"]
 
 class QuickUploadMultiple(BaseModel):
     """
     QuickUploadMultiple
     """
 
-    # data type: object
-    anyof_schema_1_validator: Optional[Any] = None
-    # data type: object
-    anyof_schema_2_validator: Optional[Any] = None
-    # data type: object
-    anyof_schema_3_validator: Optional[Any] = None
+    # data type: List[bytearray]
+    anyof_schema_1_validator: Optional[List[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]]] = None
+    # data type: bytearray
+    anyof_schema_2_validator: Optional[Union[StrictBytes, StrictStr, Tuple[StrictStr, StrictBytes]]] = None
     if TYPE_CHECKING:
-        actual_instance: Optional[Union[object]] = None
+        actual_instance: Optional[Union[List[bytearray], bytearray]] = None
     else:
         actual_instance: Any = None
-    any_of_schemas: List[str] = Literal[QUICKUPLOADMULTIPLE_ANY_OF_SCHEMAS]
+    any_of_schemas: Set[str] = { "List[bytearray]", "bytearray" }
 
     model_config = {
         "validate_assignment": True,
@@ -64,42 +57,42 @@ class QuickUploadMultiple(BaseModel):
 
     @field_validator('actual_instance')
     def actual_instance_must_validate_anyof(cls, v):
+        if v is None:
+            return v
+
         instance = QuickUploadMultiple.model_construct()
         error_messages = []
-        # validate data type: object
+        # validate data type: List[bytearray]
         try:
             instance.anyof_schema_1_validator = v
             return v
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # validate data type: object
+        # validate data type: bytearray
         try:
             instance.anyof_schema_2_validator = v
             return v
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # validate data type: object
-        try:
-            instance.anyof_schema_3_validator = v
-            return v
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
         if error_messages:
             # no match
-            raise ValueError("No match found when setting the actual_instance in QuickUploadMultiple with anyOf schemas: object. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting the actual_instance in QuickUploadMultiple with anyOf schemas: List[bytearray], bytearray. Details: " + ", ".join(error_messages))
         else:
             return v
 
     @classmethod
-    def from_dict(cls, obj: dict) -> Self:
+    def from_dict(cls, obj: Dict[str, Any]) -> Self:
         return cls.from_json(json.dumps(obj))
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
+        if json_str is None:
+            return instance
+
         error_messages = []
-        # deserialize data into object
+        # deserialize data into List[bytearray]
         try:
             # validation
             instance.anyof_schema_1_validator = json.loads(json_str)
@@ -108,7 +101,7 @@ class QuickUploadMultiple(BaseModel):
             return instance
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into object
+        # deserialize data into bytearray
         try:
             # validation
             instance.anyof_schema_2_validator = json.loads(json_str)
@@ -117,19 +110,10 @@ class QuickUploadMultiple(BaseModel):
             return instance
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into object
-        try:
-            # validation
-            instance.anyof_schema_3_validator = json.loads(json_str)
-            # assign value to actual_instance
-            instance.actual_instance = instance.anyof_schema_3_validator
-            return instance
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
 
         if error_messages:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into QuickUploadMultiple with anyOf schemas: object. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into QuickUploadMultiple with anyOf schemas: List[bytearray], bytearray. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -138,22 +122,20 @@ class QuickUploadMultiple(BaseModel):
         if self.actual_instance is None:
             return "null"
 
-        to_json = getattr(self.actual_instance, "to_json", None)
-        if callable(to_json):
+        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
             return self.actual_instance.to_json()
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], List[bytearray], bytearray]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
-            return "null"
+            return None
 
-        to_json = getattr(self.actual_instance, "to_json", None)
-        if callable(to_json):
+        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
             return self.actual_instance.to_dict()
         else:
-            return json.dumps(self.actual_instance)
+            return self.actual_instance
 
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""

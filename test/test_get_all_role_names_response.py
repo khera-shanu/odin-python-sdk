@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.get_all_role_names_response import GetAllRoleNamesResponse
 
@@ -28,7 +27,7 @@ class TestGetAllRoleNamesResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetAllRoleNamesResponse:
         """Test GetAllRoleNamesResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `GetAllRoleNamesResponse`
@@ -36,11 +35,37 @@ class TestGetAllRoleNamesResponse(unittest.TestCase):
         model = GetAllRoleNamesResponse()
         if include_optional:
             return GetAllRoleNamesResponse(
-                roles = None
+                roles = [
+                    odin_sdk.models.role.Role(
+                        id = '', 
+                        name = '', 
+                        created_by = '', 
+                        created_at = 1.337, 
+                        updated_at = 1.337, 
+                        number_of_members = 56, 
+                        actions = '', 
+                        sanitized_name = '', 
+                        members = [
+                            ''
+                            ], )
+                    ]
             )
         else:
             return GetAllRoleNamesResponse(
-                roles = None,
+                roles = [
+                    odin_sdk.models.role.Role(
+                        id = '', 
+                        name = '', 
+                        created_by = '', 
+                        created_at = 1.337, 
+                        updated_at = 1.337, 
+                        number_of_members = 56, 
+                        actions = '', 
+                        sanitized_name = '', 
+                        members = [
+                            ''
+                            ], )
+                    ],
         )
         """
 

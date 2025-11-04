@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.get_project_members_response import GetProjectMembersResponse
 
@@ -28,7 +27,7 @@ class TestGetProjectMembersResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetProjectMembersResponse:
         """Test GetProjectMembersResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `GetProjectMembersResponse`
@@ -36,11 +35,33 @@ class TestGetProjectMembersResponse(unittest.TestCase):
         model = GetProjectMembersResponse()
         if include_optional:
             return GetProjectMembersResponse(
-                members = None
+                members = [
+                    odin_sdk.models.project_member.project_member(
+                        project_id = '', 
+                        invited_by = odin_sdk.models.invited_by.invited_by(), 
+                        is_pending = True, 
+                        user_id = '', 
+                        email = '', 
+                        role = '', 
+                        role_id = '', 
+                        name = '', 
+                        index = 56, )
+                    ]
             )
         else:
             return GetProjectMembersResponse(
-                members = None,
+                members = [
+                    odin_sdk.models.project_member.project_member(
+                        project_id = '', 
+                        invited_by = odin_sdk.models.invited_by.invited_by(), 
+                        is_pending = True, 
+                        user_id = '', 
+                        email = '', 
+                        role = '', 
+                        role_id = '', 
+                        name = '', 
+                        index = 56, )
+                    ],
         )
         """
 

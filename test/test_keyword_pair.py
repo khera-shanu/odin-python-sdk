@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.keyword_pair import KeywordPair
 
@@ -28,7 +27,7 @@ class TestKeywordPair(unittest.TestCase):
 
     def make_instance(self, include_optional) -> KeywordPair:
         """Test KeywordPair
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `KeywordPair`
@@ -36,13 +35,13 @@ class TestKeywordPair(unittest.TestCase):
         model = KeywordPair()
         if include_optional:
             return KeywordPair(
-                original = None,
-                translation = None
+                original = '',
+                translation = ''
             )
         else:
             return KeywordPair(
-                original = None,
-                translation = None,
+                original = '',
+                translation = '',
         )
         """
 

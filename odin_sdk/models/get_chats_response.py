@@ -17,30 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.chats import Chats
-from odin_sdk.models.next_cursor import NextCursor
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class GetChatsResponse(BaseModel):
     """
     GetChatsResponse
     """ # noqa: E501
-    chats: Optional[Chats] = None
-    next_cursor: Optional[NextCursor] = None
-    has_more: Optional[Any] = None
+    chats: Optional[List[Any]] = None
+    next_cursor: Optional[Union[StrictFloat, StrictInt]] = None
+    has_more: Optional[StrictBool] = False
     __properties: ClassVar[List[str]] = ["chats", "next_cursor", "has_more"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +48,7 @@ class GetChatsResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of GetChatsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,27 +62,28 @@ class GetChatsResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of chats
-        if self.chats:
-            _dict['chats'] = self.chats.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of next_cursor
-        if self.next_cursor:
-            _dict['next_cursor'] = self.next_cursor.to_dict()
-        # set to None if has_more (nullable) is None
+        # set to None if chats (nullable) is None
         # and model_fields_set contains the field
-        if self.has_more is None and "has_more" in self.model_fields_set:
-            _dict['has_more'] = None
+        if self.chats is None and "chats" in self.model_fields_set:
+            _dict['chats'] = None
+
+        # set to None if next_cursor (nullable) is None
+        # and model_fields_set contains the field
+        if self.next_cursor is None and "next_cursor" in self.model_fields_set:
+            _dict['next_cursor'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of GetChatsResponse from a dict"""
         if obj is None:
             return None
@@ -96,9 +92,9 @@ class GetChatsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "chats": Chats.from_dict(obj.get("chats")) if obj.get("chats") is not None else None,
-            "next_cursor": NextCursor.from_dict(obj.get("next_cursor")) if obj.get("next_cursor") is not None else None,
-            "has_more": obj.get("has_more")
+            "chats": obj.get("chats"),
+            "next_cursor": obj.get("next_cursor"),
+            "has_more": obj.get("has_more") if obj.get("has_more") is not None else False
         })
         return _obj
 

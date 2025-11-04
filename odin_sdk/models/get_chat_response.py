@@ -17,44 +17,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.chat_files_metadata import ChatFilesMetadata
-from odin_sdk.models.created_at import CreatedAt
-from odin_sdk.models.custom_agent import CustomAgent
-from odin_sdk.models.debug_prompt_info import DebugPromptInfo
-from odin_sdk.models.document_id import DocumentId
-from odin_sdk.models.document_keys1 import DocumentKeys1
-from odin_sdk.models.messages import Messages
-from odin_sdk.models.metadata1 import Metadata1
-from odin_sdk.models.name import Name
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class GetChatResponse(BaseModel):
     """
     GetChatResponse
     """ # noqa: E501
-    id: Optional[Any]
-    metadata: Optional[Metadata1] = None
-    created_at: Optional[CreatedAt] = None
-    messages: Optional[Messages] = None
-    name: Optional[Name] = None
-    document_id: Optional[DocumentId] = None
-    document_keys: Optional[DocumentKeys1] = None
-    custom_agent: Optional[CustomAgent] = None
-    chat_files_metadata: Optional[ChatFilesMetadata] = None
-    debug_prompt_info: Optional[DebugPromptInfo] = None
+    id: StrictStr
+    metadata: Optional[Dict[str, Any]] = None
+    created_at: Optional[Union[StrictFloat, StrictInt]] = None
+    messages: Optional[List[Any]] = None
+    name: Optional[StrictStr] = None
+    document_id: Optional[StrictStr] = None
+    document_keys: Optional[List[Any]] = None
+    custom_agent: Optional[StrictStr] = None
+    chat_files_metadata: Optional[List[Any]] = None
+    debug_prompt_info: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["id", "metadata", "created_at", "messages", "name", "document_id", "document_keys", "custom_agent", "chat_files_metadata", "debug_prompt_info"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -67,7 +55,7 @@ class GetChatResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of GetChatResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -81,48 +69,63 @@ class GetChatResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of metadata
-        if self.metadata:
-            _dict['metadata'] = self.metadata.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of created_at
-        if self.created_at:
-            _dict['created_at'] = self.created_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of messages
-        if self.messages:
-            _dict['messages'] = self.messages.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of name
-        if self.name:
-            _dict['name'] = self.name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of document_id
-        if self.document_id:
-            _dict['document_id'] = self.document_id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of document_keys
-        if self.document_keys:
-            _dict['document_keys'] = self.document_keys.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of custom_agent
-        if self.custom_agent:
-            _dict['custom_agent'] = self.custom_agent.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of chat_files_metadata
-        if self.chat_files_metadata:
-            _dict['chat_files_metadata'] = self.chat_files_metadata.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of debug_prompt_info
-        if self.debug_prompt_info:
-            _dict['debug_prompt_info'] = self.debug_prompt_info.to_dict()
-        # set to None if id (nullable) is None
+        # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
+        if self.metadata is None and "metadata" in self.model_fields_set:
+            _dict['metadata'] = None
+
+        # set to None if created_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.created_at is None and "created_at" in self.model_fields_set:
+            _dict['created_at'] = None
+
+        # set to None if messages (nullable) is None
+        # and model_fields_set contains the field
+        if self.messages is None and "messages" in self.model_fields_set:
+            _dict['messages'] = None
+
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if document_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_id is None and "document_id" in self.model_fields_set:
+            _dict['document_id'] = None
+
+        # set to None if document_keys (nullable) is None
+        # and model_fields_set contains the field
+        if self.document_keys is None and "document_keys" in self.model_fields_set:
+            _dict['document_keys'] = None
+
+        # set to None if custom_agent (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_agent is None and "custom_agent" in self.model_fields_set:
+            _dict['custom_agent'] = None
+
+        # set to None if chat_files_metadata (nullable) is None
+        # and model_fields_set contains the field
+        if self.chat_files_metadata is None and "chat_files_metadata" in self.model_fields_set:
+            _dict['chat_files_metadata'] = None
+
+        # set to None if debug_prompt_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.debug_prompt_info is None and "debug_prompt_info" in self.model_fields_set:
+            _dict['debug_prompt_info'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of GetChatResponse from a dict"""
         if obj is None:
             return None
@@ -132,15 +135,15 @@ class GetChatResponse(BaseModel):
 
         _obj = cls.model_validate({
             "id": obj.get("id"),
-            "metadata": Metadata1.from_dict(obj.get("metadata")) if obj.get("metadata") is not None else None,
-            "created_at": CreatedAt.from_dict(obj.get("created_at")) if obj.get("created_at") is not None else None,
-            "messages": Messages.from_dict(obj.get("messages")) if obj.get("messages") is not None else None,
-            "name": Name.from_dict(obj.get("name")) if obj.get("name") is not None else None,
-            "document_id": DocumentId.from_dict(obj.get("document_id")) if obj.get("document_id") is not None else None,
-            "document_keys": DocumentKeys1.from_dict(obj.get("document_keys")) if obj.get("document_keys") is not None else None,
-            "custom_agent": CustomAgent.from_dict(obj.get("custom_agent")) if obj.get("custom_agent") is not None else None,
-            "chat_files_metadata": ChatFilesMetadata.from_dict(obj.get("chat_files_metadata")) if obj.get("chat_files_metadata") is not None else None,
-            "debug_prompt_info": DebugPromptInfo.from_dict(obj.get("debug_prompt_info")) if obj.get("debug_prompt_info") is not None else None
+            "metadata": obj.get("metadata"),
+            "created_at": obj.get("created_at"),
+            "messages": obj.get("messages"),
+            "name": obj.get("name"),
+            "document_id": obj.get("document_id"),
+            "document_keys": obj.get("document_keys"),
+            "custom_agent": obj.get("custom_agent"),
+            "chat_files_metadata": obj.get("chat_files_metadata"),
+            "debug_prompt_info": obj.get("debug_prompt_info")
         })
         return _obj
 

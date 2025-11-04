@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.ai_classify_response import AIClassifyResponse
 
@@ -28,7 +27,7 @@ class TestAIClassifyResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AIClassifyResponse:
         """Test AIClassifyResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AIClassifyResponse`
@@ -36,12 +35,12 @@ class TestAIClassifyResponse(unittest.TestCase):
         model = AIClassifyResponse()
         if include_optional:
             return AIClassifyResponse(
-                category = None,
-                reason = None
+                category = '',
+                reason = ''
             )
         else:
             return AIClassifyResponse(
-                reason = None,
+                reason = '',
         )
         """
 

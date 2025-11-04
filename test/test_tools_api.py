@@ -131,6 +131,20 @@ class TestToolsApi(unittest.TestCase):
         """
         pass
 
+    def test_get_available_tools_by_category_tools_available_by_category_get(self) -> None:
+        """Test case for get_available_tools_by_category_tools_available_by_category_get
+
+        Get Available Tools By Category
+        """
+        pass
+
+    def test_get_available_tools_tools_available_get(self) -> None:
+        """Test case for get_available_tools_tools_available_get
+
+        Get Available Tools
+        """
+        pass
+
     def test_get_step_result_tools_step_result_project_id_tool_id_step_id_get(self) -> None:
         """Test case for get_step_result_tools_step_result_project_id_tool_id_step_id_get
 
@@ -156,6 +170,13 @@ class TestToolsApi(unittest.TestCase):
         """Test case for recreate_blog_section_tools_ai_blog_section_regenerate_post
 
         Recreate Blog Section
+        """
+        pass
+
+    def test_search_available_tools_tools_available_search_get(self) -> None:
+        """Test case for search_available_tools_tools_available_search_get
+
+        Search Available Tools
         """
         pass
 

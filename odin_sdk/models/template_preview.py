@@ -17,31 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.template_field import TemplateField
+from typing import Optional, Set
+from typing_extensions import Self
 
 class TemplatePreview(BaseModel):
     """
     TemplatePreview
     """ # noqa: E501
-    template_id: Optional[Any]
-    title: Optional[Any]
-    description: Optional[Any]
-    fields_count: Optional[Any]
-    preview_fields: Optional[Any] = None
-    category: Optional[Any]
+    template_id: StrictStr
+    title: StrictStr
+    description: StrictStr
+    fields_count: StrictInt
+    preview_fields: Optional[List[TemplateField]] = None
+    category: StrictStr
     __properties: ClassVar[List[str]] = ["template_id", "title", "description", "fields_count", "preview_fields", "category"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -54,7 +52,7 @@ class TemplatePreview(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of TemplatePreview from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -68,46 +66,25 @@ class TemplatePreview(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if template_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.template_id is None and "template_id" in self.model_fields_set:
-            _dict['template_id'] = None
-
-        # set to None if title (nullable) is None
-        # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['title'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['description'] = None
-
-        # set to None if fields_count (nullable) is None
-        # and model_fields_set contains the field
-        if self.fields_count is None and "fields_count" in self.model_fields_set:
-            _dict['fields_count'] = None
-
-        # set to None if preview_fields (nullable) is None
-        # and model_fields_set contains the field
-        if self.preview_fields is None and "preview_fields" in self.model_fields_set:
-            _dict['preview_fields'] = None
-
-        # set to None if category (nullable) is None
-        # and model_fields_set contains the field
-        if self.category is None and "category" in self.model_fields_set:
-            _dict['category'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in preview_fields (list)
+        _items = []
+        if self.preview_fields:
+            for _item_preview_fields in self.preview_fields:
+                if _item_preview_fields:
+                    _items.append(_item_preview_fields.to_dict())
+            _dict['preview_fields'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of TemplatePreview from a dict"""
         if obj is None:
             return None
@@ -120,7 +97,7 @@ class TemplatePreview(BaseModel):
             "title": obj.get("title"),
             "description": obj.get("description"),
             "fields_count": obj.get("fields_count"),
-            "preview_fields": obj.get("preview_fields"),
+            "preview_fields": [TemplateField.from_dict(_item) for _item in obj["preview_fields"]] if obj.get("preview_fields") is not None else None,
             "category": obj.get("category")
         })
         return _obj

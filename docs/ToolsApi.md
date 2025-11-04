@@ -1,6 +1,6 @@
 # odin_sdk.ToolsApi
 
-All URIs are relative to *https://api.getodin.ai*
+All URIs are relative to *https://127.0.0.1:8001*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -19,10 +19,13 @@ Method | HTTP request | Description
 [**fetch_data_tools_file_extract_fetch_post**](ToolsApi.md#fetch_data_tools_file_extract_fetch_post) | **POST** /tools/file/extract/fetch | Fetch Data
 [**fetch_kb_documents_tools_kb_fetch_documents_post**](ToolsApi.md#fetch_kb_documents_tools_kb_fetch_documents_post) | **POST** /tools/kb/fetch_documents | Fetch Kb Documents
 [**find_prospeo_data_tools_prospeo_post**](ToolsApi.md#find_prospeo_data_tools_prospeo_post) | **POST** /tools/prospeo | Find Prospeo Data
+[**get_available_tools_by_category_tools_available_by_category_get**](ToolsApi.md#get_available_tools_by_category_tools_available_by_category_get) | **GET** /tools/available/by-category | Get Available Tools By Category
+[**get_available_tools_tools_available_get**](ToolsApi.md#get_available_tools_tools_available_get) | **GET** /tools/available | Get Available Tools
 [**get_step_result_tools_step_result_project_id_tool_id_step_id_get**](ToolsApi.md#get_step_result_tools_step_result_project_id_tool_id_step_id_get) | **GET** /tools/step-result/{project_id}/{tool_id}/{step_id} | Get Step Result
 [**get_stock_data_tools_v2_yahoo_finance_stock_data_post**](ToolsApi.md#get_stock_data_tools_v2_yahoo_finance_stock_data_post) | **POST** /tools/v2/yahoo-finance/stock/data | Get Stock Data
 [**recreate_blog_section_tools_ai_blog_regenerate_post**](ToolsApi.md#recreate_blog_section_tools_ai_blog_regenerate_post) | **POST** /tools/ai/blog/regenerate | Recreate Blog Section
 [**recreate_blog_section_tools_ai_blog_section_regenerate_post**](ToolsApi.md#recreate_blog_section_tools_ai_blog_section_regenerate_post) | **POST** /tools/ai/blog/section/regenerate | Recreate Blog Section
+[**search_available_tools_tools_available_search_get**](ToolsApi.md#search_available_tools_tools_available_search_get) | **GET** /tools/available/search | Search Available Tools
 [**translate_texts_tools_ai_translate_post**](ToolsApi.md#translate_texts_tools_ai_translate_post) | **POST** /tools/ai/translate | Translate Texts
 [**write_blog_section_tools_create_blog_section_post**](ToolsApi.md#write_blog_section_tools_create_blog_section_post) | **POST** /tools/create_blog_section | Write Blog Section
 [**write_blog_tools_ai_blog_write_post**](ToolsApi.md#write_blog_tools_ai_blog_write_post) | **POST** /tools/ai/blog/write | Write Blog
@@ -37,18 +40,16 @@ Ai Classify
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.ai_classify_request import AIClassifyRequest
 from odin_sdk.models.ai_classify_response import AIClassifyResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -113,18 +114,16 @@ Create a summary of a message based on provided instructions.
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.ai_summarize_request import AISummarizeRequest
 from odin_sdk.models.ai_summarize_response import AISummarizeResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -187,17 +186,15 @@ Check Pii In Documents
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.pii_check_request import PIICheckRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -260,17 +257,15 @@ Convert Md Html
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.md_html_conversion_request import MdHTMLConversionRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -329,18 +324,16 @@ Create Blog From Title
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_request import BlogRequest
 from odin_sdk.models.blog_response import BlogResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -403,18 +396,16 @@ Create Blog Key Points
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_request import BlogRequest
 from odin_sdk.models.blog_response import BlogResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -477,18 +468,16 @@ Create Blog Sections
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_request import BlogRequest
 from odin_sdk.models.blog_response import BlogResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -551,17 +540,15 @@ Create Blog Title
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_request import BlogRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -624,18 +611,16 @@ Create Blog
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_request import BlogRequest
 from odin_sdk.models.blog_response import BlogResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -700,18 +685,16 @@ Execute a single step for testing
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.step_execution_request import StepExecutionRequest
 from odin_sdk.models.step_execution_result import StepExecutionResult
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -770,23 +753,27 @@ No authorization required
 
 Extract Data
 
-Extracts information from the given text based on the specified information to extract.  Args:     req: The request object containing the text and information to extract.  Returns:     dict: A JSON object containing the extracted information with the keys as the specified information to extract. If the specified information is not found in the text, it returns \"None\".
+Extracts information from the given text based on the specified information to extract.
+
+Args:
+    req: The request object containing the text and information to extract.
+
+Returns:
+    dict: A JSON object containing the extracted information with the keys as the specified information to extract. If the specified information is not found in the text, it returns "None".
 
 ### Example
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.extract_meta_data_request import ExtractMetaDataRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -851,17 +838,15 @@ Gets the data from the file based on the commands provided.
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.extract_data_response import ExtractDataResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -869,10 +854,10 @@ configuration = odin_sdk.Configuration(
 with odin_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = odin_sdk.ToolsApi(api_client)
-    file = None # object | 
-    prompt = None # object | 
-    project_id = None # object | 
-    extract_commands = None # object | 
+    file = None # bytearray | 
+    prompt = 'prompt_example' # str | 
+    project_id = 'project_id_example' # str | 
+    extract_commands = 'extract_commands_example' # str | 
     x_api_key = 'x_api_key_example' # str | Your Odin API key. (optional)
     x_api_secret = 'x_api_secret_example' # str | Your Odin API secret. (optional)
 
@@ -892,10 +877,10 @@ with odin_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | [**object**](object.md)|  | 
- **prompt** | [**object**](object.md)|  | 
- **project_id** | [**object**](object.md)|  | 
- **extract_commands** | [**object**](object.md)|  | 
+ **file** | **bytearray**|  | 
+ **prompt** | **str**|  | 
+ **project_id** | **str**|  | 
+ **extract_commands** | **str**|  | 
  **x_api_key** | **str**| Your Odin API key. | [optional] 
  **x_api_secret** | **str**| Your Odin API secret. | [optional] 
 
@@ -932,18 +917,16 @@ Retrieves data from a specific project and job..
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.fetch_data_request import FetchDataRequest
 from odin_sdk.models.fetch_data_response import FetchDataResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -998,7 +981,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **fetch_kb_documents_tools_kb_fetch_documents_post**
-> ResponseFetchKbDocumentsToolsKbFetchDocumentsPost fetch_kb_documents_tools_kb_fetch_documents_post(fetch_kb_documents_request, x_api_key=x_api_key, x_api_secret=x_api_secret)
+> FetchKBDocumentsResponse fetch_kb_documents_tools_kb_fetch_documents_post(fetch_kb_documents_request, x_api_key=x_api_key, x_api_secret=x_api_secret)
 
 Fetch Kb Documents
 
@@ -1008,18 +991,16 @@ Retrieves documents from the KB.
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.fetch_kb_documents_request import FetchKBDocumentsRequest
-from odin_sdk.models.response_fetch_kb_documents_tools_kb_fetch_documents_post import ResponseFetchKbDocumentsToolsKbFetchDocumentsPost
+from odin_sdk.models.fetch_kb_documents_response import FetchKBDocumentsResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1053,7 +1034,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponseFetchKbDocumentsToolsKbFetchDocumentsPost**](ResponseFetchKbDocumentsToolsKbFetchDocumentsPost.md)
+[**FetchKBDocumentsResponse**](FetchKBDocumentsResponse.md)
 
 ### Authorization
 
@@ -1082,17 +1063,15 @@ Find Prospeo Data
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.body_find_prospeo_data_tools_prospeo_post import BodyFindProspeoDataToolsProspeoPost
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1146,8 +1125,152 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **get_available_tools_by_category_tools_available_by_category_get**
+> object get_available_tools_by_category_tools_available_by_category_get(project_id, x_api_key=x_api_key, x_api_secret=x_api_secret)
+
+Get Available Tools By Category
+
+Get all available toolkit tools organized by category
+
+### Example
+
+
+```python
+import odin_sdk
+from odin_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://127.0.0.1:8001
+# See configuration.py for a list of all supported configuration parameters.
+configuration = odin_sdk.Configuration(
+    host = "https://127.0.0.1:8001"
+)
+
+
+# Enter a context with an instance of the API client
+with odin_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = odin_sdk.ToolsApi(api_client)
+    project_id = 'project_id_example' # str | Project ID
+    x_api_key = 'x_api_key_example' # str | Your Odin API key. (optional)
+    x_api_secret = 'x_api_secret_example' # str | Your Odin API secret. (optional)
+
+    try:
+        # Get Available Tools By Category
+        api_response = api_instance.get_available_tools_by_category_tools_available_by_category_get(project_id, x_api_key=x_api_key, x_api_secret=x_api_secret)
+        print("The response of ToolsApi->get_available_tools_by_category_tools_available_by_category_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ToolsApi->get_available_tools_by_category_tools_available_by_category_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project ID | 
+ **x_api_key** | **str**| Your Odin API key. | [optional] 
+ **x_api_secret** | **str**| Your Odin API secret. | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_available_tools_tools_available_get**
+> object get_available_tools_tools_available_get(project_id, x_api_key=x_api_key, x_api_secret=x_api_secret)
+
+Get Available Tools
+
+Get all available toolkit tools with their input schemas for custom tool creation
+
+### Example
+
+
+```python
+import odin_sdk
+from odin_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://127.0.0.1:8001
+# See configuration.py for a list of all supported configuration parameters.
+configuration = odin_sdk.Configuration(
+    host = "https://127.0.0.1:8001"
+)
+
+
+# Enter a context with an instance of the API client
+with odin_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = odin_sdk.ToolsApi(api_client)
+    project_id = 'project_id_example' # str | Project ID
+    x_api_key = 'x_api_key_example' # str | Your Odin API key. (optional)
+    x_api_secret = 'x_api_secret_example' # str | Your Odin API secret. (optional)
+
+    try:
+        # Get Available Tools
+        api_response = api_instance.get_available_tools_tools_available_get(project_id, x_api_key=x_api_key, x_api_secret=x_api_secret)
+        print("The response of ToolsApi->get_available_tools_tools_available_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ToolsApi->get_available_tools_tools_available_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project ID | 
+ **x_api_key** | **str**| Your Odin API key. | [optional] 
+ **x_api_secret** | **str**| Your Odin API secret. | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **get_step_result_tools_step_result_project_id_tool_id_step_id_get**
-> ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet get_step_result_tools_step_result_project_id_tool_id_step_id_get(project_id, tool_id, step_id, x_api_key=x_api_key, x_api_secret=x_api_secret)
+> StepExecutionResult get_step_result_tools_step_result_project_id_tool_id_step_id_get(project_id, tool_id, step_id, x_api_key=x_api_key, x_api_secret=x_api_secret)
 
 Get Step Result
 
@@ -1157,17 +1280,15 @@ Get step execution result
 
 
 ```python
-import time
-import os
 import odin_sdk
-from odin_sdk.models.response_get_step_result_tools_step_result_project_id_tool_id_step_id_get import ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet
+from odin_sdk.models.step_execution_result import StepExecutionResult
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1176,8 +1297,8 @@ with odin_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = odin_sdk.ToolsApi(api_client)
     project_id = 'project_id_example' # str | 
-    tool_id = None # object | 
-    step_id = None # object | 
+    tool_id = 'tool_id_example' # str | 
+    step_id = 'step_id_example' # str | 
     x_api_key = 'x_api_key_example' # str | Your Odin API key. (optional)
     x_api_secret = 'x_api_secret_example' # str | Your Odin API secret. (optional)
 
@@ -1198,14 +1319,14 @@ with odin_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**|  | 
- **tool_id** | [**object**](.md)|  | 
- **step_id** | [**object**](.md)|  | 
+ **tool_id** | **str**|  | 
+ **step_id** | **str**|  | 
  **x_api_key** | **str**| Your Odin API key. | [optional] 
  **x_api_secret** | **str**| Your Odin API secret. | [optional] 
 
 ### Return type
 
-[**ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet**](ResponseGetStepResultToolsStepResultProjectIdToolIdStepIdGet.md)
+[**StepExecutionResult**](StepExecutionResult.md)
 
 ### Authorization
 
@@ -1236,17 +1357,15 @@ Get stock data for a given symbol and metrics
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.stock_data_request import StockDataRequest
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1305,18 +1424,16 @@ Recreate Blog Section
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_regenerate_request import BlogRegenerateRequest
 from odin_sdk.models.blog_regenerate_response import BlogRegenerateResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1379,18 +1496,16 @@ Recreate Blog Section
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_regenerate_section_request import BlogRegenerateSectionRequest
 from odin_sdk.models.blog_regenerate_section_response import BlogRegenerateSectionResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1444,6 +1559,80 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **search_available_tools_tools_available_search_get**
+> object search_available_tools_tools_available_search_get(project_id, q, x_api_key=x_api_key, x_api_secret=x_api_secret)
+
+Search Available Tools
+
+Search available toolkit tools by name or description
+
+### Example
+
+
+```python
+import odin_sdk
+from odin_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://127.0.0.1:8001
+# See configuration.py for a list of all supported configuration parameters.
+configuration = odin_sdk.Configuration(
+    host = "https://127.0.0.1:8001"
+)
+
+
+# Enter a context with an instance of the API client
+with odin_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = odin_sdk.ToolsApi(api_client)
+    project_id = 'project_id_example' # str | Project ID
+    q = 'q_example' # str | Search query
+    x_api_key = 'x_api_key_example' # str | Your Odin API key. (optional)
+    x_api_secret = 'x_api_secret_example' # str | Your Odin API secret. (optional)
+
+    try:
+        # Search Available Tools
+        api_response = api_instance.search_available_tools_tools_available_search_get(project_id, q, x_api_key=x_api_key, x_api_secret=x_api_secret)
+        print("The response of ToolsApi->search_available_tools_tools_available_search_get:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ToolsApi->search_available_tools_tools_available_search_get: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **project_id** | **str**| Project ID | 
+ **q** | **str**| Search query | 
+ **x_api_key** | **str**| Your Odin API key. | [optional] 
+ **x_api_secret** | **str**| Your Odin API secret. | [optional] 
+
+### Return type
+
+**object**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful Response |  -  |
+**422** | Validation Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **translate_texts_tools_ai_translate_post**
 > TranslateTextsResponse translate_texts_tools_ai_translate_post(translate_texts_request, x_api_key=x_api_key, x_api_secret=x_api_secret)
 
@@ -1455,18 +1644,16 @@ Translates the text from one language to another language.
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.translate_texts_request import TranslateTextsRequest
 from odin_sdk.models.translate_texts_response import TranslateTextsResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1529,18 +1716,16 @@ Write Blog Section
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.create_blog_section_request import CreateBlogSectionRequest
 from odin_sdk.models.create_blog_section_response import CreateBlogSectionResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 
@@ -1603,18 +1788,16 @@ Write Blog
 
 
 ```python
-import time
-import os
 import odin_sdk
 from odin_sdk.models.blog_request import BlogRequest
 from odin_sdk.models.blog_response import BlogResponse
 from odin_sdk.rest import ApiException
 from pprint import pprint
 
-# Defining the host is optional and defaults to https://api.getodin.ai
+# Defining the host is optional and defaults to https://127.0.0.1:8001
 # See configuration.py for a list of all supported configuration parameters.
 configuration = odin_sdk.Configuration(
-    host = "https://api.getodin.ai"
+    host = "https://127.0.0.1:8001"
 )
 
 

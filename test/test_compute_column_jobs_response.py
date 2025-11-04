@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.compute_column_jobs_response import ComputeColumnJobsResponse
 
@@ -28,7 +27,7 @@ class TestComputeColumnJobsResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ComputeColumnJobsResponse:
         """Test ComputeColumnJobsResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ComputeColumnJobsResponse`
@@ -36,15 +35,19 @@ class TestComputeColumnJobsResponse(unittest.TestCase):
         model = ComputeColumnJobsResponse()
         if include_optional:
             return ComputeColumnJobsResponse(
-                message = None,
-                jobs = None,
-                total_count = None
+                message = '',
+                jobs = [
+                    None
+                    ],
+                total_count = 56
             )
         else:
             return ComputeColumnJobsResponse(
-                message = None,
-                jobs = None,
-                total_count = None,
+                message = '',
+                jobs = [
+                    None
+                    ],
+                total_count = 56,
         )
         """
 

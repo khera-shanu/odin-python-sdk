@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_role_request import CreateRoleRequest
 
@@ -28,7 +27,7 @@ class TestCreateRoleRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateRoleRequest:
         """Test CreateRoleRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateRoleRequest`
@@ -36,37 +35,83 @@ class TestCreateRoleRequest(unittest.TestCase):
         model = CreateRoleRequest()
         if include_optional:
             return CreateRoleRequest(
-                name = None,
-                actions = None,
+                name = '',
+                actions = '',
                 rules = odin_sdk.models.rules.Rules(
-                    chat = null, 
-                    assistant = null, 
-                    document = null, 
-                    agents = null, 
-                    settings = null, 
-                    add_members = null, 
-                    kb = null, 
-                    flows = null, 
-                    analytics = null, 
-                    actions = null, 
-                    roles = null, )
+                    chat = odin_sdk.models.chat_rules.ChatRules(
+                        edit = True, 
+                        view_all = True, 
+                        view_mine = True, ), 
+                    assistant = odin_sdk.models.assistant_rules.AssistantRules(
+                        edit = True, 
+                        view = True, ), 
+                    document = odin_sdk.models.document_rules.DocumentRules(
+                        edit = True, 
+                        view = True, ), 
+                    agents = odin_sdk.models.agents_rules.AgentsRules(
+                        view = True, 
+                        edit = True, ), 
+                    settings = odin_sdk.models.settings_rules.SettingsRules(
+                        view = True, 
+                        edit = True, ), 
+                    add_members = odin_sdk.models.add_members_rules.AddMembersRules(
+                        view = True, 
+                        edit = True, ), 
+                    kb = odin_sdk.models.kb_rules.KBRules(
+                        view = True, 
+                        edit = True, ), 
+                    flows = odin_sdk.models.flows_rules.FlowsRules(
+                        view = True, 
+                        edit = True, ), 
+                    analytics = odin_sdk.models.analytics_rules.AnalyticsRules(
+                        view = True, 
+                        edit = True, ), 
+                    actions = odin_sdk.models.actions_rules.ActionsRules(
+                        view = True, 
+                        edit = True, ), 
+                    roles = odin_sdk.models.roles_rules.RolesRules(
+                        view = True, 
+                        edit = True, ), )
             )
         else:
             return CreateRoleRequest(
-                name = None,
-                actions = None,
+                name = '',
+                actions = '',
                 rules = odin_sdk.models.rules.Rules(
-                    chat = null, 
-                    assistant = null, 
-                    document = null, 
-                    agents = null, 
-                    settings = null, 
-                    add_members = null, 
-                    kb = null, 
-                    flows = null, 
-                    analytics = null, 
-                    actions = null, 
-                    roles = null, ),
+                    chat = odin_sdk.models.chat_rules.ChatRules(
+                        edit = True, 
+                        view_all = True, 
+                        view_mine = True, ), 
+                    assistant = odin_sdk.models.assistant_rules.AssistantRules(
+                        edit = True, 
+                        view = True, ), 
+                    document = odin_sdk.models.document_rules.DocumentRules(
+                        edit = True, 
+                        view = True, ), 
+                    agents = odin_sdk.models.agents_rules.AgentsRules(
+                        view = True, 
+                        edit = True, ), 
+                    settings = odin_sdk.models.settings_rules.SettingsRules(
+                        view = True, 
+                        edit = True, ), 
+                    add_members = odin_sdk.models.add_members_rules.AddMembersRules(
+                        view = True, 
+                        edit = True, ), 
+                    kb = odin_sdk.models.kb_rules.KBRules(
+                        view = True, 
+                        edit = True, ), 
+                    flows = odin_sdk.models.flows_rules.FlowsRules(
+                        view = True, 
+                        edit = True, ), 
+                    analytics = odin_sdk.models.analytics_rules.AnalyticsRules(
+                        view = True, 
+                        edit = True, ), 
+                    actions = odin_sdk.models.actions_rules.ActionsRules(
+                        view = True, 
+                        edit = True, ), 
+                    roles = odin_sdk.models.roles_rules.RolesRules(
+                        view = True, 
+                        edit = True, ), ),
         )
         """
 

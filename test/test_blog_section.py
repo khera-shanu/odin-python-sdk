@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.blog_section import BlogSection
 
@@ -28,7 +27,7 @@ class TestBlogSection(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BlogSection:
         """Test BlogSection
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BlogSection`
@@ -36,13 +35,15 @@ class TestBlogSection(unittest.TestCase):
         model = BlogSection()
         if include_optional:
             return BlogSection(
-                title = None,
-                content = None,
-                ideas = None
+                title = '',
+                content = '',
+                ideas = [
+                    ''
+                    ]
             )
         else:
             return BlogSection(
-                title = None,
+                title = '',
         )
         """
 

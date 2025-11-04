@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.compute_column_status_response import ComputeColumnStatusResponse
 
@@ -28,7 +27,7 @@ class TestComputeColumnStatusResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ComputeColumnStatusResponse:
         """Test ComputeColumnStatusResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ComputeColumnStatusResponse`
@@ -36,33 +35,37 @@ class TestComputeColumnStatusResponse(unittest.TestCase):
         model = ComputeColumnStatusResponse()
         if include_optional:
             return ComputeColumnStatusResponse(
-                message = None,
-                execution_id = None,
-                status = None,
-                progress_percentage = None,
-                processed_rows = None,
-                total_rows = None,
-                updated_rows = None,
-                failed_rows = None,
-                started_at = None,
-                completed_at = None,
-                error_message = None,
-                metadata = None
+                message = '',
+                execution_id = '',
+                status = '',
+                progress_percentage = 1.337,
+                processed_rows = 56,
+                total_rows = 56,
+                updated_rows = 56,
+                failed_rows = [
+                    56
+                    ],
+                started_at = '',
+                completed_at = '',
+                error_message = '',
+                metadata = odin_sdk.models.metadata.Metadata()
             )
         else:
             return ComputeColumnStatusResponse(
-                message = None,
-                execution_id = None,
-                status = None,
-                progress_percentage = None,
-                processed_rows = None,
-                total_rows = None,
-                updated_rows = None,
-                failed_rows = None,
-                started_at = None,
-                completed_at = None,
-                error_message = None,
-                metadata = None,
+                message = '',
+                execution_id = '',
+                status = '',
+                progress_percentage = 1.337,
+                processed_rows = 56,
+                total_rows = 56,
+                updated_rows = 56,
+                failed_rows = [
+                    56
+                    ],
+                started_at = '',
+                completed_at = '',
+                error_message = '',
+                metadata = odin_sdk.models.metadata.Metadata(),
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.linked_in_email_finder_request import LinkedInEmailFinderRequest
 
@@ -28,7 +27,7 @@ class TestLinkedInEmailFinderRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> LinkedInEmailFinderRequest:
         """Test LinkedInEmailFinderRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `LinkedInEmailFinderRequest`
@@ -36,12 +35,12 @@ class TestLinkedInEmailFinderRequest(unittest.TestCase):
         model = LinkedInEmailFinderRequest()
         if include_optional:
             return LinkedInEmailFinderRequest(
-                url = None,
-                profile_only = None
+                url = '',
+                profile_only = True
             )
         else:
             return LinkedInEmailFinderRequest(
-                url = None,
+                url = '',
         )
         """
 

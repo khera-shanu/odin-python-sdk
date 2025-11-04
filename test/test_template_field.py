@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.template_field import TemplateField
 
@@ -28,7 +27,7 @@ class TestTemplateField(unittest.TestCase):
 
     def make_instance(self, include_optional) -> TemplateField:
         """Test TemplateField
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `TemplateField`
@@ -36,15 +35,15 @@ class TestTemplateField(unittest.TestCase):
         model = TemplateField()
         if include_optional:
             return TemplateField(
-                name = None,
-                type = None,
-                description = None
+                name = '',
+                type = '',
+                description = ''
             )
         else:
             return TemplateField(
-                name = None,
-                type = None,
-                description = None,
+                name = '',
+                type = '',
+                description = '',
         )
         """
 

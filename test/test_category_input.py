@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.category_input import CategoryInput
 
@@ -28,7 +27,7 @@ class TestCategoryInput(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CategoryInput:
         """Test CategoryInput
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CategoryInput`
@@ -36,12 +35,12 @@ class TestCategoryInput(unittest.TestCase):
         model = CategoryInput()
         if include_optional:
             return CategoryInput(
-                category = None,
-                description = None
+                category = '',
+                description = ''
             )
         else:
             return CategoryInput(
-                category = None,
+                category = '',
         )
         """
 

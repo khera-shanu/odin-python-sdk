@@ -17,33 +17,29 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.pagination import Pagination
-from odin_sdk.models.total_count import TotalCount
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.dt_field import DTField
+from typing import Optional, Set
+from typing_extensions import Self
 
 class GetDataTypeViewResponse(BaseModel):
     """
     GetDataTypeViewResponse
     """ # noqa: E501
-    message: Optional[Any]
-    data_view: Optional[Any]
-    data_schema: Optional[Any]
-    views: Optional[Any]
-    pagination: Optional[Pagination] = None
-    total_count: Optional[TotalCount] = None
+    message: StrictStr
+    data_view: List[Any]
+    data_schema: List[DTField]
+    views: List[Dict[str, Any]]
+    pagination: Optional[Dict[str, Any]] = None
+    total_count: Optional[StrictInt] = None
     __properties: ClassVar[List[str]] = ["message", "data_view", "data_schema", "views", "pagination", "total_count"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -56,7 +52,7 @@ class GetDataTypeViewResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of GetDataTypeViewResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -70,42 +66,35 @@ class GetDataTypeViewResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of pagination
-        if self.pagination:
-            _dict['pagination'] = self.pagination.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of total_count
-        if self.total_count:
-            _dict['total_count'] = self.total_count.to_dict()
-        # set to None if message (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of each item in data_schema (list)
+        _items = []
+        if self.data_schema:
+            for _item_data_schema in self.data_schema:
+                if _item_data_schema:
+                    _items.append(_item_data_schema.to_dict())
+            _dict['data_schema'] = _items
+        # set to None if pagination (nullable) is None
         # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
+        if self.pagination is None and "pagination" in self.model_fields_set:
+            _dict['pagination'] = None
 
-        # set to None if data_view (nullable) is None
+        # set to None if total_count (nullable) is None
         # and model_fields_set contains the field
-        if self.data_view is None and "data_view" in self.model_fields_set:
-            _dict['data_view'] = None
-
-        # set to None if data_schema (nullable) is None
-        # and model_fields_set contains the field
-        if self.data_schema is None and "data_schema" in self.model_fields_set:
-            _dict['data_schema'] = None
-
-        # set to None if views (nullable) is None
-        # and model_fields_set contains the field
-        if self.views is None and "views" in self.model_fields_set:
-            _dict['views'] = None
+        if self.total_count is None and "total_count" in self.model_fields_set:
+            _dict['total_count'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of GetDataTypeViewResponse from a dict"""
         if obj is None:
             return None
@@ -116,10 +105,10 @@ class GetDataTypeViewResponse(BaseModel):
         _obj = cls.model_validate({
             "message": obj.get("message"),
             "data_view": obj.get("data_view"),
-            "data_schema": obj.get("data_schema"),
+            "data_schema": [DTField.from_dict(_item) for _item in obj["data_schema"]] if obj.get("data_schema") is not None else None,
             "views": obj.get("views"),
-            "pagination": Pagination.from_dict(obj.get("pagination")) if obj.get("pagination") is not None else None,
-            "total_count": TotalCount.from_dict(obj.get("total_count")) if obj.get("total_count") is not None else None
+            "pagination": obj.get("pagination"),
+            "total_count": obj.get("total_count")
         })
         return _obj
 

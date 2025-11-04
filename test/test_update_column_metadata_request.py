@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_column_metadata_request import UpdateColumnMetadataRequest
 
@@ -28,7 +27,7 @@ class TestUpdateColumnMetadataRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateColumnMetadataRequest:
         """Test UpdateColumnMetadataRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateColumnMetadataRequest`
@@ -36,11 +35,11 @@ class TestUpdateColumnMetadataRequest(unittest.TestCase):
         model = UpdateColumnMetadataRequest()
         if include_optional:
             return UpdateColumnMetadataRequest(
-                description = None,
-                type = None,
+                description = '',
+                type = '',
                 options = None,
-                not_null = None,
-                unique = None,
+                not_null = True,
+                unique = True,
                 default_value = None
             )
         else:

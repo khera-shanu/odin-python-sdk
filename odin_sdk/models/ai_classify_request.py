@@ -17,30 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.categories import Categories
-from odin_sdk.models.model_name import ModelName
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.category_input import CategoryInput
+from typing import Optional, Set
+from typing_extensions import Self
 
 class AIClassifyRequest(BaseModel):
     """
     AIClassifyRequest
     """ # noqa: E501
-    text: Optional[Any]
-    model_name: Optional[ModelName] = None
-    categories: Optional[Categories] = None
+    text: StrictStr
+    model_name: Optional[StrictStr] = None
+    categories: Optional[List[CategoryInput]] = None
     __properties: ClassVar[List[str]] = ["text", "model_name", "categories"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +49,7 @@ class AIClassifyRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of AIClassifyRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,27 +63,35 @@ class AIClassifyRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of model_name
-        if self.model_name:
-            _dict['model_name'] = self.model_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of categories
+        # override the default output from pydantic by calling `to_dict()` of each item in categories (list)
+        _items = []
         if self.categories:
-            _dict['categories'] = self.categories.to_dict()
-        # set to None if text (nullable) is None
+            for _item_categories in self.categories:
+                if _item_categories:
+                    _items.append(_item_categories.to_dict())
+            _dict['categories'] = _items
+        # set to None if model_name (nullable) is None
         # and model_fields_set contains the field
-        if self.text is None and "text" in self.model_fields_set:
-            _dict['text'] = None
+        if self.model_name is None and "model_name" in self.model_fields_set:
+            _dict['model_name'] = None
+
+        # set to None if categories (nullable) is None
+        # and model_fields_set contains the field
+        if self.categories is None and "categories" in self.model_fields_set:
+            _dict['categories'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of AIClassifyRequest from a dict"""
         if obj is None:
             return None
@@ -97,8 +101,8 @@ class AIClassifyRequest(BaseModel):
 
         _obj = cls.model_validate({
             "text": obj.get("text"),
-            "model_name": ModelName.from_dict(obj.get("model_name")) if obj.get("model_name") is not None else None,
-            "categories": Categories.from_dict(obj.get("categories")) if obj.get("categories") is not None else None
+            "model_name": obj.get("model_name"),
+            "categories": [CategoryInput.from_dict(_item) for _item in obj["categories"]] if obj.get("categories") is not None else None
         })
         return _obj
 

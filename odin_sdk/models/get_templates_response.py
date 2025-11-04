@@ -17,27 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictStr
+from typing import Any, ClassVar, Dict, List
+from odin_sdk.models.template_preview import TemplatePreview
+from typing import Optional, Set
+from typing_extensions import Self
 
 class GetTemplatesResponse(BaseModel):
     """
     GetTemplatesResponse
     """ # noqa: E501
-    message: Optional[Any]
-    templates: Optional[Any]
+    message: StrictStr
+    templates: List[TemplatePreview]
     __properties: ClassVar[List[str]] = ["message", "templates"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -50,7 +48,7 @@ class GetTemplatesResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of GetTemplatesResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -64,26 +62,25 @@ class GetTemplatesResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if message (nullable) is None
-        # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
-
-        # set to None if templates (nullable) is None
-        # and model_fields_set contains the field
-        if self.templates is None and "templates" in self.model_fields_set:
-            _dict['templates'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in templates (list)
+        _items = []
+        if self.templates:
+            for _item_templates in self.templates:
+                if _item_templates:
+                    _items.append(_item_templates.to_dict())
+            _dict['templates'] = _items
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of GetTemplatesResponse from a dict"""
         if obj is None:
             return None
@@ -93,7 +90,7 @@ class GetTemplatesResponse(BaseModel):
 
         _obj = cls.model_validate({
             "message": obj.get("message"),
-            "templates": obj.get("templates")
+            "templates": [TemplatePreview.from_dict(_item) for _item in obj["templates"]] if obj.get("templates") is not None else None
         })
         return _obj
 

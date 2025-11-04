@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.agents_rules import AgentsRules
 
@@ -28,7 +27,7 @@ class TestAgentsRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> AgentsRules:
         """Test AgentsRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `AgentsRules`
@@ -36,8 +35,8 @@ class TestAgentsRules(unittest.TestCase):
         model = AgentsRules()
         if include_optional:
             return AgentsRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return AgentsRules(

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.create_chat_prompt_request import CreateChatPromptRequest
 
@@ -28,7 +27,7 @@ class TestCreateChatPromptRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CreateChatPromptRequest:
         """Test CreateChatPromptRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CreateChatPromptRequest`
@@ -36,16 +35,18 @@ class TestCreateChatPromptRequest(unittest.TestCase):
         model = CreateChatPromptRequest()
         if include_optional:
             return CreateChatPromptRequest(
-                project_id = None,
-                name = None,
-                context = None,
+                project_id = '',
+                name = '',
+                context = '',
                 metadata = None,
-                document_keys = None,
-                document_id = None
+                document_keys = [
+                    null
+                    ],
+                document_id = ''
             )
         else:
             return CreateChatPromptRequest(
-                project_id = None,
+                project_id = '',
         )
         """
 

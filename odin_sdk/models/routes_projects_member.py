@@ -17,40 +17,31 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.email import Email
-from odin_sdk.models.id1 import Id1
-from odin_sdk.models.is_pending1 import IsPending1
-from odin_sdk.models.name import Name
-from odin_sdk.models.project_id import ProjectId
-from odin_sdk.models.role1 import Role1
-from odin_sdk.models.routes_projects_member_invited_by import RoutesProjectsMemberInvitedBy
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from odin_sdk.models.invited_user import InvitedUser
+from typing import Optional, Set
+from typing_extensions import Self
 
 class RoutesProjectsMember(BaseModel):
     """
     RoutesProjectsMember
     """ # noqa: E501
-    id: Optional[Id1] = None
-    role: Optional[Role1] = None
-    project_id: Optional[ProjectId] = None
-    user_id: Optional[Any] = None
-    name: Optional[Name] = None
-    email: Optional[Email] = None
-    is_pending: Optional[IsPending1] = None
-    invited_by: Optional[RoutesProjectsMemberInvitedBy] = None
+    id: Optional[StrictStr] = None
+    role: Optional[StrictStr] = None
+    project_id: Optional[StrictStr] = None
+    user_id: Optional[StrictStr] = None
+    name: Optional[StrictStr] = None
+    email: Optional[StrictStr] = None
+    is_pending: Optional[StrictBool] = None
+    invited_by: Optional[InvitedUser] = None
     __properties: ClassVar[List[str]] = ["id", "role", "project_id", "user_id", "name", "email", "is_pending", "invited_by"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -63,7 +54,7 @@ class RoutesProjectsMember(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of RoutesProjectsMember from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -77,42 +68,61 @@ class RoutesProjectsMember(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of id
-        if self.id:
-            _dict['id'] = self.id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of role
-        if self.role:
-            _dict['role'] = self.role.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of project_id
-        if self.project_id:
-            _dict['project_id'] = self.project_id.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of name
-        if self.name:
-            _dict['name'] = self.name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of email
-        if self.email:
-            _dict['email'] = self.email.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of is_pending
-        if self.is_pending:
-            _dict['is_pending'] = self.is_pending.to_dict()
         # override the default output from pydantic by calling `to_dict()` of invited_by
         if self.invited_by:
             _dict['invited_by'] = self.invited_by.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
+        # set to None if role (nullable) is None
+        # and model_fields_set contains the field
+        if self.role is None and "role" in self.model_fields_set:
+            _dict['role'] = None
+
+        # set to None if project_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.project_id is None and "project_id" in self.model_fields_set:
+            _dict['project_id'] = None
+
         # set to None if user_id (nullable) is None
         # and model_fields_set contains the field
         if self.user_id is None and "user_id" in self.model_fields_set:
             _dict['user_id'] = None
 
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if email (nullable) is None
+        # and model_fields_set contains the field
+        if self.email is None and "email" in self.model_fields_set:
+            _dict['email'] = None
+
+        # set to None if is_pending (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_pending is None and "is_pending" in self.model_fields_set:
+            _dict['is_pending'] = None
+
+        # set to None if invited_by (nullable) is None
+        # and model_fields_set contains the field
+        if self.invited_by is None and "invited_by" in self.model_fields_set:
+            _dict['invited_by'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of RoutesProjectsMember from a dict"""
         if obj is None:
             return None
@@ -121,14 +131,14 @@ class RoutesProjectsMember(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "id": Id1.from_dict(obj.get("id")) if obj.get("id") is not None else None,
-            "role": Role1.from_dict(obj.get("role")) if obj.get("role") is not None else None,
-            "project_id": ProjectId.from_dict(obj.get("project_id")) if obj.get("project_id") is not None else None,
+            "id": obj.get("id"),
+            "role": obj.get("role"),
+            "project_id": obj.get("project_id"),
             "user_id": obj.get("user_id"),
-            "name": Name.from_dict(obj.get("name")) if obj.get("name") is not None else None,
-            "email": Email.from_dict(obj.get("email")) if obj.get("email") is not None else None,
-            "is_pending": IsPending1.from_dict(obj.get("is_pending")) if obj.get("is_pending") is not None else None,
-            "invited_by": RoutesProjectsMemberInvitedBy.from_dict(obj.get("invited_by")) if obj.get("invited_by") is not None else None
+            "name": obj.get("name"),
+            "email": obj.get("email"),
+            "is_pending": obj.get("is_pending"),
+            "invited_by": InvitedUser.from_dict(obj["invited_by"]) if obj.get("invited_by") is not None else None
         })
         return _obj
 

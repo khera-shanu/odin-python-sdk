@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.compute_column_async_response import ComputeColumnAsyncResponse
 
@@ -28,7 +27,7 @@ class TestComputeColumnAsyncResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> ComputeColumnAsyncResponse:
         """Test ComputeColumnAsyncResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `ComputeColumnAsyncResponse`
@@ -36,15 +35,15 @@ class TestComputeColumnAsyncResponse(unittest.TestCase):
         model = ComputeColumnAsyncResponse()
         if include_optional:
             return ComputeColumnAsyncResponse(
-                message = None,
-                execution_id = None,
-                status = None,
-                estimated_duration = None
+                message = '',
+                execution_id = '',
+                status = 'QUEUED',
+                estimated_duration = 56
             )
         else:
             return ComputeColumnAsyncResponse(
-                message = None,
-                execution_id = None,
+                message = '',
+                execution_id = '',
         )
         """
 

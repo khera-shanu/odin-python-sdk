@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_json_request import UpdateJsonRequest
 
@@ -28,7 +27,7 @@ class TestUpdateJsonRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateJsonRequest:
         """Test UpdateJsonRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateJsonRequest`
@@ -36,19 +35,19 @@ class TestUpdateJsonRequest(unittest.TestCase):
         model = UpdateJsonRequest()
         if include_optional:
             return UpdateJsonRequest(
-                json_id = None,
+                json_id = '',
                 data = odin_sdk.models.json.Json(
-                    project_id = null, 
-                    title = null, 
-                    content = null, )
+                    project_id = '', 
+                    title = '', 
+                    content = '', )
             )
         else:
             return UpdateJsonRequest(
-                json_id = None,
+                json_id = '',
                 data = odin_sdk.models.json.Json(
-                    project_id = null, 
-                    title = null, 
-                    content = null, ),
+                    project_id = '', 
+                    title = '', 
+                    content = '', ),
         )
         """
 

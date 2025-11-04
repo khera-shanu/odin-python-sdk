@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.fetch_kb_documents_response import FetchKBDocumentsResponse
 
@@ -28,7 +27,7 @@ class TestFetchKBDocumentsResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> FetchKBDocumentsResponse:
         """Test FetchKBDocumentsResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `FetchKBDocumentsResponse`
@@ -36,11 +35,23 @@ class TestFetchKBDocumentsResponse(unittest.TestCase):
         model = FetchKBDocumentsResponse()
         if include_optional:
             return FetchKBDocumentsResponse(
-                documents = None
+                documents = [
+                    odin_sdk.models.response_kb_document.ResponseKBDocument(
+                        content_key = '', 
+                        content = '', 
+                        metadata = odin_sdk.models.metadata.Metadata(), 
+                        doc_type = '', )
+                    ]
             )
         else:
             return FetchKBDocumentsResponse(
-                documents = None,
+                documents = [
+                    odin_sdk.models.response_kb_document.ResponseKBDocument(
+                        content_key = '', 
+                        content = '', 
+                        metadata = odin_sdk.models.metadata.Metadata(), 
+                        doc_type = '', )
+                    ],
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.blog_regenerate_response import BlogRegenerateResponse
 
@@ -28,7 +27,7 @@ class TestBlogRegenerateResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> BlogRegenerateResponse:
         """Test BlogRegenerateResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `BlogRegenerateResponse`
@@ -36,13 +35,17 @@ class TestBlogRegenerateResponse(unittest.TestCase):
         model = BlogRegenerateResponse()
         if include_optional:
             return BlogRegenerateResponse(
-                message = None,
-                regenerated_options = None
+                message = '',
+                regenerated_options = [
+                    ''
+                    ]
             )
         else:
             return BlogRegenerateResponse(
-                message = None,
-                regenerated_options = None,
+                message = '',
+                regenerated_options = [
+                    ''
+                    ],
         )
         """
 

@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.http_validation_error import HTTPValidationError
 
@@ -28,7 +27,7 @@ class TestHTTPValidationError(unittest.TestCase):
 
     def make_instance(self, include_optional) -> HTTPValidationError:
         """Test HTTPValidationError
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `HTTPValidationError`
@@ -36,7 +35,14 @@ class TestHTTPValidationError(unittest.TestCase):
         model = HTTPValidationError()
         if include_optional:
             return HTTPValidationError(
-                detail = None
+                detail = [
+                    odin_sdk.models.validation_error.ValidationError(
+                        loc = [
+                            null
+                            ], 
+                        msg = '', 
+                        type = '', )
+                    ]
             )
         else:
             return HTTPValidationError(

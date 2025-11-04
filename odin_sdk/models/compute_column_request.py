@@ -17,30 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from pydantic import Field
-from odin_sdk.models.row_id1 import RowId1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ComputeColumnRequest(BaseModel):
     """
     ComputeColumnRequest
     """ # noqa: E501
-    column_name: Optional[Any] = Field(description="The name of the column to compute values for")
-    row_id: Optional[RowId1] = None
-    recompute: Optional[Any] = Field(default=None, description="Whether to recompute all rows or only empty rows")
+    column_name: StrictStr = Field(description="The name of the column to compute values for")
+    row_id: Optional[StrictInt] = None
+    recompute: Optional[StrictBool] = Field(default=False, description="Whether to recompute all rows or only empty rows")
     __properties: ClassVar[List[str]] = ["column_name", "row_id", "recompute"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +48,7 @@ class ComputeColumnRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ComputeColumnRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,29 +62,23 @@ class ComputeColumnRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of row_id
-        if self.row_id:
-            _dict['row_id'] = self.row_id.to_dict()
-        # set to None if column_name (nullable) is None
+        # set to None if row_id (nullable) is None
         # and model_fields_set contains the field
-        if self.column_name is None and "column_name" in self.model_fields_set:
-            _dict['column_name'] = None
-
-        # set to None if recompute (nullable) is None
-        # and model_fields_set contains the field
-        if self.recompute is None and "recompute" in self.model_fields_set:
-            _dict['recompute'] = None
+        if self.row_id is None and "row_id" in self.model_fields_set:
+            _dict['row_id'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ComputeColumnRequest from a dict"""
         if obj is None:
             return None
@@ -99,8 +88,8 @@ class ComputeColumnRequest(BaseModel):
 
         _obj = cls.model_validate({
             "column_name": obj.get("column_name"),
-            "row_id": RowId1.from_dict(obj.get("row_id")) if obj.get("row_id") is not None else None,
-            "recompute": obj.get("recompute")
+            "row_id": obj.get("row_id"),
+            "recompute": obj.get("recompute") if obj.get("recompute") is not None else False
         })
         return _obj
 

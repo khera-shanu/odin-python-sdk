@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.step_execution_request import StepExecutionRequest
 
@@ -28,7 +27,7 @@ class TestStepExecutionRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> StepExecutionRequest:
         """Test StepExecutionRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `StepExecutionRequest`
@@ -36,17 +35,18 @@ class TestStepExecutionRequest(unittest.TestCase):
         model = StepExecutionRequest()
         if include_optional:
             return StepExecutionRequest(
-                project_id = None,
-                tool_id = None,
-                step_id = None,
-                tool_config = None
+                project_id = '',
+                tool_id = '',
+                step_id = '',
+                tool_config = odin_sdk.models.tool_config.Tool Config(),
+                email_index = 56
             )
         else:
             return StepExecutionRequest(
-                project_id = None,
-                tool_id = None,
-                step_id = None,
-                tool_config = None,
+                project_id = '',
+                tool_id = '',
+                step_id = '',
+                tool_config = odin_sdk.models.tool_config.Tool Config(),
         )
         """
 

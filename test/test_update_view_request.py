@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.update_view_request import UpdateViewRequest
 
@@ -28,7 +27,7 @@ class TestUpdateViewRequest(unittest.TestCase):
 
     def make_instance(self, include_optional) -> UpdateViewRequest:
         """Test UpdateViewRequest
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `UpdateViewRequest`
@@ -36,16 +35,16 @@ class TestUpdateViewRequest(unittest.TestCase):
         model = UpdateViewRequest()
         if include_optional:
             return UpdateViewRequest(
-                name = None,
-                description = None,
-                type = None,
+                name = '',
+                description = '',
+                type = '',
                 sort = None,
                 filter = None,
                 group = None,
                 options = None,
                 settings = None,
                 column_meta = None,
-                enable_share = None
+                enable_share = True
             )
         else:
             return UpdateViewRequest(

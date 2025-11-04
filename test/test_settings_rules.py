@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.settings_rules import SettingsRules
 
@@ -28,7 +27,7 @@ class TestSettingsRules(unittest.TestCase):
 
     def make_instance(self, include_optional) -> SettingsRules:
         """Test SettingsRules
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `SettingsRules`
@@ -36,8 +35,8 @@ class TestSettingsRules(unittest.TestCase):
         model = SettingsRules()
         if include_optional:
             return SettingsRules(
-                view = None,
-                edit = None
+                view = True,
+                edit = True
             )
         else:
             return SettingsRules(

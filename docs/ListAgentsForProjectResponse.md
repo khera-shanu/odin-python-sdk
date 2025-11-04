@@ -17,12 +17,12 @@ json = "{}"
 # create an instance of ListAgentsForProjectResponse from a JSON string
 list_agents_for_project_response_instance = ListAgentsForProjectResponse.from_json(json)
 # print the JSON string representation of the object
-print ListAgentsForProjectResponse.to_json()
+print(ListAgentsForProjectResponse.to_json())
 
 # convert the object into a dict
 list_agents_for_project_response_dict = list_agents_for_project_response_instance.to_dict()
 # create an instance of ListAgentsForProjectResponse from a dict
-list_agents_for_project_response_form_dict = list_agents_for_project_response.from_dict(list_agents_for_project_response_dict)
+list_agents_for_project_response_from_dict = ListAgentsForProjectResponse.from_dict(list_agents_for_project_response_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

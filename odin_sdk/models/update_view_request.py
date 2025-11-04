@@ -17,45 +17,32 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.column_meta import ColumnMeta
-from odin_sdk.models.description12 import Description12
-from odin_sdk.models.enable_share1 import EnableShare1
-from odin_sdk.models.filter import Filter
-from odin_sdk.models.group import Group
-from odin_sdk.models.name3 import Name3
-from odin_sdk.models.options3 import Options3
-from odin_sdk.models.settings2 import Settings2
-from odin_sdk.models.sort import Sort
-from odin_sdk.models.type6 import Type6
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UpdateViewRequest(BaseModel):
     """
     UpdateViewRequest
     """ # noqa: E501
-    name: Optional[Name3] = None
-    description: Optional[Description12] = None
-    type: Optional[Type6] = None
-    sort: Optional[Sort] = None
-    filter: Optional[Filter] = None
-    group: Optional[Group] = None
-    options: Optional[Options3] = None
-    settings: Optional[Settings2] = None
-    column_meta: Optional[ColumnMeta] = None
-    enable_share: Optional[EnableShare1] = None
+    name: Optional[StrictStr] = None
+    description: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    sort: Optional[Dict[str, Any]] = None
+    filter: Optional[Dict[str, Any]] = None
+    group: Optional[Dict[str, Any]] = None
+    options: Optional[Dict[str, Any]] = None
+    settings: Optional[Dict[str, Any]] = None
+    column_meta: Optional[Dict[str, Any]] = None
+    enable_share: Optional[StrictBool] = None
     __properties: ClassVar[List[str]] = ["name", "description", "type", "sort", "filter", "group", "options", "settings", "column_meta", "enable_share"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -68,7 +55,7 @@ class UpdateViewRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of UpdateViewRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -82,46 +69,68 @@ class UpdateViewRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of name
-        if self.name:
-            _dict['name'] = self.name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of type
-        if self.type:
-            _dict['type'] = self.type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of sort
-        if self.sort:
-            _dict['sort'] = self.sort.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of filter
-        if self.filter:
-            _dict['filter'] = self.filter.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of group
-        if self.group:
-            _dict['group'] = self.group.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of options
-        if self.options:
-            _dict['options'] = self.options.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of settings
-        if self.settings:
-            _dict['settings'] = self.settings.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of column_meta
-        if self.column_meta:
-            _dict['column_meta'] = self.column_meta.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of enable_share
-        if self.enable_share:
-            _dict['enable_share'] = self.enable_share.to_dict()
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
+
+        # set to None if sort (nullable) is None
+        # and model_fields_set contains the field
+        if self.sort is None and "sort" in self.model_fields_set:
+            _dict['sort'] = None
+
+        # set to None if filter (nullable) is None
+        # and model_fields_set contains the field
+        if self.filter is None and "filter" in self.model_fields_set:
+            _dict['filter'] = None
+
+        # set to None if group (nullable) is None
+        # and model_fields_set contains the field
+        if self.group is None and "group" in self.model_fields_set:
+            _dict['group'] = None
+
+        # set to None if options (nullable) is None
+        # and model_fields_set contains the field
+        if self.options is None and "options" in self.model_fields_set:
+            _dict['options'] = None
+
+        # set to None if settings (nullable) is None
+        # and model_fields_set contains the field
+        if self.settings is None and "settings" in self.model_fields_set:
+            _dict['settings'] = None
+
+        # set to None if column_meta (nullable) is None
+        # and model_fields_set contains the field
+        if self.column_meta is None and "column_meta" in self.model_fields_set:
+            _dict['column_meta'] = None
+
+        # set to None if enable_share (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_share is None and "enable_share" in self.model_fields_set:
+            _dict['enable_share'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of UpdateViewRequest from a dict"""
         if obj is None:
             return None
@@ -130,16 +139,16 @@ class UpdateViewRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "name": Name3.from_dict(obj.get("name")) if obj.get("name") is not None else None,
-            "description": Description12.from_dict(obj.get("description")) if obj.get("description") is not None else None,
-            "type": Type6.from_dict(obj.get("type")) if obj.get("type") is not None else None,
-            "sort": Sort.from_dict(obj.get("sort")) if obj.get("sort") is not None else None,
-            "filter": Filter.from_dict(obj.get("filter")) if obj.get("filter") is not None else None,
-            "group": Group.from_dict(obj.get("group")) if obj.get("group") is not None else None,
-            "options": Options3.from_dict(obj.get("options")) if obj.get("options") is not None else None,
-            "settings": Settings2.from_dict(obj.get("settings")) if obj.get("settings") is not None else None,
-            "column_meta": ColumnMeta.from_dict(obj.get("column_meta")) if obj.get("column_meta") is not None else None,
-            "enable_share": EnableShare1.from_dict(obj.get("enable_share")) if obj.get("enable_share") is not None else None
+            "name": obj.get("name"),
+            "description": obj.get("description"),
+            "type": obj.get("type"),
+            "sort": obj.get("sort"),
+            "filter": obj.get("filter"),
+            "group": obj.get("group"),
+            "options": obj.get("options"),
+            "settings": obj.get("settings"),
+            "column_meta": obj.get("column_meta"),
+            "enable_share": obj.get("enable_share")
         })
         return _obj
 

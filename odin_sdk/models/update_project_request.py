@@ -17,78 +17,55 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
 from odin_sdk.models.custom_chatbot import CustomChatbot
-from odin_sdk.models.data_extraction_method import DataExtractionMethod
-from odin_sdk.models.description1 import Description1
-from odin_sdk.models.docx_extraction_method import DocxExtractionMethod
-from odin_sdk.models.enable_temporary_message_retention import EnableTemporaryMessageRetention
-from odin_sdk.models.enrich_question import EnrichQuestion
-from odin_sdk.models.enrich_sources import EnrichSources
-from odin_sdk.models.inline_citations1 import InlineCitations1
-from odin_sdk.models.is_public2 import IsPublic2
-from odin_sdk.models.mask_pii1 import MaskPii1
-from odin_sdk.models.model_name4 import ModelName4
-from odin_sdk.models.name import Name
-from odin_sdk.models.no_context_answer import NoContextAnswer
-from odin_sdk.models.only_answer_with_context import OnlyAnswerWithContext
-from odin_sdk.models.shared_to_team import SharedToTeam
-from odin_sdk.models.team_default_role import TeamDefaultRole
-from odin_sdk.models.team_id import TeamId
-from odin_sdk.models.teamsbot_show_feedback_buttons import TeamsbotShowFeedbackButtons
-from odin_sdk.models.teamsbot_show_kb_search_message import TeamsbotShowKbSearchMessage
-from odin_sdk.models.teamsbot_show_message_sources import TeamsbotShowMessageSources
-from odin_sdk.models.teamsbot_static_message_footer import TeamsbotStaticMessageFooter
-from odin_sdk.models.teamsbot_upload_method import TeamsbotUploadMethod
-from odin_sdk.models.temporary_message_retention_duration import TemporaryMessageRetentionDuration
-from odin_sdk.models.test_info import TestInfo
-from odin_sdk.models.type5 import Type5
-from odin_sdk.models.use_textract1 import UseTextract1
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class UpdateProjectRequest(BaseModel):
     """
     UpdateProjectRequest
     """ # noqa: E501
-    project_id: Optional[Any]
-    name: Optional[Name] = None
-    type: Optional[Type5] = None
-    model_name: Optional[ModelName4] = None
-    enrich_question: Optional[EnrichQuestion] = None
-    enrich_sources: Optional[EnrichSources] = None
-    description: Optional[Description1] = None
-    test_info: Optional[TestInfo] = None
-    is_public: Optional[IsPublic2] = None
-    no_context_answer: Optional[NoContextAnswer] = None
-    only_answer_with_context: Optional[OnlyAnswerWithContext] = None
+    project_id: StrictStr
+    name: Optional[StrictStr] = None
+    type: Optional[StrictStr] = None
+    model_name: Optional[StrictStr] = None
+    enrich_question: Optional[StrictBool] = None
+    enrich_sources: Optional[StrictBool] = None
+    description: Optional[StrictStr] = None
+    test_info: Optional[Dict[str, Any]] = None
+    is_public: Optional[StrictBool] = None
+    no_context_answer: Optional[StrictStr] = None
+    only_answer_with_context: Optional[StrictBool] = None
     custom_chatbot: Optional[CustomChatbot] = None
-    use_textract: Optional[UseTextract1] = None
-    mask_pii: Optional[MaskPii1] = None
-    inline_citations: Optional[InlineCitations1] = None
-    data_extraction_method: Optional[DataExtractionMethod] = None
-    teamsbot_upload_method: Optional[TeamsbotUploadMethod] = None
-    teamsbot_static_message_footer: Optional[TeamsbotStaticMessageFooter] = None
-    teamsbot_show_feedback_buttons: Optional[TeamsbotShowFeedbackButtons] = None
-    teamsbot_show_kb_search_message: Optional[TeamsbotShowKbSearchMessage] = None
-    teamsbot_show_message_sources: Optional[TeamsbotShowMessageSources] = None
-    enable_temporary_message_retention: Optional[EnableTemporaryMessageRetention] = None
-    temporary_message_retention_duration: Optional[TemporaryMessageRetentionDuration] = None
-    docx_extraction_method: Optional[DocxExtractionMethod] = None
-    shared_to_team: Optional[SharedToTeam] = None
-    team_default_role: Optional[TeamDefaultRole] = None
-    team_id: Optional[TeamId] = None
-    __properties: ClassVar[List[str]] = ["project_id", "name", "type", "model_name", "enrich_question", "enrich_sources", "description", "test_info", "is_public", "no_context_answer", "only_answer_with_context", "custom_chatbot", "use_textract", "mask_pii", "inline_citations", "data_extraction_method", "teamsbot_upload_method", "teamsbot_static_message_footer", "teamsbot_show_feedback_buttons", "teamsbot_show_kb_search_message", "teamsbot_show_message_sources", "enable_temporary_message_retention", "temporary_message_retention_duration", "docx_extraction_method", "shared_to_team", "team_default_role", "team_id"]
+    use_textract: Optional[StrictBool] = None
+    mask_pii: Optional[StrictBool] = None
+    inline_citations: Optional[StrictBool] = None
+    data_extraction_method: Optional[StrictStr] = None
+    teamsbot_upload_method: Optional[StrictStr] = None
+    teamsbot_static_message_footer: Optional[StrictStr] = None
+    teamsbot_show_feedback_buttons: Optional[StrictBool] = None
+    teamsbot_show_kb_search_message: Optional[StrictBool] = None
+    teamsbot_show_message_sources: Optional[StrictBool] = None
+    enable_temporary_message_retention: Optional[StrictBool] = None
+    temporary_message_retention_duration: Optional[StrictInt] = None
+    docx_extraction_method: Optional[StrictStr] = None
+    shared_to_team: Optional[StrictBool] = None
+    team_default_role: Optional[StrictStr] = None
+    enable_automator_v2: Optional[StrictBool] = None
+    team_id: Optional[StrictStr] = None
+    custom_agent: Optional[StrictStr] = None
+    custom_agent_name: Optional[StrictStr] = None
+    transcription_provider_key: Optional[StrictStr] = None
+    transcription_model_key: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["project_id", "name", "type", "model_name", "enrich_question", "enrich_sources", "description", "test_info", "is_public", "no_context_answer", "only_answer_with_context", "custom_chatbot", "use_textract", "mask_pii", "inline_citations", "data_extraction_method", "teamsbot_upload_method", "teamsbot_static_message_footer", "teamsbot_show_feedback_buttons", "teamsbot_show_kb_search_message", "teamsbot_show_message_sources", "enable_temporary_message_retention", "temporary_message_retention_duration", "docx_extraction_method", "shared_to_team", "team_default_role", "enable_automator_v2", "team_id", "custom_agent", "custom_agent_name", "transcription_provider_key", "transcription_model_key"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -101,7 +78,7 @@ class UpdateProjectRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of UpdateProjectRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -115,99 +92,176 @@ class UpdateProjectRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of name
-        if self.name:
-            _dict['name'] = self.name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of type
-        if self.type:
-            _dict['type'] = self.type.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of model_name
-        if self.model_name:
-            _dict['model_name'] = self.model_name.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of enrich_question
-        if self.enrich_question:
-            _dict['enrich_question'] = self.enrich_question.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of enrich_sources
-        if self.enrich_sources:
-            _dict['enrich_sources'] = self.enrich_sources.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of description
-        if self.description:
-            _dict['description'] = self.description.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of test_info
-        if self.test_info:
-            _dict['test_info'] = self.test_info.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of is_public
-        if self.is_public:
-            _dict['is_public'] = self.is_public.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of no_context_answer
-        if self.no_context_answer:
-            _dict['no_context_answer'] = self.no_context_answer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of only_answer_with_context
-        if self.only_answer_with_context:
-            _dict['only_answer_with_context'] = self.only_answer_with_context.to_dict()
         # override the default output from pydantic by calling `to_dict()` of custom_chatbot
         if self.custom_chatbot:
             _dict['custom_chatbot'] = self.custom_chatbot.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of use_textract
-        if self.use_textract:
-            _dict['use_textract'] = self.use_textract.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of mask_pii
-        if self.mask_pii:
-            _dict['mask_pii'] = self.mask_pii.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of inline_citations
-        if self.inline_citations:
-            _dict['inline_citations'] = self.inline_citations.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of data_extraction_method
-        if self.data_extraction_method:
-            _dict['data_extraction_method'] = self.data_extraction_method.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_upload_method
-        if self.teamsbot_upload_method:
-            _dict['teamsbot_upload_method'] = self.teamsbot_upload_method.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_static_message_footer
-        if self.teamsbot_static_message_footer:
-            _dict['teamsbot_static_message_footer'] = self.teamsbot_static_message_footer.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_show_feedback_buttons
-        if self.teamsbot_show_feedback_buttons:
-            _dict['teamsbot_show_feedback_buttons'] = self.teamsbot_show_feedback_buttons.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_show_kb_search_message
-        if self.teamsbot_show_kb_search_message:
-            _dict['teamsbot_show_kb_search_message'] = self.teamsbot_show_kb_search_message.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of teamsbot_show_message_sources
-        if self.teamsbot_show_message_sources:
-            _dict['teamsbot_show_message_sources'] = self.teamsbot_show_message_sources.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of enable_temporary_message_retention
-        if self.enable_temporary_message_retention:
-            _dict['enable_temporary_message_retention'] = self.enable_temporary_message_retention.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of temporary_message_retention_duration
-        if self.temporary_message_retention_duration:
-            _dict['temporary_message_retention_duration'] = self.temporary_message_retention_duration.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of docx_extraction_method
-        if self.docx_extraction_method:
-            _dict['docx_extraction_method'] = self.docx_extraction_method.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of shared_to_team
-        if self.shared_to_team:
-            _dict['shared_to_team'] = self.shared_to_team.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of team_default_role
-        if self.team_default_role:
-            _dict['team_default_role'] = self.team_default_role.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of team_id
-        if self.team_id:
-            _dict['team_id'] = self.team_id.to_dict()
-        # set to None if project_id (nullable) is None
+        # set to None if name (nullable) is None
         # and model_fields_set contains the field
-        if self.project_id is None and "project_id" in self.model_fields_set:
-            _dict['project_id'] = None
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['name'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['type'] = None
+
+        # set to None if model_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.model_name is None and "model_name" in self.model_fields_set:
+            _dict['model_name'] = None
+
+        # set to None if enrich_question (nullable) is None
+        # and model_fields_set contains the field
+        if self.enrich_question is None and "enrich_question" in self.model_fields_set:
+            _dict['enrich_question'] = None
+
+        # set to None if enrich_sources (nullable) is None
+        # and model_fields_set contains the field
+        if self.enrich_sources is None and "enrich_sources" in self.model_fields_set:
+            _dict['enrich_sources'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['description'] = None
+
+        # set to None if test_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.test_info is None and "test_info" in self.model_fields_set:
+            _dict['test_info'] = None
+
+        # set to None if is_public (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_public is None and "is_public" in self.model_fields_set:
+            _dict['is_public'] = None
+
+        # set to None if no_context_answer (nullable) is None
+        # and model_fields_set contains the field
+        if self.no_context_answer is None and "no_context_answer" in self.model_fields_set:
+            _dict['no_context_answer'] = None
+
+        # set to None if only_answer_with_context (nullable) is None
+        # and model_fields_set contains the field
+        if self.only_answer_with_context is None and "only_answer_with_context" in self.model_fields_set:
+            _dict['only_answer_with_context'] = None
+
+        # set to None if custom_chatbot (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_chatbot is None and "custom_chatbot" in self.model_fields_set:
+            _dict['custom_chatbot'] = None
+
+        # set to None if use_textract (nullable) is None
+        # and model_fields_set contains the field
+        if self.use_textract is None and "use_textract" in self.model_fields_set:
+            _dict['use_textract'] = None
+
+        # set to None if mask_pii (nullable) is None
+        # and model_fields_set contains the field
+        if self.mask_pii is None and "mask_pii" in self.model_fields_set:
+            _dict['mask_pii'] = None
+
+        # set to None if inline_citations (nullable) is None
+        # and model_fields_set contains the field
+        if self.inline_citations is None and "inline_citations" in self.model_fields_set:
+            _dict['inline_citations'] = None
+
+        # set to None if data_extraction_method (nullable) is None
+        # and model_fields_set contains the field
+        if self.data_extraction_method is None and "data_extraction_method" in self.model_fields_set:
+            _dict['data_extraction_method'] = None
+
+        # set to None if teamsbot_upload_method (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_upload_method is None and "teamsbot_upload_method" in self.model_fields_set:
+            _dict['teamsbot_upload_method'] = None
+
+        # set to None if teamsbot_static_message_footer (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_static_message_footer is None and "teamsbot_static_message_footer" in self.model_fields_set:
+            _dict['teamsbot_static_message_footer'] = None
+
+        # set to None if teamsbot_show_feedback_buttons (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_show_feedback_buttons is None and "teamsbot_show_feedback_buttons" in self.model_fields_set:
+            _dict['teamsbot_show_feedback_buttons'] = None
+
+        # set to None if teamsbot_show_kb_search_message (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_show_kb_search_message is None and "teamsbot_show_kb_search_message" in self.model_fields_set:
+            _dict['teamsbot_show_kb_search_message'] = None
+
+        # set to None if teamsbot_show_message_sources (nullable) is None
+        # and model_fields_set contains the field
+        if self.teamsbot_show_message_sources is None and "teamsbot_show_message_sources" in self.model_fields_set:
+            _dict['teamsbot_show_message_sources'] = None
+
+        # set to None if enable_temporary_message_retention (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_temporary_message_retention is None and "enable_temporary_message_retention" in self.model_fields_set:
+            _dict['enable_temporary_message_retention'] = None
+
+        # set to None if temporary_message_retention_duration (nullable) is None
+        # and model_fields_set contains the field
+        if self.temporary_message_retention_duration is None and "temporary_message_retention_duration" in self.model_fields_set:
+            _dict['temporary_message_retention_duration'] = None
+
+        # set to None if docx_extraction_method (nullable) is None
+        # and model_fields_set contains the field
+        if self.docx_extraction_method is None and "docx_extraction_method" in self.model_fields_set:
+            _dict['docx_extraction_method'] = None
+
+        # set to None if shared_to_team (nullable) is None
+        # and model_fields_set contains the field
+        if self.shared_to_team is None and "shared_to_team" in self.model_fields_set:
+            _dict['shared_to_team'] = None
+
+        # set to None if team_default_role (nullable) is None
+        # and model_fields_set contains the field
+        if self.team_default_role is None and "team_default_role" in self.model_fields_set:
+            _dict['team_default_role'] = None
+
+        # set to None if enable_automator_v2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_automator_v2 is None and "enable_automator_v2" in self.model_fields_set:
+            _dict['enable_automator_v2'] = None
+
+        # set to None if team_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.team_id is None and "team_id" in self.model_fields_set:
+            _dict['team_id'] = None
+
+        # set to None if custom_agent (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_agent is None and "custom_agent" in self.model_fields_set:
+            _dict['custom_agent'] = None
+
+        # set to None if custom_agent_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.custom_agent_name is None and "custom_agent_name" in self.model_fields_set:
+            _dict['custom_agent_name'] = None
+
+        # set to None if transcription_provider_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.transcription_provider_key is None and "transcription_provider_key" in self.model_fields_set:
+            _dict['transcription_provider_key'] = None
+
+        # set to None if transcription_model_key (nullable) is None
+        # and model_fields_set contains the field
+        if self.transcription_model_key is None and "transcription_model_key" in self.model_fields_set:
+            _dict['transcription_model_key'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of UpdateProjectRequest from a dict"""
         if obj is None:
             return None
@@ -217,32 +271,37 @@ class UpdateProjectRequest(BaseModel):
 
         _obj = cls.model_validate({
             "project_id": obj.get("project_id"),
-            "name": Name.from_dict(obj.get("name")) if obj.get("name") is not None else None,
-            "type": Type5.from_dict(obj.get("type")) if obj.get("type") is not None else None,
-            "model_name": ModelName4.from_dict(obj.get("model_name")) if obj.get("model_name") is not None else None,
-            "enrich_question": EnrichQuestion.from_dict(obj.get("enrich_question")) if obj.get("enrich_question") is not None else None,
-            "enrich_sources": EnrichSources.from_dict(obj.get("enrich_sources")) if obj.get("enrich_sources") is not None else None,
-            "description": Description1.from_dict(obj.get("description")) if obj.get("description") is not None else None,
-            "test_info": TestInfo.from_dict(obj.get("test_info")) if obj.get("test_info") is not None else None,
-            "is_public": IsPublic2.from_dict(obj.get("is_public")) if obj.get("is_public") is not None else None,
-            "no_context_answer": NoContextAnswer.from_dict(obj.get("no_context_answer")) if obj.get("no_context_answer") is not None else None,
-            "only_answer_with_context": OnlyAnswerWithContext.from_dict(obj.get("only_answer_with_context")) if obj.get("only_answer_with_context") is not None else None,
-            "custom_chatbot": CustomChatbot.from_dict(obj.get("custom_chatbot")) if obj.get("custom_chatbot") is not None else None,
-            "use_textract": UseTextract1.from_dict(obj.get("use_textract")) if obj.get("use_textract") is not None else None,
-            "mask_pii": MaskPii1.from_dict(obj.get("mask_pii")) if obj.get("mask_pii") is not None else None,
-            "inline_citations": InlineCitations1.from_dict(obj.get("inline_citations")) if obj.get("inline_citations") is not None else None,
-            "data_extraction_method": DataExtractionMethod.from_dict(obj.get("data_extraction_method")) if obj.get("data_extraction_method") is not None else None,
-            "teamsbot_upload_method": TeamsbotUploadMethod.from_dict(obj.get("teamsbot_upload_method")) if obj.get("teamsbot_upload_method") is not None else None,
-            "teamsbot_static_message_footer": TeamsbotStaticMessageFooter.from_dict(obj.get("teamsbot_static_message_footer")) if obj.get("teamsbot_static_message_footer") is not None else None,
-            "teamsbot_show_feedback_buttons": TeamsbotShowFeedbackButtons.from_dict(obj.get("teamsbot_show_feedback_buttons")) if obj.get("teamsbot_show_feedback_buttons") is not None else None,
-            "teamsbot_show_kb_search_message": TeamsbotShowKbSearchMessage.from_dict(obj.get("teamsbot_show_kb_search_message")) if obj.get("teamsbot_show_kb_search_message") is not None else None,
-            "teamsbot_show_message_sources": TeamsbotShowMessageSources.from_dict(obj.get("teamsbot_show_message_sources")) if obj.get("teamsbot_show_message_sources") is not None else None,
-            "enable_temporary_message_retention": EnableTemporaryMessageRetention.from_dict(obj.get("enable_temporary_message_retention")) if obj.get("enable_temporary_message_retention") is not None else None,
-            "temporary_message_retention_duration": TemporaryMessageRetentionDuration.from_dict(obj.get("temporary_message_retention_duration")) if obj.get("temporary_message_retention_duration") is not None else None,
-            "docx_extraction_method": DocxExtractionMethod.from_dict(obj.get("docx_extraction_method")) if obj.get("docx_extraction_method") is not None else None,
-            "shared_to_team": SharedToTeam.from_dict(obj.get("shared_to_team")) if obj.get("shared_to_team") is not None else None,
-            "team_default_role": TeamDefaultRole.from_dict(obj.get("team_default_role")) if obj.get("team_default_role") is not None else None,
-            "team_id": TeamId.from_dict(obj.get("team_id")) if obj.get("team_id") is not None else None
+            "name": obj.get("name"),
+            "type": obj.get("type"),
+            "model_name": obj.get("model_name"),
+            "enrich_question": obj.get("enrich_question"),
+            "enrich_sources": obj.get("enrich_sources"),
+            "description": obj.get("description"),
+            "test_info": obj.get("test_info"),
+            "is_public": obj.get("is_public"),
+            "no_context_answer": obj.get("no_context_answer"),
+            "only_answer_with_context": obj.get("only_answer_with_context"),
+            "custom_chatbot": CustomChatbot.from_dict(obj["custom_chatbot"]) if obj.get("custom_chatbot") is not None else None,
+            "use_textract": obj.get("use_textract"),
+            "mask_pii": obj.get("mask_pii"),
+            "inline_citations": obj.get("inline_citations"),
+            "data_extraction_method": obj.get("data_extraction_method"),
+            "teamsbot_upload_method": obj.get("teamsbot_upload_method"),
+            "teamsbot_static_message_footer": obj.get("teamsbot_static_message_footer"),
+            "teamsbot_show_feedback_buttons": obj.get("teamsbot_show_feedback_buttons"),
+            "teamsbot_show_kb_search_message": obj.get("teamsbot_show_kb_search_message"),
+            "teamsbot_show_message_sources": obj.get("teamsbot_show_message_sources"),
+            "enable_temporary_message_retention": obj.get("enable_temporary_message_retention"),
+            "temporary_message_retention_duration": obj.get("temporary_message_retention_duration"),
+            "docx_extraction_method": obj.get("docx_extraction_method"),
+            "shared_to_team": obj.get("shared_to_team"),
+            "team_default_role": obj.get("team_default_role"),
+            "enable_automator_v2": obj.get("enable_automator_v2"),
+            "team_id": obj.get("team_id"),
+            "custom_agent": obj.get("custom_agent"),
+            "custom_agent_name": obj.get("custom_agent_name"),
+            "transcription_provider_key": obj.get("transcription_provider_key"),
+            "transcription_model_key": obj.get("transcription_model_key")
         })
         return _obj
 

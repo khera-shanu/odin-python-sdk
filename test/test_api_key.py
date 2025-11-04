@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.api_key import APIKey
 
@@ -28,7 +27,7 @@ class TestAPIKey(unittest.TestCase):
 
     def make_instance(self, include_optional) -> APIKey:
         """Test APIKey
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `APIKey`
@@ -36,8 +35,8 @@ class TestAPIKey(unittest.TestCase):
         model = APIKey()
         if include_optional:
             return APIKey(
-                openai = None,
-                anthropic = None
+                openai = '',
+                anthropic = ''
             )
         else:
             return APIKey(

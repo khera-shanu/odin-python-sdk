@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.custom_tool_version_list_response import CustomToolVersionListResponse
 
@@ -28,7 +27,7 @@ class TestCustomToolVersionListResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> CustomToolVersionListResponse:
         """Test CustomToolVersionListResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `CustomToolVersionListResponse`
@@ -36,12 +35,27 @@ class TestCustomToolVersionListResponse(unittest.TestCase):
         model = CustomToolVersionListResponse()
         if include_optional:
             return CustomToolVersionListResponse(
-                versions = None,
-                total = None
+                versions = [
+                    odin_sdk.models.custom_tool_version_response.CustomToolVersionResponse(
+                        id = '', 
+                        tool_id = '', 
+                        version = '', 
+                        name = '', 
+                        description = '', 
+                        inputs = odin_sdk.models.inputs.Inputs(), 
+                        steps = odin_sdk.models.steps.Steps(), 
+                        flow_layout = odin_sdk.models.flow_layout.flow_layout(), 
+                        published_by = '', 
+                        published_at = '', 
+                        change_log = '', 
+                        user_name = '', 
+                        user_email = '', )
+                    ],
+                total = 56
             )
         else:
             return CustomToolVersionListResponse(
-                total = None,
+                total = 56,
         )
         """
 

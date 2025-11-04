@@ -17,41 +17,34 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.completed_at import CompletedAt
-from odin_sdk.models.error_message import ErrorMessage
-from odin_sdk.models.started_at import StartedAt
-from odin_sdk.models.total_rows import TotalRows
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class ComputeColumnStatusResponse(BaseModel):
     """
     ComputeColumnStatusResponse
     """ # noqa: E501
-    message: Optional[Any]
-    execution_id: Optional[Any]
-    status: Optional[Any]
-    progress_percentage: Optional[Any]
-    processed_rows: Optional[Any]
-    total_rows: TotalRows
-    updated_rows: Optional[Any]
-    failed_rows: Optional[Any]
-    started_at: StartedAt
-    completed_at: CompletedAt
-    error_message: ErrorMessage
-    metadata: Optional[Any]
+    message: StrictStr
+    execution_id: StrictStr
+    status: StrictStr
+    progress_percentage: Union[StrictFloat, StrictInt]
+    processed_rows: StrictInt
+    total_rows: Optional[StrictInt]
+    updated_rows: StrictInt
+    failed_rows: List[StrictInt]
+    started_at: Optional[StrictStr]
+    completed_at: Optional[StrictStr]
+    error_message: Optional[StrictStr]
+    metadata: Dict[str, Any]
     __properties: ClassVar[List[str]] = ["message", "execution_id", "status", "progress_percentage", "processed_rows", "total_rows", "updated_rows", "failed_rows", "started_at", "completed_at", "error_message", "metadata"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -64,7 +57,7 @@ class ComputeColumnStatusResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of ComputeColumnStatusResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -78,68 +71,38 @@ class ComputeColumnStatusResponse(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of total_rows
-        if self.total_rows:
-            _dict['total_rows'] = self.total_rows.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of started_at
-        if self.started_at:
-            _dict['started_at'] = self.started_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of completed_at
-        if self.completed_at:
-            _dict['completed_at'] = self.completed_at.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of error_message
-        if self.error_message:
-            _dict['error_message'] = self.error_message.to_dict()
-        # set to None if message (nullable) is None
+        # set to None if total_rows (nullable) is None
         # and model_fields_set contains the field
-        if self.message is None and "message" in self.model_fields_set:
-            _dict['message'] = None
+        if self.total_rows is None and "total_rows" in self.model_fields_set:
+            _dict['total_rows'] = None
 
-        # set to None if execution_id (nullable) is None
+        # set to None if started_at (nullable) is None
         # and model_fields_set contains the field
-        if self.execution_id is None and "execution_id" in self.model_fields_set:
-            _dict['execution_id'] = None
+        if self.started_at is None and "started_at" in self.model_fields_set:
+            _dict['started_at'] = None
 
-        # set to None if status (nullable) is None
+        # set to None if completed_at (nullable) is None
         # and model_fields_set contains the field
-        if self.status is None and "status" in self.model_fields_set:
-            _dict['status'] = None
+        if self.completed_at is None and "completed_at" in self.model_fields_set:
+            _dict['completed_at'] = None
 
-        # set to None if progress_percentage (nullable) is None
+        # set to None if error_message (nullable) is None
         # and model_fields_set contains the field
-        if self.progress_percentage is None and "progress_percentage" in self.model_fields_set:
-            _dict['progress_percentage'] = None
-
-        # set to None if processed_rows (nullable) is None
-        # and model_fields_set contains the field
-        if self.processed_rows is None and "processed_rows" in self.model_fields_set:
-            _dict['processed_rows'] = None
-
-        # set to None if updated_rows (nullable) is None
-        # and model_fields_set contains the field
-        if self.updated_rows is None and "updated_rows" in self.model_fields_set:
-            _dict['updated_rows'] = None
-
-        # set to None if failed_rows (nullable) is None
-        # and model_fields_set contains the field
-        if self.failed_rows is None and "failed_rows" in self.model_fields_set:
-            _dict['failed_rows'] = None
-
-        # set to None if metadata (nullable) is None
-        # and model_fields_set contains the field
-        if self.metadata is None and "metadata" in self.model_fields_set:
-            _dict['metadata'] = None
+        if self.error_message is None and "error_message" in self.model_fields_set:
+            _dict['error_message'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of ComputeColumnStatusResponse from a dict"""
         if obj is None:
             return None
@@ -153,12 +116,12 @@ class ComputeColumnStatusResponse(BaseModel):
             "status": obj.get("status"),
             "progress_percentage": obj.get("progress_percentage"),
             "processed_rows": obj.get("processed_rows"),
-            "total_rows": TotalRows.from_dict(obj.get("total_rows")) if obj.get("total_rows") is not None else None,
+            "total_rows": obj.get("total_rows"),
             "updated_rows": obj.get("updated_rows"),
             "failed_rows": obj.get("failed_rows"),
-            "started_at": StartedAt.from_dict(obj.get("started_at")) if obj.get("started_at") is not None else None,
-            "completed_at": CompletedAt.from_dict(obj.get("completed_at")) if obj.get("completed_at") is not None else None,
-            "error_message": ErrorMessage.from_dict(obj.get("error_message")) if obj.get("error_message") is not None else None,
+            "started_at": obj.get("started_at"),
+            "completed_at": obj.get("completed_at"),
+            "error_message": obj.get("error_message"),
             "metadata": obj.get("metadata")
         })
         return _obj

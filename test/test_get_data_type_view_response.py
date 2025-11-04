@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.get_data_type_view_response import GetDataTypeViewResponse
 
@@ -28,7 +27,7 @@ class TestGetDataTypeViewResponse(unittest.TestCase):
 
     def make_instance(self, include_optional) -> GetDataTypeViewResponse:
         """Test GetDataTypeViewResponse
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `GetDataTypeViewResponse`
@@ -36,19 +35,81 @@ class TestGetDataTypeViewResponse(unittest.TestCase):
         model = GetDataTypeViewResponse()
         if include_optional:
             return GetDataTypeViewResponse(
-                message = None,
-                data_view = None,
-                data_schema = None,
-                views = None,
+                message = '',
+                data_view = [
+                    null
+                    ],
+                data_schema = [
+                    odin_sdk.models.dt_field.DTField(
+                        id = '', 
+                        name = '', 
+                        description = '', 
+                        options = odin_sdk.models.options.options(), 
+                        type = '', 
+                        cell_value_type = '', 
+                        is_multiple_cell_value = True, 
+                        db_field_type = '', 
+                        db_field_name = '', 
+                        not_null = True, 
+                        unique = True, 
+                        is_primary = True, 
+                        is_computed = True, 
+                        is_lookup = True, 
+                        is_pending = True, 
+                        has_error = True, 
+                        lookup_linked_field_id = '', 
+                        lookup_options = '', 
+                        table_id = '', 
+                        version = 56, 
+                        created_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        last_modified_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        deleted_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        created_by = '', 
+                        last_modified_by = '', )
+                    ],
+                views = [
+                    None
+                    ],
                 pagination = None,
-                total_count = None
+                total_count = 56
             )
         else:
             return GetDataTypeViewResponse(
-                message = None,
-                data_view = None,
-                data_schema = None,
-                views = None,
+                message = '',
+                data_view = [
+                    null
+                    ],
+                data_schema = [
+                    odin_sdk.models.dt_field.DTField(
+                        id = '', 
+                        name = '', 
+                        description = '', 
+                        options = odin_sdk.models.options.options(), 
+                        type = '', 
+                        cell_value_type = '', 
+                        is_multiple_cell_value = True, 
+                        db_field_type = '', 
+                        db_field_name = '', 
+                        not_null = True, 
+                        unique = True, 
+                        is_primary = True, 
+                        is_computed = True, 
+                        is_lookup = True, 
+                        is_pending = True, 
+                        has_error = True, 
+                        lookup_linked_field_id = '', 
+                        lookup_options = '', 
+                        table_id = '', 
+                        version = 56, 
+                        created_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        last_modified_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        deleted_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        created_by = '', 
+                        last_modified_by = '', )
+                    ],
+                views = [
+                    None
+                    ],
         )
         """
 

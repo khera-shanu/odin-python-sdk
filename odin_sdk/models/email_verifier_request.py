@@ -17,28 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from pydantic import BaseModel, ConfigDict, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-from odin_sdk.models.email_anon_id import EmailAnonId
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from typing import Optional, Set
+from typing_extensions import Self
 
 class EmailVerifierRequest(BaseModel):
     """
     EmailVerifierRequest
     """ # noqa: E501
-    email: Optional[Any]
-    email_anon_id: Optional[EmailAnonId] = None
+    email: StrictStr
+    email_anon_id: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["email", "email_anon_id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -51,7 +47,7 @@ class EmailVerifierRequest(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of EmailVerifierRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -65,24 +61,23 @@ class EmailVerifierRequest(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of email_anon_id
-        if self.email_anon_id:
-            _dict['email_anon_id'] = self.email_anon_id.to_dict()
-        # set to None if email (nullable) is None
+        # set to None if email_anon_id (nullable) is None
         # and model_fields_set contains the field
-        if self.email is None and "email" in self.model_fields_set:
-            _dict['email'] = None
+        if self.email_anon_id is None and "email_anon_id" in self.model_fields_set:
+            _dict['email_anon_id'] = None
 
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of EmailVerifierRequest from a dict"""
         if obj is None:
             return None
@@ -92,7 +87,7 @@ class EmailVerifierRequest(BaseModel):
 
         _obj = cls.model_validate({
             "email": obj.get("email"),
-            "email_anon_id": EmailAnonId.from_dict(obj.get("email_anon_id")) if obj.get("email_anon_id") is not None else None
+            "email_anon_id": obj.get("email_anon_id")
         })
         return _obj
 

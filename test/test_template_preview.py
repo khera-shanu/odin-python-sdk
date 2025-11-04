@@ -13,7 +13,6 @@
 
 
 import unittest
-import datetime
 
 from odin_sdk.models.template_preview import TemplatePreview
 
@@ -28,7 +27,7 @@ class TestTemplatePreview(unittest.TestCase):
 
     def make_instance(self, include_optional) -> TemplatePreview:
         """Test TemplatePreview
-            include_option is a boolean, when False only required
+            include_optional is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
         # uncomment below to create an instance of `TemplatePreview`
@@ -36,20 +35,25 @@ class TestTemplatePreview(unittest.TestCase):
         model = TemplatePreview()
         if include_optional:
             return TemplatePreview(
-                template_id = None,
-                title = None,
-                description = None,
-                fields_count = None,
-                preview_fields = None,
-                category = None
+                template_id = '',
+                title = '',
+                description = '',
+                fields_count = 56,
+                preview_fields = [
+                    odin_sdk.models.template_field.TemplateField(
+                        name = '', 
+                        type = '', 
+                        description = '', )
+                    ],
+                category = ''
             )
         else:
             return TemplatePreview(
-                template_id = None,
-                title = None,
-                description = None,
-                fields_count = None,
-                category = None,
+                template_id = '',
+                title = '',
+                description = '',
+                fields_count = 56,
+                category = '',
         )
         """
 

@@ -17,30 +17,27 @@ import pprint
 import re  # noqa: F401
 import json
 
-
-from typing import Any, ClassVar, Dict, List, Optional
-from pydantic import BaseModel
-try:
-    from typing import Self
-except ImportError:
-    from typing_extensions import Self
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
+from typing import Optional, Set
+from typing_extensions import Self
 
 class SystemPromptInfo(BaseModel):
     """
     SystemPromptInfo
     """ # noqa: E501
-    name: Optional[Any]
-    instructions: Optional[Any]
-    temperature: Optional[Any]
-    type: Optional[Any]
-    id: Optional[Any]
+    name: StrictStr
+    instructions: StrictStr
+    temperature: Union[StrictFloat, StrictInt]
+    type: StrictStr
+    id: StrictStr
     __properties: ClassVar[List[str]] = ["name", "instructions", "temperature", "type", "id"]
 
-    model_config = {
-        "populate_by_name": True,
-        "validate_assignment": True,
-        "protected_namespaces": (),
-    }
+    model_config = ConfigDict(
+        populate_by_name=True,
+        validate_assignment=True,
+        protected_namespaces=(),
+    )
 
 
     def to_str(self) -> str:
@@ -53,7 +50,7 @@ class SystemPromptInfo(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Self:
+    def from_json(cls, json_str: str) -> Optional[Self]:
         """Create an instance of SystemPromptInfo from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -67,41 +64,18 @@ class SystemPromptInfo(BaseModel):
           were set at model initialization. Other fields with value `None`
           are ignored.
         """
+        excluded_fields: Set[str] = set([
+        ])
+
         _dict = self.model_dump(
             by_alias=True,
-            exclude={
-            },
+            exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['name'] = None
-
-        # set to None if instructions (nullable) is None
-        # and model_fields_set contains the field
-        if self.instructions is None and "instructions" in self.model_fields_set:
-            _dict['instructions'] = None
-
-        # set to None if temperature (nullable) is None
-        # and model_fields_set contains the field
-        if self.temperature is None and "temperature" in self.model_fields_set:
-            _dict['temperature'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['type'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['id'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict) -> Self:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of SystemPromptInfo from a dict"""
         if obj is None:
             return None
